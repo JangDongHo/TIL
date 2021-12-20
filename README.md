@@ -1,9 +1,9 @@
-# TODAY I Learned Slog
+# (Slog) TODAY I Learned
 ## 인터넷
-- 인터넷은 어떻게 동작하는가?
+- 인터넷 기초
 
 ## Svelete
 - Svelete 기초
 
-## 영어단어
+## 개발문서와 친해지기
 - 211220
