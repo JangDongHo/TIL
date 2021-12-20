@@ -1,6 +1,6 @@
 # (Slog) TODAY I Learned
 ## 인터넷
-- 인터넷 기초
+- [인터넷 기초](Internet/Internet-Basic.md)
 
 ## Svelete
 - Svelete 기초
