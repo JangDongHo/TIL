@@ -9,5 +9,5 @@
 - [Svelete 기초](Svelete/Svelete-Basic.md)
 
 ## 협업툴
-- [git 기초](Co-Work/Git-Basic.md)
-- [gitKraken](co-Work/GitKraken.md)
+- [git 기초](Co-work/Git-Basic.md)
+- [gitKraken](co-work/GitKraken.md)
