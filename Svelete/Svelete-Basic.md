@@ -68,3 +68,50 @@ src={src}와 같이 이름과 값이 동일한 특성을 갖는 것이 일반적
 ~~~html
 <img {src} alt="A man dances.">
 ~~~
+## d.스타일링
+HTML처럼, 너의 구성요소에 \<style> 태그를 추가할 수 있다.\<p> 요소에 스타일을 몇가지 추가해보자.
+~~~html
+<p>This is a paragraph.</p>
+
+<style>
+	p {
+		color: purple;
+		font-family: 'Comic Sans MS', cursive;
+		font-size: 2em;
+	}
+</style>
+~~~
+
+중요한 것은, 이러한 규칙의 범위가 구성 요소로 지정 된다는 것입니다. 다음 단계에서 살펴본 바와 같이 앱의 다른곳에서 실수로 \<p> 요소의 스타일을 변경하지 않을 것입니다.
+___
+## e. 중첩 구성요소
+당신의 전체 앱을 하나의 구성요소에 넣는 것은 비현실적일겁니다. 대신 다른 파일에서 컴포넌트를 가져와 요소를 포함한 것처럼 포함시킬 수 있습니다.
+
+Nested.svelte를 가져오는 \<script> 태그를 추가해보자.
+~~~html
+<script>
+	import Nested from './Nested.svelte';
+</script>
+~~~
+
+그 후 마크업울 추가하자
+~~~html
+<p>This is a paragraph.</p>
+<Nested/>
+~~~
+
+비록 Nested.svelte가 <p>요소를 가지고 있지만, App.svelte의 스타일을 새지 않는다.
+
+또한, Nested 구송 요소 이름은 대문자로 시작됩니다. 이 규칙은 사용자 정의 구성요소와 일반 HTML 태그를 구분할 수 있도록 하기 위해 채택되었습니다.
+___
+## f. HTML 태그
+일반적으로, 문자열을 Plan text로 삽입되는데, 이는 < 와 > 같은 문자는 특별한 의미가 없다는 것을 의미한다.
+
+그러나 HTML을 컴포넌트로 직접 랜더링해야하는 경우도 있다. 예를 들어, 지금 읽고 있는 단어는 HTML 블럽으로 이 페이지에 포함된 마크다운 파일에 존재한다.
+
+Svelte에서는, 특별한 {@html ...} 태그로 할 수 있다.
+~~~html
+<p>{@html string}</p>
+~~~
+
+> Svelte는 DOM에 삽입되기 전에 어떠한 식 정리도 하지 않습니다. 즉, 이 기능을 사용할 경우 신뢰할 수 없는 원본에서 가져온 HTML을 수동으로 이스케이프 하는 것이 중요합니다. 그렇지 않으면 사용자가 XSS 공격에 노출될 위험이 있습니다.
