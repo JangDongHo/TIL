@@ -10,4 +10,4 @@
 
 ## 협업툴
 - [git 기초](Co-work/Git-Basic.md)
-- [gitKraken](co-work/GitKraken.md)
+- [gitKraken](Co-work/GitKraken.md)
