@@ -100,7 +100,7 @@ Nested.svelte를 가져오는 \<script> 태그를 추가해보자.
 <Nested/>
 ~~~
 
-비록 Nested.svelte가 <p>요소를 가지고 있지만, App.svelte의 스타일을 새지 않는다.
+비록 Nested.svelte가 \<p>요소를 가지고 있지만, App.svelte의 스타일을 새지 않는다.
 
 또한, Nested 구송 요소 이름은 대문자로 시작됩니다. 이 규칙은 사용자 정의 구성요소와 일반 HTML 태그를 구분할 수 있도록 하기 위해 채택되었습니다.
 ___
