@@ -165,4 +165,4 @@ Content-Type: text/html;
 
 ## TLD의 구조
 ![TLD](TLD.jpeg)
-최상위 ICANN 아래에 REGISTRY, NIC이 있고 REGISTRY 아래에 우리가 흔히 보는 gTLD, new gTLD가 있고 NIC 아래에는 공공사이트에서 쓰는 ccTLD 도메인 주소가 있다.
+- 최상위 ICANN 아래에 REGISTRY, NIC이 있고 REGISTRY 아래에 우리가 흔히 보는 gTLD, new gTLD가 있고 NIC 아래에는 공공사이트에서 쓰는 ccTLD 도메인 주소가 있다.
