@@ -141,3 +141,28 @@ Content-Type: text/html;
 
 3. 본문 (헤더 뒤부터)
 - 응답에는 대부분의 경우 본문이 있다. 보통 데이터를 요청하고 응답 메시지에는 **요청한 데이터를 담아서 보내주기 때문이다. 응답 메시지에 HTML이 담겨 있는 이 HTML을 받아 브라우저가 화면에 렌더링한다.**
+
+# DNS와 작동원리
+> 해당 문서는 [DNS와 작동원리](https://velog.io/@goban/DNS%EC%99%80-%EC%9E%91%EB%8F%99%EC%9B%90%EB%A6%AC) 를 참조했습니다.
+## DNS란?
+- DNS의 사전적인 정의
+    > 도메인 네임 시스템(Domain Name System, DNS)은 호스트의 도메인 이름을 호스트의 네트워크 주소로 바꾸거나 그 반대의 변환을 수핼할 수 있도록 하기 위해 개발되었다. - 위키백과
+- 우리가 자주 접하는 naver.com, google.com 모두 DNS을 가진 DN(Domain Name)이라고 할 수 있다.
+
+## DNS의 작동원리
+아래의 그림은 DNS가 어떻게 작동하는지 보여준다.
+![DNS로직](DNSLogic.png)
+1. 웹 브라우저에 www.naver.com을 입력하면 먼저 Local DNS에게 "www.naver.com"이라는 hostname에 대한 IP 주소를 질의하여 Local DNS에 없으면 다른 DNS name 서버 정보를 받음(Root DNS 정보 전달 받음)
+> Root DNS(루트 네임서버)는 인터넷의 도메인 네임 시스템의 루트 존이다. 루트 존의 레코드의 요청에 직접 응답하고 적절한 최상위 도메인에 대해 권한이 있는 네임 서버 목록을 반환함으로써 다른 요청에 응답한다. 전세계에 961개의 루트 DNS가 운영되고 있다.
+2. Root DNS 서버에 "www.naver.com" 질의
+3. Root DNS 서버로 부터 "com 도메인"을 관리하는 **TLD (Top-Level Domain)** 이름 서버 정보 전달 받음
+> 여기서 TLD는 .com을 관리하는 서버를 칭함
+4. TLD에 "www.naver.com" 질의
+5. TLD에서 "naver.com" 관리하는 DNS 정보 전달
+6. "naver.com" 도메인을 관리하는 DNS 서버에 "www.naver.com" 호스트네임에 대한 IP 주소 질의
+7. Local DNS 서버에게 "응! www.naver.com에 대한 IP 주소는 222.122.195.6" 응답
+8. Local DNS는 www.naver.com에 대한 IP 주소를 캐싱을 하고 IP 주소 정보 전달
+
+## TLD의 구조
+![TLD](TLD.jpeg)
+최상위 ICANN 아래에 REGISTRY, NIC이 있고 REGISTRY 아래에 우리가 흔히 보는 gTLD, new gTLD가 있고 NIC 아래에는 공공사이트에서 쓰는 ccTLD 도메인 주소가 있다.

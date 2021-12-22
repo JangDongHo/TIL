@@ -3,7 +3,7 @@
 - [인터넷 기초](Internet/Internet-Basic.md)
 
 ## HTML
-- [HTML 기초]
+- [HTML 기초](HTML/HTML-Basic.md)
 
 ## Svelete
 - [Svelete 기초](Svelete/Svelete-Basic.md)
