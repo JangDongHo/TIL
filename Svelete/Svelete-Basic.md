@@ -163,3 +163,39 @@ function incrementCount() {
 ~~~
 
 Svelte 'instruments'는 DOM을 업데이트 해야한다는 일부 코드를 사용하여 이 과제를 수행합니다.
+
+## b. 선언문
+컴포넌트의 상태가 변경되면 Svelte는 DOM을 자동으로 업데이트합니다. 종종 컴포넌트의 상태 중 일부는 다른 부분(예: 이름과 성에서 파생된 전체 이름)으로부터 계산되어야 하며 변경될 때마다 다시 게산되어야 한다.
+
+이것들에 대해, 우리는 반응적인 선언을 한다. 모양은 다음과 같다.
+~~~javascript
+let count = 0;
+$: doubled = count * 2;
+~~~
+> 이게 조금 이상해 보여도 걱정하지 마라. 유효한 자바스크립트(비관례적인 경우)이며, Svelte는 이를 '참조된 값이 바뀔 때마다 이 코드를 다시 실행'하는 것으로 해석한다. 일단 익숙해지면 되돌아갈 수 없을 것이다.
+
+마크업에 'doubled'를 사용해보자.
+~~~html
+<p>{count} doubled is {doubled}</p>
+~~~
+물론 마크업에 {count*2}를 대신 쓰면 된다. 반응형 값은 여러 번 참조해야 하거나 다른 반응형 값에 의존하는 값이 있을 때 특히 유용하다.
+
+## c. 상태
+우리는 반응적 가치를 선언하는 데만 제한을 두지 않았으며, 임의의 문장을 반응적으로 실행할 수도 있다. 예를 들어, count의 값이 변화할 때마다 기록할 수 있다.
+~~~javascript
+$: console.log('the count is ' + count);
+~~~
+블록을 씌움으로써 문장을 쉽게 그룹화할 수 있습니다.
+~~~javascript
+$: {
+	console.log('the count is ' + count);
+	alert('I SAID THE COUNT IS ' + count);
+}
+~~~
+%:를 다음과 같은 if문 앞에 둘 수도 있습니다.
+~~~javascript
+$: if (count >= 10) {
+	alert('count is dangerously high!');
+	count = 9;
+}
+~~~
