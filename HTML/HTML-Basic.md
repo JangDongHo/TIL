@@ -542,3 +542,223 @@ ___
     ~~~html
         <p><a href="../05/order.html" target="_blank">주문서 작성하기</a></p>
     ~~~
+
+# 입력 양식 작성하기
+## 폼 삽입하기
+### 웹에서 만나는 폼
+- 사용자가 웹 사이트로 정보를 보낼 수 있는 요소는 모두 '폼' 이라고 한다.
+- 예를 들면, 아아디와 비밀번호를 입력하는 창이나, 로그인 버튼, 회원가입 버튼 등
+- 사용자가 이이디와 비밀번호를 입력 -> 로그인 버튼 클릭 -> 웹 서버로 입력한 정보 전송 -> 서버에서 계정 일치하는지 확인 -> 결과 웹 브라우저로 전송
+- 폼과 관련한 작업은 정보를 저장하거나 검색, 수정 하는 것이 대부분인데 모두 데이터베이스를 기반으로 작동한다.
+- 즉, 텍스트 박스나 버튼 같은 폼 형태는 HTML 태그로 만들지만, 폼에 입력한 사용자 정보는 ASP나 PHP, JSP 같은 서버 프로그래밍을 이용해 처리한다.
+
+### 폼을 만드는 \<form> 태그
+~~~html
+<form [속성="속성값"]>여러 폼 요소</form>
+~~~
+- \<form> 태그의 속성
+  - method : 사용자가 입력한 내용을 서버 쪽 프로그램으로 어떻게 넘겨줄 것인지 지정한다. method에서 사용할 수 있는 속성값은 get과 post이다.
+    - get : 데이터를 256 ~ 4,096byte까지만 서버로 넘길 수 있다. 주소 표시줄에 사용자가 입력한 내용이 그대로 드러나는 단점이 있다.
+    - post : 입력한 내용의 길이에 제한받지 않고 사용자가 입력한 내용도 드러나지 않는다.
+  - name : 자바스크립트로 폼을 제어할 때 사용할 폼의 이름을 지정한다.
+  - action : \<form> 태그 안의 내용을 정리해 줄 서버 프로그램을 지정한다.
+    - 입력한 폼을 서버로 보내기
+      ~~~html
+      <form action="register.php">
+        /* 여러가지 폼 요소 */
+      </form>
+      ~~~
+  - target : action 속성에서 지정한 스크립트 파일을 현재 창이 아닌 다른 위치에서 열도록 한다.
+  - autocomplete : 예전에 입력한 내용을 자동으로 표시해주는 자동 완성 기능 on/off
+    ~~~html
+    <form action="" autocomplete="off">
+        /* 여러 폼 요소 */
+    </form>
+    ~~~
+
+### 폼 요소를 그룹으로 묶는 \<fieldset>, \<legend> 태그
+- 하나의 폼 안에서 여러 구역을 나누어 표시할 때 \<fieldset> 태그를 사용한다.
+  - 예를 들면, 쇼핑몰 사이트의 개인 정보와 배송 정보를 나누어 표시
+~~~html
+<fieldset [속성="속성값"]> </fieldset>
+~~~
+- \<legend> 태그는 \<fieldset> 태그로 묶은 그룹에 제목을 붙인다.
+~~~html
+<fieldset>
+  <legend>그룹 이름</legend>
+</fieldset>
+~~~
+~~~html
+  <form action="">
+    <fieldset>
+      <legend>상품 선택</legend>
+    </fieldset>
+    <fieldset>
+      <legend>배송 정보</legend>
+    </fieldset>      
+  </form>
+~~~
+
+### 폼 요소에 레이블을 붙이는 \<label> 태그
+- label 태그는 input 태그와 같은 폼 요소에 레이블을 붙일 때 사용한다.
+- 레이블(label)이란 입력란 가까이에 붙여 놓은 텍스트를 말한다. (ex. 아아디, 비밀번호)
+  - 첫 번째 방법 : 태그 안에 폼 요소 넣기
+    ~~~html
+    <label>레이블명<input></label>
+    ~~~
+    ~~~html
+    <label>아이디(6자 이상)<input type="text"></label>
+    ~~~
+  - 두 번째 방법 : 태그와 폼 요소 따로 사용
+    - label 태그의 for 속성과 폼 요소의 id 속성을 이용해 서로 연결한다.
+    ~~~html
+    <label for="id명">레이블명<input id="id명"></label>
+    ~~~
+    ~~~html
+    <label for="user-id">아이디(6자 이상)</label>
+    <input type="text" id="user-id">
+    ~~~
+
+## 사용자 입력을 위한 input 태그
+### 텍스트와 비밀번호를 나타내는 type="text"와 type="password"
+- 텍스트 필드는 폼에서 가장 많이 사용하는 요소 (주로 아이디나, 이름, 주소 등 한 줄짜리 일반 텍스트를 입력할 때 사용)
+- 비밀번호 필드는 입력하는 내용을 화면에 보여 주지 않아야 하므로 '*'나 'ㅇ'로 표시한다. (이 점만 제외하면 텍스트 필드와 똑같이 동작하고 같은 속성을 사용)
+~~~html
+<input type="text">
+<input type="password">
+~~~
+- 필드에서 사용하는 주요 속성들
+  - size : 필드의 길이를 지정한다 즉, 화면에 몇 글자가 보이도록 할 것인지를 지정한다.
+  - value : 텍스트 필드 요소가 화면에 표시될 때 텍스트 필드 부분에 보여 주는 내용
+  - maxlength : 필드에 입력할 수 있는 최대 문자 수를 지정한다.
+~~~html
+	<form>
+    <fieldset>
+    	<label>아이디: <input type="text" id="user_id" size="10"></label>
+      <label>비밀번호: <input type="password" id="user_pw" size="10"></label>
+      <input type="submit" value="로그인">
+    </fieldset>
+  </form>
+  ~~~
+
+### 다양한 용도에 맞게 입력하는 type="search", type="url", type="email", type="tel"
+- type="search" : 검색을 위한 텍스트 필드
+- type="url" : 웹 주소를 입력하는 필드 (입력값이 지정한 형식에 맞지 않는다면 웹 브라우저에서 오류 메시지 출력)
+- type="email" : 이메일 주소를 입력하는 필드 (입력값이 지정한 형식에 맞지 않는다면 웹 브라우저에서 오류 메시지 출력)
+- type="tel" : 전화번호를 나타내는 필드 (전화번호는 지역마다 형식이 다르므로 사용자가 입력한 값이 전화번호인지 아닌지 체크할 수 없음)
+~~~html
+      <ul id="shipping">
+        <li>
+          <label for="user-name">이름 </label>
+          <input type="text" id="user-name">
+        </li>
+        <li>
+          <label for="addr">배송 주소</label>
+          <input type="text" id="addr">
+        </li>
+        <li>
+          <label for="mail">이메일</label>
+          <input type="email" id="mail">
+        </li>        
+        <li>
+          <label for="phone">연락처</label>
+          <input type="tel" id="phone">
+        </li>
+      </ul>  
+~~~
+
+### 체크 박스와 라디오 버튼을 나타내는 type="checkbox", type="radio"
+- 체크 박스와 라디오 버튼은 여러 항목 중에서 원하는 항목을 선택할 때 사용하는 폼 요소이다.
+- 항목 1개를 선택하려면 라디오 버튼, 2개 이상 선택하려면 체크 박스를 사용한다.
+~~~html
+<input type="checkbox">
+<input type="radio">
+~~~
+- 속성
+  - value : 선택한 체크 박스나 라디오 버튼을 서버에게 알려 줄 때 넘겨줄 값을 지정한다. 이 값은 영문이거나, 숫자여야 하며 필수 속성이다.
+  - checked : 체크 박스나 라디오 버튼의 항목은 처음에 아무것도 선택되지 않은 상태로 화면에 표시되는데, 여러 항목 중에서 기본으로 선택해 놓고 싶은 항목에 사용한다. 속성값은 따로 없다.
+~~~html
+    <fieldset>
+      <legend>상품 선택</legend>
+      <p><b>주문할 상품을 선택해 주세요.</b></p>
+      <ul>
+        <li>
+          <label><input type="checkbox" value="s_3">선물용 3kg</label>
+          <input type="number">개
+        </li>
+        <li>
+          <label><input type="checkbox" value="s_5">선물용 5kg</label>
+          <input type="number">개
+        </li>
+        <li>
+          <label><input type="checkbox" value="f_3">가정용 3kg</label>
+          <input type="number">개
+        </li>
+        <li>
+          <label><input type="checkbox" value="f_5">가정용 5kg</label>
+          <input type="number">개
+        </li>
+      </ul>   
+      <p><b>포장 선택</b></p>
+      <ul>
+        <li><label><input type="radio" name="gift" value="yes" >선물 포장</label></li>
+        <li><label><input type="radio" name="gift" value="no">선물 포장 안 함</label></li>
+      </ul>     
+    </fieldset>
+~~~
+> name 속성은 PHP와 같은 웹 프로그래밍에서 폼 요소를 제어할 때 자주 사용한다. 라디오 버튼에서 하나의 버튼만 선택할 수 있게 하려면 다음과 같이 모든 라디오 버튼의 name값을 똑같이 지정해야 한다.
+___
+### 숫자 입력 필드를 나타내는 type="number", type="range"
+- type="number" : 스핀 박스 숫자 선택 <input type="number">
+- type="range" : 슬라이드 막대 숫자 입력 <input type="range">
+- 속성
+  - min : 필드에 입력할 수 있는 최솟값 지정. 기본 최솟값은 0
+  - max : 필드에 입력할 수 있는 최댓값 지정. 기본 최댓값은 100
+  - step : 숫자 간격을 지정. 기본값은 1
+  - value : 필드에 표시할 초깃값
+~~~html
+      <ul>
+        <li>
+          <label><input type="checkbox" value="s_3">선물용 3kg</label>
+          <input type="number" min="0" max="5">개 (최대 5개)
+        </li>
+        <li>
+          <label><input type="checkbox" value="s_5">선물용 5kg</label>
+          <input type="number" min="0" max="3" value="1">개 (최대 3개)
+        </li>
+      </ul>
+~~~
+~~~html
+      <ul>
+        <li>
+          <label><input type="checkbox" value="f_3">가정용 3kg</label>
+          <input type="range" min="0" max="5">개 (최대 5개)
+        </li>
+        <li>
+          <label><input type="checkbox" value="f_5">가정용 5kg</label>
+          <input type="range" min="0" max="3" value="1">개 (최대 3개)
+        </li>
+      </ul>      
+~~~
+
+### 날짜 입력을 나타내는 type="date", type="month", type="week"
+~~~html
+<input type="date | month | week">
+~~~
+- type="date" : 달력에서 날짜 선택 입력 (yyyy-mm-dd 형식으로 표시)
+- type="month" : 달력에서 월 입력 (yyyy-mm 형식으로 표시)
+- type="week" : 달력에서 주 입력 (1월 첫째 주를 기준으로 몇 번째 주인지 표시)
+
+### 시간 입력을 나타내는 type="time", type="datetime", type="datetime-local"
+~~~html
+<input type="time | datetime | datetime-local">
+~~~
+- type="time" : 폼에서 시간을 입력 (오전/오후, 시, 분)
+- type="datetime 또는 type="datetime-local" : 사용자가 엡 문서를 보고 있는 지역에 맞는 날짜와 시간 함께 입력 (yyyy-mm-dd 오전.오후, 시, 분)
+> 날짜나 시간의 범위 제한
+> - min : 범위의 시작 날짜나 시간
+> - max  : 범위의 마지막 날짜나 시간 지정
+> - step : 스핀 박스의 화살표를 클릭했을 때 증감시킬 크기 지정
+> - value : 기본적으로 표시할 날짜나 시간 지정
+~~~html
+<input type="date" min="2020-02-01" max="2020-02-15">
