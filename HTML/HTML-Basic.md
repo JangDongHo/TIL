@@ -762,3 +762,169 @@ ___
 > - value : 기본적으로 표시할 날짜나 시간 지정
 ~~~html
 <input type="date" min="2020-02-01" max="2020-02-15">
+~~~
+
+### 전송, 리셋 버튼을 나타내는 type="submit", type="reset"
+- submit은 폼에 입력한 정보를 서버로 전송하는 전송 버튼을 나타낸다.
+  - 전송된 정보는 \<form> 태그의 action 속성에서 지정한 폼 처리 프로그램에 넘겨진다.
+- reset 버튼은 \<input> 요소에 입력된 모든 정보를 재설정해서 사용자가 입력한 내용을 모두 지운다.
+- value 속성을 사용해서 버튼에 표시할 내용을 지정한다.
+~~~html
+  <input type="submit | reset" value="버튼에 표시할 내용">
+  ~~~html
+        <div>
+        <input type="submit" value="주문하기">
+        <input type="reset" value="취소하기">
+      </div> 
+~~~
+
+### 이미지 버튼을 나타내는 type="image"
+~~~html
+<input type="image" src="이미지 경로" alt="대체 텍스트">
+~~~
+~~~html
+    <fieldset>
+    	<label>아이디: <input type="text" id="user_id" size="10"></label>
+      <label>비밀번호: <input type="password" id="user_pw" size="10"></label>
+      <input type="image" src="images/login.png" alt="로그인">
+    </fieldset>
+~~~
+
+### 기본 버튼을 나타내는 type="button"
+- type="button"은 주로 버튼을 클릭해서 자바스크립트를 실행할 때 사용한다. 다음과 같이 value 속성을 사용해 버튼에 표시할 내용을 지정한다.
+~~~html
+<input type="button" value="버튼에 표시할 내용">
+~~~
+- 다음 예제는 버튼을 클릭하면 자바스크립트의 window.open() 함수를 실행하는 버튼을 만드는 예제이다.
+~~~html
+	<form>
+    <input type="button" value="공지 창 열기" onclick="window.open('notice.html')">
+  </form>
+~~~
+
+### 파일을 첨부할 때 사용하는 type="file"
+- type="file"로 폼에 파일(사진, 문서)을 첨부할 수 있다.
+  - 이 유형을 사용하여 웹 브라우저 화면에 [파일 선택]이나 [찾아보기] 버튼 등이 표시되는데, 이 버튼을 클릭하고 파일을 선택하면 파일이 첨부된다.
+~~~html
+<input type="file">
+~~~
+
+### 히든 필드 만들 때 사용하는 type="hiddden"
+- 히든 필드는 화면의 폼에는 보이지 않지만 사용자가 입력을 마치면 폼과 함께 서버로 전송되는 요소이다.
+- 사용자에게 굳이 보여 줄 필요는 없지만 관리자가 알아야 하는 정보는 히든 필드로 입력한다.
+~~~html
+<input type="hidden" name="이름" value="서버로 넘길 값">
+~~~
+~~~html
+      <input type="hidden" name="url" id="url" value="사이트를 통한 직접 로그인">
+    	<label>아이디: <input type="text" id="user_id" size="10"></label>
+      <label>비밀번호: <input type="password" id="user_pw" size="10"></label>
+      <input type="submit" value="로그인">
+~~~
+
+## input 태그의 주요 속성
+### 자동으로 입력 커서를 갖다 놓는 autofocus 속성
+- autofocus 속성을 사용하면 페이지를 불러오자마자 폼에서 원하는 요소에 마우스 포인터를 표시할 수 있다.
+~~~html
+<input type=텍스트-입력-필드 autofocus required>
+~~~
+
+### 힌트를 표시해 주는 placeholder 속성
+- 사용자가 텍스트를 입력할 때 입력란에 적당한 힌트 내용을 표시해서 그 필드를 클릭하면 내용이 사라지도록 만들 수 있다. 이렇게 하면 텍스트 필드 앞에 제목을 사용하지 않고도 사용자에게 해당 필드에 어떤 내용을 입력해야 할지 알려 줄 수 있어서 편린하다.
+~~~html
+  <label for="phone">연락처</label>
+  <input type="tel" id="phone" placeholder="하이픈 빼고 입력해 주세요.(01012345678)" required>
+~~~
+
+### 읽기 전용 필드를 만들어 주는 readonly 속성
+- 사용자가 입력하지는 못하고 읽게만 하는 읽기 전용 필드를 만든다.
+~~~html
+<input type=텍스트-입력-필드 readonly>
+~~~
+
+### 필수 입력 필드를 지정하는 required 속성
+- 반드시 입력해야 하는 내용에는 required 속성을 지정해 필수 필드로 만든다.
+~~~html
+  <label for="phone">연락처</label>
+  <input type="tel" id="phone" placeholder="하이픈 빼고 입력해 주세요.(01012345678)" required>
+~~~
+
+## 폼에서 사용하는 여러 가지 태그
+### 여러 줄을 입력하는 텍스트 영역 \<textarea> 태그
+- 텍스트 영역(textarea): 폼에서 텍스트를 여러 줄 입력하는 영역
+~~~html
+<textarea>내용</textarea>
+~~~
+- \<textarea> 태그 속성
+  - cols: 텍스트 영역의 가로 너비를 문자 단위로 지정한다.
+    - 글자 수는 영문자를 기준(대강 한글 1글자는 영문자 2글자)
+  - rows: 텍스트 영역의 세로 길이를 줄 단위로 지정한다. 지정한 숫자보다 줄 개수가 많아지면 스크롤막대가 생긴다.
+~~~html
+  <label for="memo">메모</label>
+  <textarea id="memo" cols="40" rows="4"></textarea>
+~~~
+
+### 드롭다운 목록을 만들어 주는 \<select>, \<option> 태그
+- 사용자가 내용을 직접 입력하지 않고 여러 옵션 중에서 선택하게 하려면 드롭다운 목록을 사용한다.
+- 드롭다운 목록은 \<select> 태그와 \<option> 태그를 이용해 표시한다.
+- \<select> 태그로 드롭다운 목록의 시작과 끝을 표시하고, 그 안에 \<option> 태그를 사용해 원하는 항목을 추가한다. \<option> 태그에는 value 속성을 이용해 서버로 넘겨주는 값을 지정한다.
+~~~html
+<select>
+  <option value="값1">내용1</option>
+  <option value="값2">내용2</option>
+</select>
+~~~
+- \<select> 태그 속성
+  - size: 화면에 표시할 드롭다운 항목의 개수를 지정한다.
+  - multiple: 드롭다운 목록에서 둘 이상의 항목을 선택할 때 사용한다.
+  
+- \<option> 태그 속성
+  - value: 해당 항목을 선택할 때 서버로 넘겨줄 값을 지정한다.
+  - selected: 드롭다운 메뉴를 삽입할 때 기본적으로 선택해서 보여 줄 항목을 지정한다.
+~~~html
+<label for="prod1">상품 선택</label>
+<select id="prod1">
+  <option value="special_3" selected>선물용 3kg</option>
+  <option value="special_5">선물용 5kg</option>
+  <option value="family_3">가정용 3kg</option>
+  <option value="family_5">가정용 5kg</option>
+</select>
+~~~
+
+### 데이터 목록 만들어 주는 \<datalist>, \<option> 태그
+- 데이터 목록을 사용하면 텍스트 필드에 값을 직접 입력하지 않고 미리 만들어 놓은 값 중에서 선택할 수 있다.
+- \<datalist> 태그를 이용해 데이터 목록의 시작과 끝을 표시하고 그 사이에 \<option> 태그를 사용해 각 데이터의 옵션을 표시한다.
+- 이때 value 속성을 사용해서 서버로 넘겨줄 값을 지정하는데, 이 값이 텍스트 필드에도 나타난다!
+~~~html
+<input type="text" list="데이터 목록" id="">
+<datalist id="데이터 목록">
+  <option value="서버로 넘길 값1">선택 옵션1</option>
+  <option value="서버로 넘길 값2">선택 옵션2</option>
+</datalist>
+~~~
+~~~html
+<label for="prod2">포장 여부 </label>
+<input type="text" id="prod2" list="pack">
+<datalist id="pack">
+  <option value="package">선물 포장</option>
+  <option value="no_package">포장 안 함</option>
+</datalist>
+~~~
+
+### 버튼을 만들어 주는 \<button> 태그
+- \<buttion> 태그를 이용하여 폼을 전송하거나 리셋하는 버튼을 삽입할 수 있다.
+~~~html
+<button type="submit">내용</button>
+<button type="reset">내용</button>
+<button type="button">내용</button>
+~~~
+- \<button> 태그의 type 속성
+  - submit: 폼을 서버로 전송한다.
+  - reset: 폼에 입력한 내용을 초기화한다.
+  - button: 버튼 형태만 만들 뿐 자체 기능은 없다.
+- 화면 낭독기로 웹 문서를 읽어 줄 때 \<button> 태그를 만나면 이 부분에 버튼이 있다는 것을 알고 정확히 전달한다.
+- \<button> 태그에는 콘텐츠를 포함할 수 있어서 아이콘을 추가하거나 CSS를 이용해 원하는 형태로 꾸밀 수 있다.
+~~~html
+<button type="submit">주문하기</button>
+<button type="reset">취소하기</button>
+~~~
