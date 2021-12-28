@@ -5,6 +5,9 @@
 ## HTML
 - [HTML 기초](HTML/HTML-Basic.md)
 
+## CSS
+- [CSS 기초](CSS/CSS-Basic.md)
+
 ## Svelete
 - [Svelete 기초](Svelete/Svelete-Basic.md)
 
