@@ -219,7 +219,7 @@ Content-Type: text/html;
 
 ### 동작 과정 예
 <웹킷 동작 과정><br>
-![Webkit](Webkit.png)
+![Webkit](Webkit.png)<br>
 <모질라의 게코 렌더링 엔진 동작 과정><br>
 ![Gecko](Gecko.png)
 - 웹킷과 게코가 용어를 약간 다르게 사용하고 있지만 동작 과정은 기본적으로 동일하다.
