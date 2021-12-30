@@ -411,3 +411,113 @@ text-shadow: none | <가로 거리> <세로 거리> <번짐 정도> <색상>
   }      
 </style>
 ~~~
+
+## 목록 스타일
+### 불릿 모양과 번호 스타일을 지정하는 list-style-type 속성
+- disc: 채운 원 모양
+- circle: 빈 원 모양
+- square: 채운 사각형 모양
+- decimal: 1부터 시작하는 10진수 (1, 2, 3, ...)
+- decimal-leading-zero: 앞에 0이 붙는 10진수 (01, 02, ...)
+- lower-roman: 로마 숫자 소문자 (i, ii, iii, ...)
+- upper-roman: 로마 숫자 대문자 (I, II, III, ...)
+- lower-alpha (또는 lower-latin): 알파벳 소문자 (a, b, c, ...)
+- upper-alpha (또는 upper-latin): 알파벳 대문자 (A, B, C, ...)
+- none: 불릿이나 숫자를 없앰
+~~~css
+.book1 {
+  list-style-type:none;  /* 불릿 없앰 */
+}
+.book2 {
+  list-style-type: upper-alpha;  /* 알파벳 대문자 */
+} 
+~~~
+
+### 불릿 대신 이미지를 사용하는 list-style-image 속성
+- list-style-image 속성을 이용하면 불릿을 원하는 이미지로 바꿀 수 있다.
+- 불릿에 들어갈 이미지는 불릿 크기만큼 작아야 좋다.
+~~~css
+list-style-image: <url(이미지 파일 경로)> | none
+~~~
+~~~css
+ul {
+  list-style-image: url('images/dot.png') /* 불릿으로 사용할 이미지 */
+}
+~~~
+
+### 목록에 들여 쓰는 list-style-position 속성
+- list-style-position 속성을 사용하면 불릿이나 번호의 위치를 들여 쓸 수 있다.
+~~~css
+list-style-position: inside | outside;
+~~~
+- inside: 불릿이나 번호를 기본 위치보다 안으로 들여 쓴다.
+- outside: 기본값
+~~~css
+<style>
+  .inside { list-style-position: inside; }  /* 목록 들여쓰기 */
+</style>
+~~~
+
+### 목록 속성을 한꺼번에 표시하는 list-style 속성
+- list-style 속성을 사용하면 속성들을 한꺼번에 표시할 수 있다.
+~~~css
+ul { list-style-type: none; } -> ul { list-style: none; }
+ol { list-style-type: lower-alpha; list-style-position: insde; } -> ol { list-style: lower-alpha insde; }
+~~~
+
+## 표 스타일
+### 표 제목의 위치를 정해 주는 caption-side 속성
+~~~css
+caption-side: top | bottom
+~~~
+- top: 캡션을 표 윗부분에 표시. 기본값
+- bottom: 캡션을 표 아랫부분에 표
+
+### 표에 테두리를 그려 주는 border 속성
+~~~css
+border: 크기 solid|dotted 색상
+~~~
+- solid: 실선
+- dotted: 점선
+~~~css
+<style>
+  table {
+    caption-side: bottom;  /* 표 캡션 위치 */
+    border:1px solid black;  /* 표 테두리는 검은 색 실선으로 */
+  }
+  td, th {
+    border:1px dotted black;  /* 셀 테두리는 검은 색 점선으로 */
+    padding:10px;  /* 셀 테두리와 내용 사이의 여백 */
+    text-align:center;  /* 셀 내용 가운데 정렬 */
+  }
+</style>
+~~~
+
+### 셀 사이의 여백을 지정하는 border-spacing 속성
+- 표와 셀에 따로 테두리를 지정하면 셀과 셀 사이에 여백이 생긴다.
+- border-spacing 속성을 사용하면 셀과 셀 사이의 여백을 조절할 수 있다.
+~~~css
+border-spacing: 수평거리 수직거리
+~~~
+- 수평 거리의 값과 수직 거리의 값을 공백으로 구분해서 나타내는데, 두 값이 같다면 1개만 지정해도 된다.
+> border-spacing은 border-collapse의 값이 separate일 때만 적용된다.
+
+### 표와 셀 테두리를 합쳐 주는 border-collapse 속성
+- 표와 셀에 테두리를 지정하면 셀과 셀 사이에 여백이 생긴다.
+- collapse: 표와 셀의 테두리를 합쳐 하나로 표시
+- separate: 표와 셀의 테두리를 따로 표시. 기본값
+- 이 속성은 \<table> 태그에 적용되는 스타일에만 지정하면 된다.
+~~~css
+<style>
+  table {
+    caption-side: bottom;  /* 표 캡션 위치 */
+    border:1px solid black;  /* 표 테두리는 검은 색 실선으로 */
+    border-collapse: collapse;  /* 테두리 한줄로 표시 */
+  }
+  td, th {
+    border:1px dotted black;  /* 셀 테두리는 검은 색 점선으로 */
+    padding:10px;  /* 셀 테두리와 내용 사이의 여백 */
+    text-align:center;  /* 셀 내용 가운데 정렬 */
+  }
+</style>
+~~~
