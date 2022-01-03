@@ -521,3 +521,161 @@ border-spacing: 수평거리 수직거리
   }
 </style>
 ~~~
+
+# 레이아웃을 구성하는 CSS 박스 모델
+## CSS와 박스 모델
+- CSS 박스 모델이란 웹 문서의 내용을 박스 형태로 정의하는 방법이다.
+### 블록 레벨 요소와 인라인 레벨 요소
+- 블록 레벨(block-level) 요소: 태그를 사용해 요소를 삽입했을 때 혼자 한 줄을 차지
+  - 해당 요소의 너비가 100%라는 뜻
+  - 대표적인 태그: \<h1>, \<div>, \<p>
+- 인라인 레벨(inline-level) 요소: 콘텐츠만큼만 영역을 차지
+  - 대표적인 태그: \<span>, \<img>, \<strong>
+
+### 박스 모델의 기본 구성
+- 블록 레벨 요소 = 박스 형태
+- 박스 형태인 요소 = **박스 모델(box model) 요소**
+- 웹 문서 안에서 여러 요소를 원하는 위치에 배치하려면 CSS 박스 모델을 잘 알고 있어야함
+- 박스 모델은 **콘텐츠 영역**, 박스와 콘텐츠 영역 사이의 여백인 **패딩(padding)**, 박스의 **테두리(border)**, 여러 박스 모델 사이의 여백인 **마진(margin)** 등의 요소로 구성된다.
+
+![box-model](https://blog.kakaocdn.net/dn/2c3JM/btqDkAv2s3h/ruswQmTfhWkHhN4rDLCPtK/img.png)
+
+### 콘텐츠 영역의 크기를 지정하는 width, height 속성
+- 박스 모델에서 콘텐츠 영역의 크기를 지정할 때 너비는 width, 높이는 height 속성을 사용한다.
+- width와 height의 속성값
+  - \<크기>: 너비나 높이의 값을 px이나 em 단위로 지정
+  - \<백분율>: 박스 모델을 포함하는 부모 요소를 기준으로 너빗값이나 높잇값을 백분율(%)로 지정
+  - auto: 박스 모델의 너빗값이나 높잇값이 콘텐츠 양에 따라 자동으로 결정된다. 기본값!
+
+### 박스 모델의 크기를 계산하는 box-sizing 속성
+- 실제 박스 모델이 차지하는 크기 = 콘텐츠 영역 + 패딩 + 테두리 두께
+- 매번 패딩과 테두리의 값을 계산해서 박스 모델의 크기를 넣어야 한다면 매우 복잡해짐. 그래서 필요한 것이 box-sizing 속성!
+  - border-box: 테두리까지 포함해서 너비값을 지정
+  - content-box: 콘텐츠 영역만 너빗값을 지정 (기본값)
+- 요소의 크기를 쉽게 계산하려면 box-sizing 속성을 border-box로 지정해 놓는 것이 좋다.
+
+### 박스 모델에 그림자 효과를 주는 box-shadow 속성
+- 그림자는 이미지 또는 \<div>와 같이 전체 영역에 쩡하여 넣을 수 있다.
+~~~css
+box-shadow: <수평 거리> <수직 거리> <흐림 정도> <번짐 정도> <색상> inset
+~~~
+- \<수평 거리>: 그림자가 가로로 얼마나 떨어져 있는지를 나타냄. 필수값이며, 양숫값은 요소의 오른쪽에, 음숫값은 요소의 왼쪽에 그림자를 만든다.
+- \<수직 거리>: 그림자가 세로로 얼마나 떨어져 있는지를 나타냄. 필수값이며, 양숫값은 요소의 아래쪽에, 음숫값은 요소의 위쪽에 그림자를 만든다.
+- \<흐림 정도>: 0(진한 그림자) / 이 값이 커질수록 부드러운 그림자
+- \<번짐 정도>: 양숫값을 사용하면 모든 방향으로 그림자가 퍼짐. 음숫값은 모든 방향으로 그림자가 축소. 기본값은 0
+- \<색상>: 한 개 이상의 색상을 지정할 수 있다. 기본값은 검정색
+- inset: 안쪽 그림자로 그린다.
+~~~css
+.box1{ box-shadow:2px -2px 5px 0px;}  /* 오른쪽 윗부분에 그림자 */
+.box2{ box-shadow:5px 5px 15px 5px blue;}  /* 오른쪽 아랫부분에 파란색 그림자 */
+~~~
+
+## 테두리 스타일 지정하기
+### 박스 모델의 방향 살펴보기
+- 박스 모델의 방향
+  - 맨 윗부분은 top, 오른쪽 right, 아래 bottom, 왼쪽 left
+  - top -> right -> bottom -> left 시계 방향!
+
+### 테두리 스타일을 지정하는 border-style 속성
+- 테두리 스타일을 지정하는 border-style 속성의 기본값은 none이라, 화면에 표시X
+- 따라서, 테두리를 그리려면 가장 먼저 테두리 스타일의 속성값을 지정해야 한다.
+  - none: 테두리가 없다. (기본값)
+  - hidden: 테두리를 감춘다.
+  - solid: 실선
+  - dotted: 점섬
+  - dashed: 짧은 직선
+  - double: 이중선. 두 선 사이의 간격이 border-width값
+  - groove, inset, outset, ridge: 테두리를 창에 조각한 것처럼 표시.
+
+### 테두리 두께를 지정하는 border-width 속성
+~~~css
+border-width: <크기> | thin | medium | thick
+~~~
+~~~css
+#box1 {
+  border-width:2px;  /* 네 방향 모두 2px */ 
+}
+#box2 {
+  border-width:thick thin;  /* top & bottom - thick, left & right - thin */
+}
+#box3 {
+  border-width:thick thin thin;  /* top - thick, right - thin, bottom - thin, left - thin */ 
+}
+#box4 {
+  border-width:10px 5px 5px 10px;  /* top - 10px, right - 5px, bottom - 5px, left - 10px */
+}
+~~~
+1. 속성값이 한개. 이 경우에는 4개의 방향 모두 같은 값 적용
+2. 속성값이 두개. 첫 번째 값이 위아래 테두리 값, 두번째 값이 좌우 테두리 값 적용
+3. 속성값이 세개. top->right->bottom순으로 속성 값 적용. 없는 left는 right 속성과 똑같이 적용.
+4. 속성값이 네개. top->right->bottom->left순으로 속성 값 적용.
+
+### 테두리 색상을 지정하는 border-color 속성
+~~~css
+#box1 { border-color:red;	}  /* 전체 테두리 - 빨강 */
+#box2 { 
+  border-top-color:blue; /* 위쪽 테두리 - 파랑 */
+  border-left-color:red;  /* 왼쪽 테두리 - 빨강 */
+~~~
+
+### 테두리 스타일 묶어 지정하는 border 속성
+- borer 속성으로 테두리의 스타일과 두께, 색상을 한꺼번에 표현할 수 있다.
+~~~css
+h1 {
+  padding-bottom: 5px;
+  border-bottom: 3px solid rgb(75, 70, 70); /* 아래쪽 테두리만 3px짜리 회색 실선*/
+}
+p {
+  padding: 10px;
+  border: 3px dotted blue; /* 모든 테두리를 3px짜리 파란 점선 */
+}
+~~~
+
+### 둥근 테두리를 만드는 border-radius 속성
+- border-radius 속성을 사용하면 박스 모델의 테두리를 둥글게 만들 수 있다.
+~~~css
+border-radius: <크기> | <백분율>
+~~~
+- 크기: 반지름 크기를 px, em의 단위와 함께 수치로 표현
+- 백분율: 현재 요소의 크기를 기준으로 비율(%)로 지정
+
+### 꼭짓점마다 따로 둥글게 처리하기
+- 박스 모델에서 꼭짓점 4개를 모두 다르게 지정하고 싶다면 border와 radius 사이에 위치를 나타내는 예약어를 넣어 사용한다.
+~~~css
+border-top-left-radius:20px;  /* 왼쪽 위 꼭짓점만 둥글게 */
+border-top-right-radius:20px;  /* 오른쪽 위 꼭짓점만 둥글제 */
+~~~
+> border-radius 속성을 사용해서 꼭짓점을 타원 형태로 만들 수도 있다. 이 경우에는 꼭짓점에 원 대신 타원이 있다고 생각한다.<br>
+border-radius: \<가로 반지름> / \<세로 반지름>;<br>
+border-위치-radius: \<가로 반지름> / \<세로 반지름>;
+
+## 여백을 조절하는 속성
+### 요소 주변의 여백을 설정하는 margin 속성
+- 마진(margin): 요소 주변의 여백을 의미
+~~~css
+margin: <크기> | <백분율> | auto
+~~~
+- 크기: 너빗값이나 높잇값을 px이나 em 같은 단위와 함께 수치로 지정
+- 백분율: 박스 모델을 포함한 부모 요소를 기준으로 너빗값이나 높잇값을 퍼센트(%)로 지정
+- auto: display 속성에서 지정한 값에 맞게 적절한 값을 자동으로 지정
+
+### margin 속성을 사용하여 웹 문서를 가운데 정렬하기
+- margin 속성을 사용해 웹 문서의 내용을 화면의 중앙에 배치하려면 우선적으로 배치할 요소의 너빗값이 정해져 있어야함.
+- 그리고 margin-left와 margin-right의 속성값을 auto로 지정 -> CSS는 웹 브라우저 화면의 너비에서 요소 너빗값을 뺀 나머지 영역을 좌우 마진으로 자동 계산한다.
+~~~css
+#container {
+  background-color:#fff;
+  width:600px;
+  margin:20px auto;
+  padding:20px;
+}
+~~~
+
+### 마진 중첩 이해하기
+- 요소를 세로로 배치할 경우에 각 요소의 마진과 마진이 서로 만나면 마진값이 큰 쪽으로 겹쳐지는 문제인데, 이런 현상을 **마진 중첩(margin overlap)** 또는 마진 상쇄(margin collapse)라고 한다.
+- 이렇게 된 이유는 여러 요소를 세로로 배치할 때 맨 위의 마진과 맨 아래 마진에 비해 중간에 있는 마진이 지나치게 커지는 것을 방지하기 위한 것이다.
+- 마진 중첩은 아래 마진과 위 마진이 서로 만날 때 큰 마진값으로 합쳐지는 것이고, 오른쪽 마진과 왼쪽 마진이 만날 경우에는 중첩되지 않는다.
+
+### 콘텐츠와 테두리 사이의 여백을 설정하는 padding 속성
+- 패딩(padding): 콘텐츠 영역과 테두리 사이의 여백
+- 패딩을 지정하는 방법은 마진과 거의 같다.
