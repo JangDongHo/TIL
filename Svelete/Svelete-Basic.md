@@ -199,3 +199,32 @@ $: if (count >= 10) {
 	count = 9;
 }
 ~~~
+
+## d. 배열 및 개체 업데이트
+할당에 의해 Svelte의 반응성이 트리거되기 때문에 push 및 splice 같은 배열 방법을 사용해도 자동으로 업데이트 되지는 않는다. 예를 들어, 버튼을 클릭해도 아무것도 작동하지 않는다.
+
+이 문제를 해결하는 한 가지 방법은 중복되지 않는 할당을 추가하는 것이다.
+
+하지만 더 자연스러운 해결책이 있다.
+~~~javascript
+function addNumber() {
+	numbers = [...numbers, numbers.length + 1];
+}
+~~~
+
+유사한 패턴을 사용하여 pop, shift, unshift, splice를 대체할 수 있다.
+
+배열 및 객체의 속성에 대한 할당(예: obj.foo += 1 또는 array[i] = x)은 값 자체에 대한 할당과 동일한 방식으로 작동한다.
+~~~javascript
+function addNumber() {
+	numbers[numbers.length] = numbers.length + 1;
+}
+~~~
+
+간단한 경험적 규칙: 업데이트된 변수의 이름이 할당 왼쪽에 표시되어야 한다. 예를 들어...
+~~~javascript
+const foo = obj.foo;
+foo.bar = 'baz';
+~~~
+
+ojb.foo.bar에서 obj=obj로 후속 조치를 취하지 않는 한 반응성을 유발하지 않는다.
