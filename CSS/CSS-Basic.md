@@ -679,3 +679,104 @@ margin: <크기> | <백분율> | auto
 ### 콘텐츠와 테두리 사이의 여백을 설정하는 padding 속성
 - 패딩(padding): 콘텐츠 영역과 테두리 사이의 여백
 - 패딩을 지정하는 방법은 마진과 거의 같다.
+
+## 웹 문서의 레이아웃 만들기
+### 배치 방법 결정하는 display 속성
+- display 속성을 사용하면 블록 레벨 요소와 인라인 레벨 여소를 서로 바꿔서 사용할 수 있다.
+- 주로 웹 문서의 내비게이션을 만들면서 메뉴 항목을 가로로 배치할 때 많이 사용하고, 이미지를 표 형태로 배치할 수도 있다.
+- display 속성값
+  - block: 인라인 레벨 요소를 블록 요소로 만든다.
+  - inline: 블록 레벨 요소를 인라인 레벨 요소로 만든다.
+  - inline-block: 인라인 레벨 요소와 블록 레벨 요소의 속성을 모두 가지고 있고, 마진과 패딩을 지정할 수 있다.
+  - none: 해당 요소를 화면에 표시 X
+~~~css
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    nav ul {
+      list-style:none;      
+    }
+    nav ul li {
+      display:inline-block;      
+      padding:20px;
+      margin:0 20px;
+      border:1px solid #222;
+    }
+  </style>
+~~~
+
+## 왼쪽이나 오른쪽으로 배치하는 float 속성
+- float 속성은 웹 요소를 문서 위에 떠 있게 만든다.
+  - '떠 있다'의 의미는 요소가 왼쪽 구석이나 오른쪽 구석에 배치된다는 것을 말한다.
+- float 속성값
+  - left: 요소를 문서의 왼쪽에 배치
+  - right: 요소를 문서의 오른쪽에 배치
+  - none: 좌우 어느 쪽에도 배치 X (기본값)
+
+### float 속성을 해제하는 clear 속성
+- float 속성을 사용해 웹의 요소를 왼쪽이나 오른쪽에 배치하면 그다음에 넣는 요소에도 똑같은 속성이 전달된다.
+- 따라서 float 속성이 더 이상 유용하지 않다고 알려 주는 속성이 필요한데, 그것이 바로 clear 속성이다.
+- clear 속성값
+  - left: float left 값을 해제한다.
+  - right: float right 값을 해제한다.
+  - both: float left, float right 값을 해제한다.
+
+> display : inline-block은 가로로 배치하면서도 기본 마진과 패딩을 가지고 있지만, float: left로 배치하면 가로로 배치될 때 요소에 기본 마진과 패딩이 없다. 그래서 필요하다면 요소마다 마진과 패딩을 지정해주어야 하고, clear 속성으로 플로팅을 해제해야 한다.
+
+## 웹 요소의 위치 지정하기
+### 웹 요소의 위치를 정하는 left, right, top, bottom 속성
+- 웹 문서에서 요소를 원하는 곳에 갖다 놓을 수 있게 위치를 지정한다.
+- 즉, position 속성으로 기준 위치를 정한 뒤 요소의 위치를 left, right, top, bottom 속성에서 선택하고 속성값을 지정하면 된다.
+- left: 기준 위치와 요소 사이에 왼쪽으로 얼마나 떨어져 있는지 지정한다.
+- right: 기준 위치와 요소 사이에 오른쪽으로 얼마나 떨어져 있는지 지정한다.
+- top: 기준 위치와 요소 사이에 위쪽으로 얼마나 떨어져 있는지 지정한다.
+- bottom: 기준 위치와 요소 사이에 아래쪽으로 얼마나 떨어져 있는지 지정한다.
+~~~css
+    #pos1{
+      position:absolute;  /* 포지셔닝 - absolute */
+      left:50px;  /* 왼쪽에서 50px 떨어지게 */
+      top:50px;   /* 위쪽에서 50px 떨어지게 */
+    }
+    #pos2 {
+      position:absolute;  /* 포지셔닝 - absolute */
+      right:100px;  /* 오른쪽에서 100px 떨어지게 */
+      top:100px;  /* 위쪽에서 100px 떨어지게 */
+    }
+    #pos3 {
+      position: absolute;  /* 포지셔닝 - absolute */
+      left:100px;   /* 왼쪽에서 50px 떨어지게 */
+      bottom:100px;  /* 아래쪽에서 100px 떨어지게 */
+    }
+~~~
+
+### 배치 방법을 지정하는 position 속성
+- postion 속성을 이용하면 텍스트나 이미지 요소를 나란히 배치할 수도 있고 원하는 위치를 선택할 수 있다.
+- position 속성값
+  - static: 문서의 흐름에 맞춰 배치한다. (기본값)
+  - relative: 위칫값을 지정할 수 있다는 점을 제외하면 static과 같다.
+  - absolute: relative값을 사용한 상위 요소를 기준으로 위치를 지정해 배치한다.
+  - fixed: 브라우저 창을 기준으로 위치를 지정해 배치한다.
+~~~css
+  #static {
+    position:static;
+  }
+  #relative-1{
+    position:relative;
+  }
+  #relative-2 {
+    position:relative;   /* 포지셔닝 - relative */
+    left:100px;  /* 왼쪽에서 100px 떨어지게 */
+    top:-50px;   /* 위쪽에서 -50px 떨어지게 (위로 이동) */
+  }
+  #fixed {
+    width:100px;
+    height:100px;
+    background-color:#222;
+    position:fixed;  /* 포지셔닝 - fixed */
+    right:30px;  /* 오른쪽에서 30px 떨어지게 */
+    top:30px;  /* 위쪽에서 30px 떨어지게 */
+  }
+</style>
+~~~
+- 어떤 요소에 position: absolute를 사용하려면 부모 요소에는 position: relative라고 지정해야 원하는 대로 배치할 수 있다.
