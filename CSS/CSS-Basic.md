@@ -780,3 +780,104 @@ margin: <크기> | <백분율> | auto
 </style>
 ~~~
 - 어떤 요소에 position: absolute를 사용하려면 부모 요소에는 position: relative라고 지정해야 원하는 대로 배치할 수 있다.
+
+# 이미지와 그러데이션 효과로 배경 꾸미기
+## 배경색과 배경 범위 지정하기
+### 배경색을 지정하는 background-color 속성
+- 배경색을 지정하려면 배경을 넣고 싶은 요소의 스타일 규칙을 만들 때 backgroud-color 속성을 사용한다.
+- 앞에서 설명한 16진수나 rgb값 또는 색상 이름을 사용해서 지정한다.
+~~~css
+background-color: #008000;
+background-color: rgb(0,128,0);
+background-color: green;
+~~~
+- 예외로 background-color값은 하위 요소에 스타일이 상속되지 않는다.
+
+### 배경색의 적용 범위를 조절하는 background-clip 속성
+- 박스 모델 관점에서 배경의 적용 범위를 조절할 수 있다.
+- background-clip 속성값
+  - border-box: 박스 모델의 가장 외곽인 테두리까지 적용한다. (기본값)
+  - padding-box: 박스 모델에서 테두리를 뺀 패딩 범위까지 적용한다.
+  - content-box: 박스 모델에서 내용(콘텐츠) 부분에만 적용한다.
+
+## 배경 이미지 지정하기
+### 웹 요소에 배경 이미지를 넣는 background-image 속성
+- 웹 요소에 배경 이미지를 넣을 때 가장 기본으로 알아 둘 속성은 background-image이다.
+- 다음 기본형과 같이 url()에 이미지 파일 경로를 넣어서 사용한다.
+~~~css
+background-image: url('이미지 파일 경로')
+~~~
+- 이미지 파일은 jpg, gif, png 형식을 사용하며 파일 경로에는 작은따옴표('')나 큰따옴표("")를 붙인다.
+- 파일 경로는 현재 웹 문서를 기준으로 상대 경로를 지정할 수도 있고 http:// 로 시작하는 절대 경로를 사용할 수도 있다.
+- 배경을 넣을 때 요소보다 이미지 크기가 작으면 이미지가 가로와 세로로 반복되면서 요소의 배경을 가득 채운다.
+
+### 배경 이미지의 반복 방법을 지정하는 background-repeat 속성
+- background-repeat 속성을 사용하면 배경 이미지를 가로와 세로 중에서 어떤 방향으로 반복할지 지정하거나, 반복하지 않고 한 번만 나타나게 할 수도 있다.
+- background-repeat 속성값
+  - repeat: 브라우저 화면에 가득 찰 때까지 가로와 세로로 반복한다. (기본값)
+  - repeat-x: 브라우저 화면 너비에 가득 찰 때까지 가로로 반복한다.
+  - repeat-y: 브라우저 화면 너비에 가득 찰 때까지 세로로 반복한다.
+  - no-repeat: 한 번만 표시하고 반복하지 않는다.
+
+### 배경 이미지의 위치를 조절하는 background-position 속성
+- background-position 속성을 이용하면 배경 이미지의 수평 위치 또는 수직 위치의 값을 지정할 수 있다.
+~~~css
+background-position: <수평 위치> <수직 위치>;
+수평 위치: left | center | right | <백분율> | <길이 값>
+수직 위치: top | center | bottom | <백분율> | <길이 값>
+~~~
+- 키워드
+  - 배경 이미지의 위치를 지정할 때 가장 많이 사용하는 속성값은 키워드이다.
+  - 수평 위치는 left, center, right 중에서 선택할 수 있고 수직 위치는 top, bottom, center 중에서 선택한다.
+- 백분율(%)
+  - 위치 속성값을 백분율로 표시한다는 것은 요소가 있는 해당 위치에 배경 이미지의 위치를 백분율로 계산하여 맞춘다는 뜻이다.
+  - 예를 들어 background-position: 30% 60%; 라면 배경 이미지를 넣을 요소의 왼쪽 모서리로부터 가로 30%, 세로 60%의 위치에 배경 이미지의 가로 세로가 각각 30%, 60%인 위치를 맞춘다.
+
+- 크기
+  - 배경 이미지의 위치를 길이로 직접 지정할 수도 있다.
+  - 예를 들어 background-image: 30px 20px;이라고 지정하면 가로 30픽셀, 세로 20픽셀의 위치에 배경 이미지의 왼쪽 상단 모서리를 맞춘다.
+
+- 다음 예제는 불릿 대신 배경 이미지 사용하기입니다.
+~~~css
+<style>
+  ul {
+    list-style:none;   /* 불릿 없앰 */
+    margin-left:-30px;  /* 왼쪽 여백 줄임 */
+  }
+  li {
+    background-image:url('images/book-icon.png');  /* 배경 이미지 파일 */
+    background-repeat:no-repeat;  /* 배경 이미지 반복 안함 */
+    background-position:left center;  /* 배경 이미지 위치 */
+    padding-left:50px;  /* 왼쪽 패딩 (박스 모델) */
+    line-height:40px;  /* 줄간격 */
+  }
+</style>
+~~~
+
+### 배경 이미지의 적용 범위를 조절하는 background-origin 속성
+- 박스 모델에 패딩이나 테두리가 있다면 배경 이미지를 패딩까지 표시하거나 테두리까지 포함해서 표시할 수도 있다.
+- background-origin 속성값
+  - content-box: 박스 모델에서 내용 부분에만 배경 이미지를 표시한다. (기본값)
+  - padding-box: 박스 모델에서 패딩까지 배경 이미지를 표시한다.
+  - border-box: 박스 모델에서 테두리까지 배경 이미지를 표시한다.
+
+### 배경 이미지를 고정하는 background-attachment 속성
+- background-attachment 속성을 사용하면 배경 이미지를 고정할 수 있다.
+  - scroll: 화면을 스크롤하면 배경 이미지도 스크롤된다. (기본값)
+  - fixed: 화면을 스크롤하면 배경 이미지는 고정되고 내용만 스크롤된다.
+
+### background 속성 하나로 배경 이미지 제어하기
+- 지금까지 배경 이미지 관련 속성을 background라는 하나의 속성으로 줄여 사용할 수 있다.
+~~~css
+background: url('images/bg4.png') no-repeat center bottom fixed;
+~~~
+
+### 배경 이미지 크기를 조절하는 background-size 속성
+- background-size 속성을 사용하여 배경 이미지의 크기를 조절할 수 있다.
+- 속성값이 하나라면 그 값은 너비로 인식하고 높이는 원래 이미지의 너비와 높이 비율에 따라 자동 계산한다.
+- background-size의 속성값
+  - auto: 원래 배경 이미지 크기만큼 표시한다. (기본값)
+  - contain: 요소 안에 배경 이미지가 다 들어오도록 이미지를 확대, 축소한다.
+  - cover: 배경 이미지로 요소를 모두 덮도록 이미지를 확대, 축소한다.
+  - <크기>: 이미지의 너비와 높이를 지정한다. 값이 하나만 주어질 경우 너빗값으로 인식되며, 높잇값은 자동 계산한다.
+  - <백분율>: 배경 이미지가 들어갈 요소의 크기를 기준으로 값을 백분율로 지정하고 그 크기에 맞도록 배경 이미지를 확대, 축소한다.
