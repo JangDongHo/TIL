@@ -228,3 +228,29 @@ foo.bar = 'baz';
 ~~~
 
 ojb.foo.bar에서 obj=obj로 후속 조치를 취하지 않는 한 반응성을 유발하지 않는다.
+
+# 3. Props
+## a. Props 선언하기
+지금까지, 우리는 내부상태(즉, 주어진 구성요소 내에서 접근이 가능한 값)에서만 독점적으로 다루어 왔다.
+
+실제 응용프로그램에서는 한 구성요소에서 하위 구성요소로 데이터를 전달해야한다. 그러기 위해서는 일반적으로 'props'로 줄여진 속성을 선언할 필요가 있다. Svelte에서는 export 키워드로 한다. Nested.svelte 컴포넌트를 수정해라.
+
+~~~javascript
+<script>
+	export let answer;
+</script>
+~~~
+> $: 처럼 처음에는 약간 이상하게 느껴질 수 있다. JavaScript 모듈에서는 일반적으로 그렇게 'export'가 작동하지 않는다. 지금은 그냥 가만히 있어. 곧 제2의 천성이 될 거야.
+
+## b. 기본값
+'Nested.svelte'에서 속성의 기본값을 쉽게 명시할 수 있다.
+~~~javascript
+<script>
+	export let answer = 'a mystery';
+</script>
+~~~
+이제 'answer' 속성 없이 두 번째 구성요소를 추가하면 해당 구성요소는 기본값으로 돌아간다.
+~~~javascript
+<Nested answer={42}/>
+<Nested/>
+~~~
