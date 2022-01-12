@@ -254,3 +254,30 @@ ojb.foo.bar에서 obj=obj로 후속 조치를 취하지 않는 한 반응성을 
 <Nested answer={42}/>
 <Nested/>
 ~~~
+
+## c. Props 확산
+속성 개체가 있는 경우, 각 특성을 명시하는 대신에 구성요소로 확산할 수 있다.
+~~~css
+<Info {...pkg}/>
+~~~
+> 반대로, 'export'로 선언되지 않은 것을 포함하여 구성요소로 전달된 모든 요소를 참조해야 하는 경우 '$$props'에 직접 액세스하여 참조할 수 있다. Svelte가 최적화하기 어렵기 때문에 일반적으로 권장하지는 않지만, 드물게 유용하다.
+
+# 4. 논리
+## a. if문
+HTML은 조건이나 루프처럼 논리를 표현하는 방법이 없다. Svelte는 가능하다.
+
+일부 마크업을 조건부로 렌더링하기 위해, 다음과 같은 if문으로 감싼다.
+~~~html
+{#if user.loggedIn}
+	<button on:click={toggle}>
+		Log out
+	</button>
+{/if}
+
+{#if !user.loggedIn}
+	<button on:click={toggle}>
+		Log in
+	</button>
+{/if}
+~~~
+연습: 구성 요소를 업데이트하고 단추를 클릭한다.
