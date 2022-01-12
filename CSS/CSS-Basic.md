@@ -1114,3 +1114,169 @@ a[title ^= eng] { ..... }
 ~~~html
 <li><a href="https://www.w3.org/TR/css3-mediaqueries">미디어쿼리</a></li>		
 ~~~
+
+## 가상 클래스와 가상 요소
+### 사용자 동작에 반응하는 가상 클래스
+- 사용자가 웹 요소를 클릭하거나 마우스 포인터를 올려놓는 등 특정 동작을 할 때 스타일이 바뀌도록 만들고 싶다면 가상 클래스 선택자를 사용한다.
+1. 방문하지 않은 링크에 스타일을 적용하는 ':link 가상 클래스 선택자'
+    - 텍스트 링크는 기본적으로 파란색 글자와 밑줄로 표시된다.
+    - 이때 링크의 밑줄을 없애거나 색상을 바꾸려면 :link 선택자를 사용한다.
+2. 방문한 링크에 스타일을 적용하는 ':visited 가상 클래스 선택자'
+    - 한 번 이상 방문한 텍스트 링크는 보라색이 기본값이다.
+    - 이때 사용자가 방문한 텍스트 링크와 색상이 달라지지 않게 하려면 ':visited 선택자'를 사용한다.
+3. 특정 요소에 마우스 포인터를 올려놓으면 스타일을 적용하는 ':hover 가상 클래스 선택자'
+    - ':hover 선택자'는 웹 요소 위로 마우스 포인터를 올려놓을 때 스타일을 적용한다.
+4. 웹 요소를 활성화했을 때 스타일을 적용하는 ':active 가상 클래스 선택자'
+    - ':active 선택자'는 웹 요소의 링크나 이미지 등을 활성화했을 때, 즉 클릭했을 때 스타일을 지정한다.
+5. 웹 요소에 초점이 맞추어졌을 때 스타일을 적용하는 ':focus 가상 클래스 선택자'
+    - ':focus 선택자'는 웹 요소에 초점이 맞추어졌을 때 스타일을 적용한다.
+    - 예를 들어 텍스트 필드 안에 마우스 포인터를 올려놓거나, 웹 문서에서 Tab을 눌러 입력 커서를 이동했을 때 스타일을 지정한다.
+- 1~4의 가상 클래스 선택자는 메뉴 링크에서 자주 사용하는데, 이때 다음과 같은 순서로 정의해야 한다. 이 순서가 바뀌면 스타일을 정의하더라도 제대로 적용되지 않는다.
+  > 1. :link / 2. :visited / 3. :hover / 4. :active
+~~~css
+.navi a:link, .navi a:visited{
+  display:block;
+  font-size:14px;
+  color:#000;
+  padding: 10px; 
+  text-decoration: none;  /* 밑줄 없앰 */
+  text-align: center;
+}
+.navi a:hover,  .navi a:focus {
+  background-color:#222;  /* 배경 색 */
+  color:#fff;  /* 글자 색 */
+}
+.navi a:active {
+  background-color:#f00;  /* 배경 색 */
+}
+~~~
+
+### 요소 상태에 따른 가상 클래스
+- 웹 사이트나 애플리케이션 화면에서 요소의 상태에 따라 스타일을 적용할 수 있는데, 이때 가상 클래스 선택자를 사용한다.
+1. 앵커 대상에 스타일을 적용하는 ':target 가상 클래스 선택자'
+    - 문서에서 같은 사이트나 다른 사이트의 페이지로 이동할 때에는 링크를 이용하고, 같은 문서 안에서 다른 위치로 이동할 때에는 앵커를 이용한다.
+    - 이때, :target 선택자를 사옹하면 앵커로 연결된 부분, 즉 앵커의 목적지가 되는 부분의 스타일을 적용할 수 있다.
+    - 앵커를 사용해 intro라는 위치로 링크할 경우 intro 요소의 스타일을 바꾸고 싶다면 :target 선택자를 사용해 다음 예제와 같이 작성할 수 있다.
+    ~~~css
+    #intro:target {
+    background-color:#0069e0;  /* 배경색 - 파란색 */
+    color:#fff;  /* 글자색 - 흰색 */
+    ~~~
+    ~~~html
+    <nav class="navi">
+      <ul>
+        <li><a href="#intro">이용 안내</a></li>
+        <li><a href="#room">객실 소개</a></li>
+        <li><a href="#reservation">예약 방법 및 요금</a></li>
+        <li><a href="ps-2.html">예약하기</a></li>
+      </ul>
+    </nav>  
+    <div id="intro" class="contents">
+      <h2>이용 안내</h2>
+      <p>Excepteur do est eiusmod nulla et veniam. Labore officia officia ex aliqua exercitation aliqua laborum Lorem deserunt ut ullamco labore anim. Officia eu duis aliquip incididunt. Do laborum et consequat aliqua sint consectetur.</p>
+    </div>
+    ~~~
+2. 요소의 사용 여부에 따라 스타일을 적용하는 ':enabled와 :disabled 가상 클래스 선택자'
+    - 해당 요소가 사용할 수 있는 상태일 때 스타일을 지정하려면 :enabled 선택자를 사용한다.
+    - 반대로 사용할 수 없는 상태일 때 스타일을 지정하려면 :disabled 선택자를 사용한다.
+    - 예를 들어 텍스트 영역 필드(textarea)를 사용해 회원 약관을 보여 줄 때는 사용자가 입력할 수 없도록 disabled 속성을 지정해야 하는데, 이때 :disabled 선택자를 사용하면 이런 텍스트 영역 필드의 스타일을 쉽게 적용할 수 있다.
+
+3. 선택한 항목의 스타일을 적용하는 ':checked 가상 클래스 선택자'
+    - 폼의 라디오 박스나 체크 박스에서 선택된 항목에는 checked라는 속성이 추가된다.
+    - checked 속성이 있는 요소의 스타일을 지정할 때 :chekced 선택자를 사용하면 편리하다.
+    - 예를 들어 라디오 버튼을 클릭했을 때 레이블을 빨간색 굵은 글자로 바꾸려면 다음과 같이 입력한다. 여기에서는 \<input>과 \<label> 태그가 형제 관계이므로 + 선택자를 사용한다.
+      ~~~css
+      #signup fieldset:first-of-type label {
+        float: left;
+        font-size: 13px;
+        width: 60px;
+      }
+      ~~~
+      ~~~html
+      <ul>
+        <li>
+          <input type="radio" name="room" id="basic">
+          <label for="basic">기본형(최대 2인)</label>
+        <li>      
+        <li>
+          <input type="radio" name="room" id="family">
+          <label for="family">가족형(최대 8인)</label>
+        </li>          
+      </ul>
+      ~~~
+
+4. 특정 요소를 제외하고 스타일을 적용하는 ':not 가상 클래스 선택자'
+    - :not 선택자의 not은 '괄호 안에 있는 요소를 제외한'이라는 의미이다.
+    - 예를 들어 다음 폼에는 텍스트와 전화번호 필드 그리고 라디오 버튼이 있는데, 이 중에서 텍스트와 전화번호 필드에 스타일을 적용하려고 한다.
+    ~~~css
+    #signup input[type=text], input[type=tel] {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 5px;
+    width: 200px;
+    }
+    ~~~
+    - 그런데 스타일을 적용하려고 하는 필드를 나열하는 것보다 적용하지 않는 필드가 더 적기 때문에 이럴 경우에는 :not 선택자를 사용하는 것이 더 편리하다.
+    ~~~css
+    #signup input:not([type=radio]) {
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 5px;
+      width: 200px;
+    }
+
+### 구조 가상 클래스
+- 구조 가상 클래스란 웹 문서의 구조를 기준으로 특정 위치에 있는 요소를 찾아 스타일을 적용할 때 사용하는 가상 클래스 선택자이다.
+1. 특정 위치의 자식 요소 선택하기
+    - :nth-child(n) : 부모 안에 있는 모든 요소 중에서 n번째 자식 요소를 선택한다.
+    - :nth-of-type(n) : 부모 안에 있는 A 요소 중에서 n번째 요소를 선택한다.
+    - 그 외 여러가지 많으니 구글링!
+2. 수식을 사용해 위치 지정하기
+    - 1, 3, 5번째 처럼 위치가 규칙적으로 바뀐다면 an+b처럼 수식을 사용할 수도 있다.
+    - 이때 n값은 0부터 시작한다.
+    - 홀수 번째에 스타일을 줄 때는 :nth-child(odd), 짝수 번째에 스타일을 줄 때는 :nth-child(even)을 사용할 수 있다.
+    ~~~css
+    /* div 요소에서 세 번째 자식인 p 요소에 스타일을 적용 */
+    div p:nth-child(3)
+    /* div 요소에서 홀수 번째로 나타나는 자식인 p 요소에 스타일을 적용 */
+    div p:nth-child(odd), div p:nth-child(2n+1)
+    /* div 요소에서 짝수 번째로 나타나는 자식인 p 요소에 스타일 적용 */
+    div p:nth-child(even), div p:nth-child(2n)
+    ~~~
+    ~~~css
+    table tr:nth-of-type(2n+1) {  /* 홀수 번째 열에만 스타일 적용 */
+			background:lightgray;
+			color:black;
+    }
+    ~~~
+
+### 가상 요소
+- 가상 클래스가 웹 문서의 여러 요소 중에서 원하는 요소를 선택한다면, 가상 요수는 문서 안의 특정 부분에 스타일을 지정하기 위해 가상으로 요소를 만들어 추가한다.
+- 가상 요소를 만들어 사용하는 이유는 특별히 화면에 보이는 부분을 꾸밀 때 불필요한 태그를 사용하지 않도록 하기 위한 것이다.
+- 가상 요소는 가상 클래스와 구별하도록 가상 요소 이름 앞에 콜론 2개(::)를 붙여서 표시한다.
+1. 첫 번째 줄, 첫 번째 글자에 스타일을 적용하는 '::first-line 요소, ::first-letter 요소'
+    - 지정한 요소의 첫 번째 줄이나 첫 번째 글자에 스타일을 적용할 수 있다.
+    - ::first-letter 요소는 해당 요소의 첫 번째 글자를 가리키는 데, 첫번째 글자는 반드시 첫 번째 줄에 있어야 한다.
+2. 내용 앞뒤에 콘텐츠를 추가하는 '::before 요소, ::after 요소'
+    - 지정한 요소의 내용 앞뒤에 스타일을 넣을 수 있다.
+    - 이 요소를 사용하면 요소의 앞뒤에 텍스트나 이미지 등을 추가할 수 있다.
+    - 다음은 ::after 요소를 사용해 제품 목록에 'NEW!!'라는 텍스트를 추가한 예제이다.
+    ~~~css
+    li.new::after {
+      content:"NEW!!";
+      font-size:x-small;
+      padding:2px 4px;
+      margin: 0 10px;
+      border-radius:2px;
+      background:#f00;
+      color:#fff;
+    }
+    ~~~
+    ~~~ html
+    <ul>
+      <li class="new">제품 A</li>
+      <li>제품 B</li>
+      <li>제품 C</li>
+      <li class="new">제품 D</li>
+    </ul>
+    ~~~
