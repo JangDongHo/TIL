@@ -281,3 +281,30 @@ HTML은 조건이나 루프처럼 논리를 표현하는 방법이 없다. Svelt
 {/if}
 ~~~
 연습: 구성 요소를 업데이트하고 단추를 클릭한다.
+
+## b. else문
+'if user.loggedIn' 및 'if !user.loggdIn' 이 두 조건은 상호 배타적이므로 else문을 사용해서 이 구성요소를 약간 단순화할 수 있다.
+~~~html
+{#if user.loggedIn}
+	<button on:click={toggle}>
+		Log out
+	</button>
+{:else}
+	<button on:click={toggle}>
+		Log in
+	</button>
+{/if}
+~~~
+> \# 문자는 항상 블록 열기 태그를 나타낸다. / 문자는 항상 블록 닫힘 태그를 나타낸다. :{:else} 같은 문자는 블록 지속 태그를 나타낸다. 걱정 마라. Svelte가 HTML에 추가하는 구문은 거의 모두 배웠다.
+
+## c. else-if문
+다수의 조건은 else if문으로 연결될 수 있다.
+~~~html
+{#if x > 10}
+	<p>{x} is greater than 10</p>
+{:else if 5 > x}
+	<p>{x} is less than 5</p>
+{:else}
+	<p>{x} is between 5 and 10</p>
+{/if}
+~~~

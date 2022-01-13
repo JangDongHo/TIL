@@ -1280,3 +1280,211 @@ a[title ^= eng] { ..... }
       <li class="new">제품 D</li>
     </ul>
     ~~~
+
+# 트랜지션과 애니메이션
+## 변형 알아보기
+### transform과 변형 함수
+- CSS에서 변형을 적용하려면 transform 속성과 변형 함수 이름을 함께 작성해야 한다.
+~~~
+transform: 함수
+~~~
+- 웹 요소를 이동시키는 변형 함수는 translate()인데, 예를 들어 웹 요소를 x축으로 50px, y축으로 100px 이동하는 클래스 선택자 .photo를 정의하려면 다음과 같이 사용한다.
+~~~css
+.photo { transform: translate(50px, 100px); }
+~~~
+1. 2차원 변형과 3차원 변형
+    - **2차원 변형**은 웹 요소를 평면에서 변형한다.
+    - 평면에서 변형할 때는 2차원 좌표를 사용하는데, x축은 오른쪽으로 갈수록 값이 커지고 y축은 아래로 내려갈수록 값이 커진다.
+    - **3차원 변형**은 x축과 y축에 원근감을 주는 z축을 추가해서 변형한다. 3차원 변형에서 z축은 앞뒤로 이동하며, 보는 사람 쪽으로 다가올수록 값이 커지고 뒤로 갈수록 값이 작아진다.
+2. 2차원 변형 함수
+    - translate(tx, ty): 지정한 크기만큼 x축, y축으로 이동
+    - scale(sx, sy): 지정한 크기만큼 x축, y축으로 확대/축소
+    - rotate(각도): 지정한 각도만큼 회전
+    - skew(ax, ay): 지정한 각도만큼 x축, y축으로 왜곡
+3. 3차원 변형 함수
+    - translate3d(tx, ty, tz): 지정한 크기만큼 x축, y축, z축으로 이동
+    - scale3d(sx, sy, sz): 지정한 크기만큼 x축, y축, z축으로 확대/축소
+    - rotate(rx, ry, rz, 각도): 지정한 각도만큼 회전
+    - perspective(길이): 입체적으로 보일 수 있도록 깊잇값을 지정
+
+### 웹 요소를 이동시키는 translate() 함수
+- translate() 함수는 x축이나 y축 또는 양쪽 방향으로 이동할 거리를 지정하면 해당 요소가 지정한 크기만큼 이동한다.
+~~~css
+transform: translate(tx, ty)
+transform: translate3d(tx, ty, tz)
+transform: translateX(tx)
+transform: translateY(ty)
+transform: translateZ(tz)
+~~~
+~~~css
+#movex:hover {
+  transform: translateX(50px);  /* x축으로(가로) 50px 이동 */
+}
+#movey:hover {
+  transform: translateY(20px);  /* y축으로(세로) 20px 이동 */
+}
+#movexy:hover {
+  transform: translate(10px, 20px);  /* x축으로(가로) 10px, y축으로(세로) 20px 이동 */
+}
+~~~
+
+### 요소를 확대/축소하는 scale() 함수
+- scale() 함수는 웹 요소를 지정한 크기만큼 확대하거나 축소한다.
+- 괄호 안의 값이 1보다 크면 확대되고 1보다 작으면 축소된다.
+~~~css
+transform: scale(sx, sy)
+transform: scale3d(sx, sy, sz)
+transform: scaleX(sx)
+transform: scaleY(sy)
+transform: scaleZ(sy)
+~~~
+- scale(sx, sy)에 값이 하나뿐일 경우에는 x, y에 같은 값을 적용한다. ex) scale(2) = scale(2,2) 요소를 두배로 확대!
+~~~css
+#scalex:hover{
+  transform: scaleX(2);  /* x축으로(가로) 2배 확대 */ 
+}
+#scaley:hover{
+  transform: scaleY(1.5);  /* y축으로(세로) 1.5배 확대 */ 
+} 
+#scale:hover{
+  transform: scale(0.7);  /* x, y축으로(가로, 세로) 0.7배 확대 */ 
+}
+~~~
+
+### 요소를 회전시키는 rotate() 함수
+1. 2차원 rotate() 함수
+    - rotate() 함수를 2차원에서 사용할 때는 각도만 지정하면 된다.
+    - 함수는 웹 요소를 지정한 각도만큼 오른쪽(시계 방향)이나 왼쪽(시계 반대 방향)으로 회전시킨다.
+    ~~~css
+    transform: rotate(각도)
+    ~~~
+    - 각도: 각도(degree)나 래디안(radian)을 사용한다. <1래디안 = 180도>
+    - 회전 각도가 양수일 경우 오른쪽으로 회전, 음수일 경우 왼쪽으로 회전
+    ~~~css
+    #rotate1:hover {
+      transform: rotate(40deg);  /* 시계 방향(오른쪽)으로 40도 회전 */
+    }
+    #rotate2:hover {
+      transform: rotate(-40deg);  /* 시계 반대 방향(왼쪽)으로 40도 회전 */
+    }
+    ~~~
+
+2. 3차원 rotate() 함수
+    ~~~css
+    transform: rotate(rx, ry, 각도)
+    transform: rotate3d(rx, ry, rz, 각도)
+    transform: rotateX(각도)
+    transform: rotateY(각도)
+    transform: rotateZ(각도)
+    ~~~
+    - perspective 속성을 함께 사용해서 원근감을 추가해 주면 회전 형태를 입체적으로 표현할 수 있다.
+    - 원래 있던 위치에서 사용자가 있는 방향이나 혹은 반대 방향으로 잡아당기거나 밀어내어 원근감을 표현한다.
+    - perspective 속성에서 사용하는 값은 0보다 커야 하며, 원래 있던 위치에서 사용자가 있는 쪽으로 얼마나 이동하는지를 픽셀 크기로 나타낸다.
+    - 값이 클수록 사용자로부터 멀어진다.
+    - 이때 주의할 점은 perspective 속성은 변형하는 요소가 아니라 **변형하는 요소의 부모 요소**에 정의해야 한다는 것이다.
+    - 다음 예제는 도형 x축, y축, z축으로 각각 55도씩 회전하거나 x,y,z,축에 방향 벡터를 지정하고 55도를 회전한다.
+    ~~~css
+    .origin {
+      ...
+      perspective: 200px;  /* 원근감 추가 */ 
+    }
+    .origin > div {				
+      ...
+      transition:all 3s;  /* 3초 동안 회전하도록 트랜지션 적용 */
+    }
+    #rotatex:hover {
+      transform: rotateX(55deg);  /* x축으로 55도 회전 */
+    }
+    #rotatey:hover {
+      transform: rotateY(55deg);  /* y축으로 55도 회전 */
+    }
+    #rotatez:hover {
+      transform: rotateZ(55deg);   /* z축으로 55도 회전 */
+    }
+    #rotatexyz:hover {
+      transform: rotate3d(2.5, 1.2, -1.5, 55deg);  /* x,y,z축으로 55도 회전 */
+    }
+    ~~~
+3. 요소를 비틀어 왜곡하는 skew() 함수
+    - skew() 함수는 지정한 각도만큼 요소를 비틀어 왜곡한다. 이때 양쪽 방향으로 비틀거나 한쪽 방향으로만 비틀 수도 있다.
+    ~~~css
+    transform: skew(x각도, y각도)
+    transform: skewX(x각도)
+    transform: skewY(y각도)
+    ~~~
+    - skew(x각도, y각도)에 두번째 값이 주어지지 않으면 y축 각도를 0으로 간주한다.
+    ~~~css
+    #skewx:hover {
+        transform: skewX(30deg);  /* x축 기준으로 30도 비틀기 */
+    }
+    #skewy:hover {
+      transform: skewY(15deg);  /* y축 기준으로 15도 비틀기 */
+    }
+    #skewxy:hover {
+      transform: skew(-25deg, -15deg);  /* x축 기준으로 -25도, y축 기준으로 -15도 비틀기 */
+    }
+    ~~~
+
+## 트랜지션 알아보기
+### 트랜지션이란
+- 웹 요소의 스타일 속성이 시간에 따라 바뀌는 것을 트랜지션이라고 한다.
+
+### 트랜지션과 속성
+- transition-property: 트랜지션의 대상을 지정
+- transition-duration: 트랜지션을 실행할 시간을 지정
+- transition-timing-function: 트랜지션의 실행 형태를 지정
+- transition-delay: 트랜지션의 지연 시간을 지정
+- transition: 한꺼번에 속성 저장
+1. 트랜지션의 대상을 지정하는 transition-property 속성
+    - 트랜지션을 만들려면 먼저 transition-property 속성을 사용하여 어떤 속성에 트랜지션을 적용할 것인지 대상을 지정해야 한다.
+    ~~~css
+    transtion-property: all | none | <속성 이름>
+    ~~~
+    - all: all값을 사용하거나 transition-property를 생략할 경우 요소의 모든 속성이 트랜지션 대상이 된다. (기본값)
+    - none: 트랜지션을 하는 동안 아무 속성도 바뀌지 않는다.
+    - 속성 이름: 트랜지션 효과를 적용할 속성을 지정한다. (속성이 여럿일 경우 쉼표로 구분)
+    ~~~css
+    transition-property: all;
+    transition-property: background-color;
+    transition-property: width, height;
+    ~~~
+
+2. 트랜지션의 진행 시간을 지정하는 transition-duration 속성
+    - 진행 시간을 지정해야 속성이 자연스럽게 바뀌는 애니메이션 효과를 만들 수 있다.
+    - 시간 단위: 초(second) 또는 밀리초(millisecond)
+    - 트랜지션의 대상 속성이 여러 개라면 진행 시간도 쉼표(,)로 구분해서 여러개 지정
+    ~~~css
+    transition-duration: <시간>
+    ~~~
+    - 다음 예제는 높잇값은 1초 안에 바뀌게 하고 너빗값은 2초에 걸쳐 바뀌게 한다.
+    ~~~css
+    transition-property: width, height;  /* 트랜지션 대상 - 너비, 높이 */
+    transition-duration: 2s, 1s;  /* 트랜지션 시간 - 2초, 1초 */
+    ~~~
+
+3. 트랜지션의 속도 곡선을 지정하는 transition-timing-function 속성
+    - 트랜지션 효과의 시작, 중간, 끝에서 속도를 지정해 전체 속도 곡선을 만들 수 있다.
+    - 속도 곡선은 미리 정해진 키워드나 베지에 곡선을 이용해 표현한다.
+    ~~~css
+    transition-timing-function: linear | ease | ease-in | ease-out | ease-in-out | cubic-bezier(n, n, n, n)
+    ~~~
+    - ease: 처음에는 천천히 시작하고 점점 빨라지다가 마지막엔 천천히 끝낸다. (기본값)
+    - linear: 시작부터 끝까지 똑같은 속도
+    - ease-in: 느리게 시작
+    - ease-out: 느리게 끝냄
+    - ease-in-out: 느리게 시작, 느리게 끝냄
+    - cubic-bezier(n, n, n, n): 베지에 함수를 정의해서 사용. 이때 n값은 0~1 사이만 사용할 수 있다.
+
+4. 트랜지션의 지연 시간을 설정하는 transition-delay 속성
+    - 이 속성을 사용하면 지정한 시간만큼 기다렸다가 트랜지션이 시작된다.
+    - 단위: 초(s) 또는 밀리초(ms) <기본값: 0>
+    ~~~css
+    transition-delay: <시간>
+    ~~~
+
+5. 트랜지션의 속성을 한꺼번에 표기하는 transition 속성
+    - 트랜지션의 적용 대상이 전체이고 각각의 진행 시간이 같다면 transition 속성으로 한꺼번에 지정하는 것이 편리하다.
+    ~~~css
+    transition: <transition-property값> | <transition-duration값> | <transition-timing-function값> | <transition-delay값>
+    ~~~
+    - 속성값을 작성하는 순서는 상관없다. 다만 시간값을 사용하는 속성이 2개(진행 시간, 지연시간)이므로 시간값이 2개 있다면 앞에 오는 시간값을 transition-duration 속성으로, 뒤에 오는 시간값은 transition-dealy 속성으로 간주한다.
