@@ -1488,3 +1488,119 @@ transform: scaleZ(sy)
     transition: <transition-property값> | <transition-duration값> | <transition-timing-function값> | <transition-delay값>
     ~~~
     - 속성값을 작성하는 순서는 상관없다. 다만 시간값을 사용하는 속성이 2개(진행 시간, 지연시간)이므로 시간값이 2개 있다면 앞에 오는 시간값을 transition-duration 속성으로, 뒤에 오는 시간값은 transition-dealy 속성으로 간주한다.
+
+## 애니메이션 알아보기
+### CSS 애니메이션에서 사용하는 속성
+- CSS3의 animation 속성을 사용하면 자바스크립트를 사용하지 않고도 웹 요소의 애니메이션을 추가할 수 있다.
+- animation 속성은 특정 지점에서 스타일을 바꾸면서 애니메이션을 만드는데, 이렇게 중간에 스타일이 바뀌는 지점을 **키프레임**이라고 한다.
+- animation의 속성
+  - @keyframes: 애니메이션이 바뀌는 지점을 지정
+  - animation-delay: 애니메이션이 시작 시간 지정
+  - animation-direction: 애니메이션을 종료한 뒤 처음부터 시작할지, 역방향으로 진행할지 지정
+  - animation-duration: 애니메이션의 실행 시간 지정
+  - animation-iteration-count: 애니메이션의 반복 횟수 지정
+  - animation-name: @keyframes로 설정해 놓은 중간 상태를 지정
+  - animation-timing-function: 키프레임의 전환 형태를 지정
+  - animation: 속성을 한꺼번에 묶어서 지정
+
+1. 애니메이션의 지점과 이름을 설정하는 @keyframes 속성, animation-name 속성
+    - 애니메이션의 시작과 끝을 비롯하여 상태가 바뀌는 부분이 있다면 @keyframes 속성을 이용해 바뀌는 지점을 설정한다.
+    ~~~css
+    @keyframes <이름> {
+      <선택자> { <스타일> }
+    }
+    ~~~
+    - 또한 웹 문서에서는 애니메이션을 여러 개 정의할 수 있으므로 이름을 이용해 애니메이션을 구별해야 한다. 이때 animation-name 속성으로 어떤 애니메이션을 사용할지 이름으로 구분한다.
+    ~~~css
+    animation-name: <키프레임 이름> | none
+    ~~~
+    - @keyframes 속성에서 사용하는 선택자는 스타일 속성값이 바뀌는 지점을 가리킨다. 예를 들어 애니메이션의 중간 지점을 추가하려면 시작 위치를 0%, 끝 위치를 100%로 놓고 50% 위치에 키프레임을 추가하면 된다. 시작과 끝 위치만 사용하려면 0%, 100%와 같은 값 대신 from과 to라는 키워드를 사용한다.
+
+2. 애니메이션의 실행 시간을 지정하는 animation-duration 속성
+    - animation-duration 속성은 애니메이션을 얼마 동안 재생할 것인지 설정한다.
+    ~~~css
+    animation-duration: <시간>
+    ~~~
+    - 시간 단위: 초(s), 밀리초(ms)
+    - 기본값은 0이므로 속성값을 정하지 않으면 애니메이션 실행 X
+    - 다음 예제는 @keyframes을 이용해 shape와 rotate라는 애니메이션을 가각 정의하고, #box1과 #box2에 각각 animation-name: shape와 animation-name: rotate를 사용해 애니메이션을 각각 실행한다.
+    ~~~css
+    #box1 {
+			background-color: #4cff00;
+			border: 1px solid transparent;
+			animation-name: shape;  /* 애니메이션 지정 */ 
+			animation-duration: 3s;  /* 애니메이션 실행 시간 */
+		}
+		#box2 {
+			background-color: #8f06b0;
+			border: 1px solid transparent;
+			animation-name: rotate;  /* 애니메이션 지정 */
+			animation-duration: 3s;  /* 애니메이션 실행 시간 */
+		}
+
+		@keyframes shape { /* shape 애니메이션 정의 */
+			from {
+				border: 1px solid transparent;  /* 1px짜리 투명한 테두리 */
+			}
+			to {
+				border: 1px solid #000;  /* 검정색 테두리 */
+				border-radius: 50%;  /* 테두리를 둥글게 */
+			}
+		}
+
+		@keyframes rotate {  /* rotate 애니메이션 정의 */
+			from {
+				transform:rotate(0deg)  /* 시작은 0도에서 */
+			}
+			to {
+				transform: rotate(45deg);  /* 45도까지 회전 */
+			}
+		}
+    ~~~
+
+3. 애니메이션의 방향을 지정하는 animation-direction 속성
+    - 애니메이션은 기본적으로 keyframes 정의한 from에서 to 순으로 진행하는데 animation-direction 속성을 사용해서 진행 방향으로 바꿀 수 있다.
+    ~~~css
+    animation-direction: normal | reverse | alternate | alternate-reverse
+    ~~~
+    - animation-direction의 속성값
+      - normal: 애니메이션을 from에서 to로 진행한다. (기본값)
+      - reverse: 애니메이션을 to에서 from으로, 원래 방향과는 반대로 진행한다.
+      - alternate: 홀수 번째는 normal로, 짝수 번째는 reverse로 진행한다.
+      - alternate-reverse: 홀수 번째는 reverse로, 짝수 번째는 normal로 진행한다.
+  
+4. 반복 횟수를 지정하는 animation-iteration-count 속성
+    - 상황에 따라 애니메이션을 반복해서 보여 줘야 할 때는 animation-iteration-count 속성을 사용해 반복 횟수를 지정한다.
+    ~~~css
+    animation-iteration-count: <숫자> | infinite
+    ~~~
+
+5. 애니메이션의 속도 곡선을 지정하는 animation-timing-function 속성
+    - 트랜지션과 마찬가지로 animation에서도 애니메이션의 시작, 중간, 끝에서 속도를 지정하여 전체 속도 곡선을 만들 수 있다.
+    ~~~css
+    animation-timing-function: linear | ease | ease-in | ease-out | ease-in-out | cubic-bezier(n, n, n, n)
+    ~~~
+
+6. 애니메이션의 속성을 한꺼번에 표기하는 animation 속성
+    - 애니메이션 속성을 한꺼번에 표기한다.
+    - 주의할 점은 애니메이션 속성을 사용할 때 animation-duration 속성을 반드시 표기해야 한다. 애니메이션 실행 시간을 지정하지 않으면 기본값으로 0이 적용되어 애니메이션 효과를 보지 못하기 때문이다.
+    ~~~css
+    .box {
+      width: 100px;
+      height: 100px;
+      margin: 60px auto;      
+      animation: rotate 1.5s infinite, background 1.5s infinite alternate;
+    }
+
+    @keyframes rotate {  /* 0도 -> x축 -180도 회전 -> y축 -180도 회전 */
+      from { transform: perspective(120px) rotateX(0deg) rotateY(0deg); }
+      50% { transform: perspective(120px) rotateX(-180deg) rotateY(0deg); }
+      to { transform: perspective(120px) rotateX(-180deg) rotateY(-180deg); }
+    }
+
+    @keyframes background {  /* 배경색 빨강 -> 초록 -> 파랑 */
+      from { background-color: red; }
+      50% { background-color: green }
+      to { background-color: blue; }
+    }
+    ~~~
