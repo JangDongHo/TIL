@@ -308,3 +308,27 @@ HTML은 조건이나 루프처럼 논리를 표현하는 방법이 없다. Svelt
 	<p>{x} is between 5 and 10</p>
 {/if}
 ~~~
+
+## each문
+데이터 리스트를 반복해야 하는 경우 each문을 사용한다.
+~~~javascript
+<ul>
+	{#each cats as cat}
+		<li><a target="_blank" href="https://www.youtube.com/watch?v={cat.id}">
+			{cat.name}
+		</a></li>
+	{/each}
+</ul>
+~~~
+>표현식(이 경우 cats)은 배열 또는 배열과 유사한 객체(즉, 길이 속성). 각 [...iterable]을 사용하여 일반적으로 반복 파일을 사용할 수 있다.
+
+다음과 같이 현재 인덱스를 두 번째 인수로 가져올 수 있다.
+~~~javascript
+{#each cats as cat, i}
+	<li><a target="_blank" href="https://www.youtube.com/watch?v={cat.id}">
+		{i + 1}: {cat.name}
+	</a></li>
+{/each}
+~~~
+
+원하는 경우, 각 cats를 {id, name}로 소거하고 cat.id와 cat.name을 id와 이름으로 바꿀 수 있다.
