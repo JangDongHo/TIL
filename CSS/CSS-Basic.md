@@ -1,152 +1,194 @@
 # CSS의 기본
+
 ## 웹 문서에 디자인 입히기
+
 ### 왜 스타일을 사용할까?
+
 - 웹 문서에서 스타일이란 HTML 문서에서 자주 사용하는 글꼴이나 색상, 정렬, 각 요소의 배치 방법과 같이 문서의 겉모습을 결정짓는 것을 가리킴.
 - 웹 문서의 내용과 상관없이 디자인만 바꿀 수 있다.
 - 다양한 기기에 맞게 탄력적으로 바뀌는 문서를 만들 수 있다.
-> 크롬 Web Developer 확장 기능을 이용하면 웹페이지의 스타일은 비활성화 시킬 수 있다!
+  > 크롬 Web Developer 확장 기능을 이용하면 웹페이지의 스타일은 비활성화 시킬 수 있다!
 
 ## 스타일과 스타일 시트
+
 ### 스타일 형식 알아보기
-~~~css
-선택자 { 속성1: 속성값1; 속성2: 속성값2 }
-~~~
+
+```css
+선택자 {
+  속성1: 속성값1;
+  속성2: 속성값2;
+}
+```
+
 - 선택자: 스타일을 어느 태그에 적용할 것인지 알려주는 것
 - 중괄호({}) 사이: 스타일 정보
 - 속성과 값이 하나의 쌍으로 이루어진 것을 **스타일 규칙**이라고 함.
 - 세미콜론(;)으로 구분해서 스타일 규칙을 여러 개 지정
-~~~css
+
+```css
 p {
   text-align: center;
   color: blue;
 }
-~~~
+```
+
 - 스타일을 텍스트 단락에 적용할 것이므로 선택자를 p로 지정
 - 중괄호({}) 사이에 텍스트 정렬을 지정하는 text-align 속성과 글자색을 지정하는 color 속성을 사용해서 2개의 스타일 규칙을 만들었다.
 - 스타일 속성이 여러 개일 경우 한 줄에 속성을 하나만 적는 것이 이해하기도 편하다.
-- 주석 표기: \/* 주!석! */
-> CSS 소스는 네트워크를 이용해 파일로 내려받으므로 되도록이면 파일 크기가 작은 것이 좋다. 그래서 CSS 소스가 길면 주석이나 줄 바꿈, 공백 등을 제거하고 꼭 필요한 정보만 남겨서 파일을 작게 만들어 사용하는데 이를 'CSS 소스 경량화(minify)'라고 한다.
+- 주석 표기: \/_ 주!석! _/
+  > CSS 소스는 네트워크를 이용해 파일로 내려받으므로 되도록이면 파일 크기가 작은 것이 좋다. 그래서 CSS 소스가 길면 주석이나 줄 바꿈, 공백 등을 제거하고 꼭 필요한 정보만 남겨서 파일을 작게 만들어 사용하는데 이를 'CSS 소스 경량화(minify)'라고 한다.
 
 ### 스타일 시트 알아보기
+
 - 웹 문서 안에서는 스타일 규칙을 여러개 사용하는데, 이런 스타일 규칙을 한눈에 확인하고 필요할 때마다 수정하기도 쉽도록 한군데 묶어 놓은 것을 **스타일 시트**라고 한다.
 - 스타일 시트는 크게 웹 브라우저에 기본으로 만들어져 있는 **브라우저 기본 스타일**과 사이트 제작자가 만든 **사용자 스타일**로 나뉜다.
 - 사용자 스타일은 다시 **인라인 스타일**과 **내부 스타일 시트**, **외부 스타일 시트**로 나뉜다.
 
 <브라우저 기본 스타일>
+
 - CSS를 사용하지 않은 웹 문서라 하더라도 웹 브라우저에 표시할 때는 기본 스타일을 사용하는데, 이를 **브라우저 기본 스타일**이라고 한다.
 - ex) \<h1>, \<p> 등
 
 <간단한 스타일 정보를 적용하는 인라인 스타일>
+
 - 간단한 스타일 정보라면 스타일 시트를 사용하지 않고 스타일을 적용할 대상에 직접 표시하는데, 이를 **인라인 스타일**이라고 한다.
-- 적용시키고 싶은 태그에 style 속성을 사용해 **style="속성: 속성값;" 형태로 스타일을 바꿀 수 있다.
-~~~html
+- 적용시키고 싶은 태그에 style 속성을 사용해 \*\*style="속성: 속성값;" 형태로 스타일을 바꿀 수 있다.
+
+```html
 <p style="color:blue;">껍질에 붉은 빛이 돌아 레드향이라 불린다.</p>
-~~~
+```
+
 <스타일을 여러 곳에 적용할 때 쓰는 내부 스타일 시트>
+
 - 웹 문서 안에서 사용할 스타일을 같은 문서 안에 정리한 것은 **내부 스타일 시트**라고 한다.
 - 스타일 정보는 웹 문서를 브라우저 화면에 표시하기 전에 결정해야 하므로 모든 스타일 정보는 \<head> 태그 안에서 정의하고 \<style>과 \<style> 태그 사이에 작성한다.
-~~~html
+
+```html
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>상품 소개 페이지</title>
   <style>
-    h1 {      
-      padding:10px;
-      background-color:#222;
-      color:#fff;
+    h1 {
+      padding: 10px;
+      background-color: #222;
+      color: #fff;
     }
   </style>
 </head>
-~~~
+```
 
 <스타일 정보를 따로 저장해 놓은 외부 스타일 시트>
-- 웹 사이트를 만들 때 하나의 웹 문서로 끝나는 경우는 거의 없다. 그래서 여러 웹 문서에서 사용할 스타일을 별도 파일로 저장해 놓고 필요할 때마다 가져와서 사용하는 것이 일반적이다. 이렇게 저장해 놓은 스타일 정보를 **외부 스타일 시트**라고 하고 *.css라는 파일 확장자를 사용한다.
+
+- 웹 사이트를 만들 때 하나의 웹 문서로 끝나는 경우는 거의 없다. 그래서 여러 웹 문서에서 사용할 스타일을 별도 파일로 저장해 놓고 필요할 때마다 가져와서 사용하는 것이 일반적이다. 이렇게 저장해 놓은 스타일 정보를 **외부 스타일 시트**라고 하고 \*.css라는 파일 확장자를 사용한다.
 - 외부 스타일 시트 파일에 스타일을 작성할 때는 \<style> 태그를 사용하지 않는다.
 - 이렇게 만든 외부 스타일 시트는 웹 문서에 연결해야 스타일이 문서에 적용된다. 외부 스타일 시트를 연결할 때 사용하는 태그는 \<link> 태그이다.
-~~~html
-<link rel="stylesheet" href="외부 스타일 시트 파일 경로">
-~~~
-~~~html
-<link rel="stylesheet" href="css/style.css">
-~~~
+
+```html
+<link rel="stylesheet" href="외부 스타일 시트 파일 경로" />
+```
+
+```html
+<link rel="stylesheet" href="css/style.css" />
+```
 
 ## CSS 기본 선택자 알아보기
+
 ### 전체 요소에 스타일을 적용하는 전체 선택자
+
 - **전체 선택자**는 말 그대로 스타일을 문서의 모든 요소에 적용할 때 사용한다. 주로 모든 하위 요소에 스타일을 한꺼번에 적용할 때 사용한다.
-~~~html
+
+```html
 * { 속성: 값; .... }
-~~~
+```
+
 - 전체 선택자는 웹 브라우저의 기본 스타일을 초기화할 때 자주 사용한다. (ex. 웹 문서 전체에 마진과 패딩 여백을 0으로 지정한다.)
-~~~html
+
+```html
   <style>
     * {
       margin:0;
       padding:0;
     }
-~~~
-> 태그(tag) vs 요소(element)<br>
-\<p>텍스트 단락 지정하기\</p><br>
-\<p>: 태그<br>
-'텍스트 단락 지정하기': p 요소<br>
-\<p> 태그를 적용한 스타일(x), p 요소에 적용하는 스타일(o)
+```
+
+> 태그(tag) vs 요소(element)<br> > \<p>텍스트 단락 지정하기\</p><br> > \<p>: 태그<br>
+> '텍스트 단락 지정하기': p 요소<br> > \<p> 태그를 적용한 스타일(x), p 요소에 적용하는 스타일(o)
 
 ### 특정 요소에 스타일을 적용하는 타입 선택자
+
 - **타입 선택자**는 특정 태그를 사용한 모든 요소에 스타일을 적용한다.
-~~~html
+
+```html
 태그명 { 스타일 규칙 }
-~~~
-~~~css
+```
+
+```css
 <style>
   p {
     font-style: italic;
   }
 </style>
-~~~
+```
 
 ### 특정 부분에 스타일 적용하는 클래스 선택자
+
 - 같은 태그라도 일부는 다른 스타일을 적용하고 싶다면 **클래스 선택자**를 사용한다.
 - 클래스 선택자는 클래스 이름을 사용해서 다른 선택자와 구별하는데, 이때 클래스 이름 앞에 마침표(.)를 반드시 붙인다.
-~~~html
+
+```html
 .클래스명 { 스타일 규칙 }
-~~~
+```
+
 - 클래스 선택자를 사용해 만든 스타일을 **클래스 스타일**이라고 한다.
 - 이미 만들어 둔 클래스 스타일을 적용할 때는 태그 안에 class="클래스명"처럼 class 속성을 사용해서 지정한다.
 - 클래스 스타일을 2개 이상 적용할 떄는 공백으로 구분해서 스타일 이름을 적으면 된다.
-~~~html
+
+```html
 <h1 class="accent bg">레드향</h1>
 <p>껍질에 붉은 빛이 돌아 <span class="accent">레드향</span>이라 불린다.</p>
-~~~
+```
 
 ### 특정 부분에 스타일을 한 번만 적용할 수 있는 id 선택자
+
 - **id 선택자**도 클래스 선택자와 마찬가지로 웹 문서의 특정 부분을 선택해서 스타일을 지정할 때 사용한다.
 - id 스타일을 웹 요소에 적용할 때는 id="아이디명"처럼 사용한다.
-~~~html
+
+```html
 #아이디명 { 스타일 규칙 }
-~~~
+```
+
 - 클래스 선택자와 id 선택자의 가장 큰 차이는 **클래스 선택자가 문서에서 여러 번 적용할 수 있는 반면, id 선택자는 문서에서 한 번만 적용 할 수 있다는 것**이다.
 - id 선택자는 주로 문서의 레이아웃과 관련된 스타일을 지정하거나 웹 요소에서 자바스크립트 프로그램을 사용하면서 요소를 구별할 때 사용한다.
-~~~html
+
+```html
 <div id="container">
   <h1>레드향</h1>
-~~~
+</div>
+```
 
 ### 같은 스타일 규칙을 사용하는 요소들을 묶어주는 그룹 선택자
+
 - 여러 선택자에서 같은 스타일 규칙을 사용하는 경우가 있는데, 이럴 때 쉼표(,)로 구분해 여러 선택자를 나열한 후 스타일 규칙을 한 번만 정의하면 된다.
-~~~css
-h1, p {
+
+```css
+h1,
+p {
   text-align: center;
 }
-~~~
+```
 
 ## 캐스케이딩 스타일 시트 알아보기
+
 ### 캐스케이딩의 의미
+
 - CSS에서 'C'는 캐스케이딩(cascading)의 줄임말이며 스타일 시트에서는 우선순위가 위에서 아래, 즉 계단식으로 적용된다는 의미로 사용한다.
 - **CSS에서는 웹 요소에 둘 이상의 스타일을 적용할 때 우선순위에 따라 적용할 스타일을 결정한다.**
 - 캐스케이딩은 스타일끼리 충돌하지 않도록 막아 주는 중요한 개념이다.
-> 스타일 우선순위: 스타일 규칙의 중요도와 적용 범위에 따라 우선순위가 결정되고, 그 우선순위에 따라 위에서 아래로 스타일을 적용한다.<br>
-스타일 상속: 태그의 포함 관계에 따라 부모 요소의 스타일을 자식 요소로, 위에서 아래로 전달한다.
+  > 스타일 우선순위: 스타일 규칙의 중요도와 적용 범위에 따라 우선순위가 결정되고, 그 우선순위에 따라 위에서 아래로 스타일을 적용한다.<br>
+  > 스타일 상속: 태그의 포함 관계에 따라 부모 요소의 스타일을 자식 요소로, 위에서 아래로 전달한다.
 
 ### 스타일 우선순위
+
 - 첫 번째 원칙인 **스타일 우선순위**는 캐스케이딩에서 가장 중요하다.
 - 얼마나 중요한가?
   1. 사용자 스타일
@@ -164,39 +206,53 @@ h1, p {
   - 소스에서 나중에 작성한 스타일이 먼저 작성한 스타일을 덮어쓴다.
 
 ### 스타일 상속
+
 - 웹 문서에서 사용하는 여러 태그는 서로 포함 관계가 있다.
 - 포함하는 태그를 부모 요소, 포함된 태그를 자식 요소라고 한다.
 - 스타일 시트에서는 자식 요소에서 별도로 스타일을 지정하지 않으면 부모 요소의 스타일 속성들이 자식 요소로 전달되는데, 이것을 **스타일 상속**이라고 한다.
 
 # 텍스트를 표현하는 다양한 스타일
+
 ## 글꼴 관련 스타일
+
 ### 글꼴을 지정하는 font-family 속성
+
 - 웹 문서에서 사용할 글꼴은 font-family 속성으로 지정한다.
-~~~css
-font-family:<글꼴 이름> | [<글꼴 이름>, <글꼴 이름>]
-~~~
+
+```css
+font-family: <글꼴 이름> | [<글꼴 이름>, <글꼴 이름>];
+```
+
 - 웹 문서에서 지정한 글꼴이 사용자 시스템에 설치되어 있지 않다면 표시X -> 따라서, 글꼴이 없을 경우를 대비해서 두 번째, 세 번째 글꼴까지 생각해야 한다.
   - 글꼴 이름을 2개 이상 지정할 때는 두 글꼴 이름 사이에 쉼표(,)를 넣어 구분한다.
-~~~css
-body { font-family: "맑은 고딕", 돋움, 굴림 }
-~~~
+
+```css
+body {
+  font-family: "맑은 고딕", 돋움, 굴림;
+}
+```
+
 > 텍스트 글꼴을 지정할 때 "맑은 고딕"과 같이 두 단어 이상으로 된 글꼴 이름은 큰따옴표로 묶는다!
 
 ### 글자 크기를 지정하는 font-size 속성
+
 - 글자 크기는 font-size 속성을 사용하여 조절할 수 있다. 글자 크기의 단위는 px(픽셀)이나 pt(포인트)등오로 지정할 수 있고 백분율을 사용할 수도 있다.
 - 글자 크기의 단위: px(픽셀), pt(포인트), 백분율
-~~~css
-font-size: <절대 크기> | <상대 크기> | <크기> | <백분율>
-~~~
+
+```css
+font-size: <절대 크기> | <상대 크기> | <크기> | <백분율>;
+```
+
 1. 절대 크기: 브라우저에 지정한 글자 크기
 2. 상대 크기: 부모 요소의 글자 크기를 기준으로 상대적인 크기를 지정
 3. 크기: 브라우저와 상관없이 글자 크기를 직접 지정
 4. 백분율: 부모 요소의 글자 크기를 기준으로 백분율(%)로 표시
+
 - <키워드를 사용하여 글자 크기 지정하기>
   - 글자 크기로 사용하도록 미리 약속해 놓은 키워드 중에서 하나를 사용할 수 있다.
-  > xx-small < x-small < small < medium < large < x-large < xx-large
-  
+    > xx-small < x-small < small < medium < large < x-large < xx-large
 - <단위를 사용하여 글자 크기 지정하기>
+
   - CSS에서는 키워드보다 단위를 사용해서 글자 크기를 직접 지정한다.
   - 사용하는 단위는 px(픽셀), pt(포인트), em 등이며 음수값을 사용할 수 없다.
   - 모바일 기기까지 고려해야 하는 요즘에는 em이나 rem을 더 많이 사용! (1em = 16px, 12pt)
@@ -211,84 +267,100 @@ font-size: <절대 크기> | <상대 크기> | <크기> | <백분율>
   - 단, 이때 부모 요소의 글꼴 크기가 font-size 16px처럼 표현되어 있어야 한다!
 
 ### 이탤릭체로 글자를 표시하는 font-style 속성
-~~~css
-font-style: normal | italic | oblique
-~~~
+
+```css
+font-style: normal | italic | oblique;
+```
+
 - 웹에서는 주로 italic 사용
 
 ### 글자 굵기를 지정하는 font-weight 속성
+
 - 미리 만들어진 예약어(normal, bold, bolder)나 숫자값을 사용해 굵기를 지정
-~~~html
+
+```html
 font-weight: normal | bold | bolder | lighter | 100 | 200 | ...
-~~~
+```
+
 - 400: normal, 700: bold (예약어 대신 숫잣값을 사용하면 좀 더 세밀하기 조정 가능)
-~~~css
+
+```css
 <style>
   body{
     font-size: 20px;   /* 전체 글자 크기 */
   }
-  h1 { 
+  h1 {
     font-family: 바탕;  /* 글꼴 */
     font-size: 3em;  /* 글자 크기 */
-  } 
+  }
   .accent {
     font-size:150%;  /* 글자 크기 */
-    font-weight: 800;  /* 글자 굵기 */ 
+    font-weight: 800;  /* 글자 굵기 */
   }
   .italic{
     font-style: italic;  /* 글자 스타일 */
   }
 </style>
-~~~
+```
 
 ## 웹 폰트 사용하기
+
 ### 웹 폰트란
+
 - CSS3가 웹 폰트(web font)를 표준으로 채택한 덕분에 사용자 시스템에 없는 글꼴도 사용할 수 있게 됐다.
 - 웹 폰트를 사용하려면 웹 문서를 작성할 때 글꼴 정보를 함께 저장해야 한다. 즉, 기존에 가지고 있던 웹 폰트를 사용했다면 서버에 올릴 때 웹 폰트 파일도 함께 업로드 해야한다.
 - 웹 폰트를 사용한 사이트에 사용자가 접속하면 웹 문서를 내려받으면서 웹 폰트도 사용자 시스템으로 다운로드 된다.
 
 ### 웹 폰트 업로드하고 사용하기
-- 컴퓨터에서 사용하는 글꼴은 트루타입(TrueType)이고 파일 확장자는 *.tft이다.
+
+- 컴퓨터에서 사용하는 글꼴은 트루타입(TrueType)이고 파일 확장자는 \*.tft이다.
 - 트루타입 글꼴은 파일 크기가 커서 웹에 적합X -> 웹에 적합한 글꼴 EOT, WOFF, WOFF2 파일 등장
-> 웹 폰트를 변환하는 사이트: [Transfonter](https://transfonter.org)
-~~~css
+  > 웹 폰트를 변환하는 사이트: [Transfonter](https://transfonter.org)
+
+```css
 @font-face {
   font-family: <글꼴 이름>;
   src: <글꼴 파일>[<글꼴 파일>, <글꼴 파일>, ...];
 }
-~~~
+```
+
 - font family 속성: 글꼴 이름 설정 (되도록이면 글꼴 파일 이름과 동일하게!)
 - src 속성: 사용할 글꼴 파일의 경로 지정
   - local() 문을 사용해서 사용자 시스템에 글꼴이 있는지 먼저 확인!
   - 만약 없다면 대부분의 모던 브라우저에서 지원하는 WOFF 포맷을 선언한다.
   - TTF 포맷은 다른 파일 형식보다 용량이 커서 TTF 포맷을 그 후에 선언한다.
-~~~css
+
+```css
 <style>
   @font-face {
     font-family: 'Ostrich';  /* 폰트 이름 */
-    src: local('Ostrich Sans'), 
-          url('fonts/ostrich-sans-bold.woff') format('woff'), 
-          url('fonts/ostrich-sans-bold.ttf') format('truetype'), 
+    src: local('Ostrich Sans'),
+          url('fonts/ostrich-sans-bold.woff') format('woff'),
+          url('fonts/ostrich-sans-bold.ttf') format('truetype'),
           url('fonts/ostrich-sans-bold.svg') format('svg');
   }
   .wfont {
     font-family:'Ostrich', sans-serif; /* 웹 폰트 지정 */
-~~~
+```
 
 ## 텍스트 관련 스타일
+
 ### 글자색을 지정하는 color 속성
+
 - 제목 등의 텍스트에서 글자색을 바꿀 때는 color 속성을 사용한다.
 - color를 사용할 수 있는 속성값은 16진수나 rgb(rgba), hsl(hsla) 또는 색상 이름이다.
-~~~css
-color: <색상>
-~~~
+
+```css
+color: <색상>;
+```
+
 - <16진수로 표현하는 방법>
+
   - #ffff00처럼 6자리의 16진수로 표현!
   - 앞에서부터 두 자리씩 묶어 #RRGGBB로 표시 (Red, Green, Blue)
   - 00: 색상이 하나도 섞이지 않음 / ff: 해당 색이 가득 섞임
   - #000000(검은색) / #ffffff(흰색)
   - 색상값이 두 자리씩 중복될 경우 생략 가능 (ex. #0000ff = #00f)
-
 
 - <hsl과 hsla로 표현하는 방법> [참고하면 좋을듯!](http://jun.hansung.ac.kr/CWP/htmls/html%20hsl%20colors.html)
   - hsl은 hue(색상), saturation(채도), lightness(명도)의 줄임말
@@ -297,19 +369,20 @@ color: <색상>
   - 채도는 퍼센트(%)로 표시하는데 아무것도 섞이지 않으면 채도가 가장 높은 상태이다.
     - 채도에서는 0%는 회색 톤, 100%는 원래 색으로 표시
   - 명도 또한 퍼센트(%)로 표시하는데 0%는 가장 어둡고 50%는 원래 색으로, 100%는 흰색으로 나타난다.
-~~~css
+
+```css
 hsl(0, 100%, 50%) = 온전한 빨간색
 hsla(0, 100%, 50%, 0.5) = 반쯤 투명한 빨간색
-~~~
+```
 
 - <색상을 영문명으로 표기하는 방법>
   - white, black, red와 같이 자주 사용하는 색상일 경우 색상 이름 그대로 사용한다.
 
-~~~css
+```css
   <style>
-    h1 { 
+    h1 {
       color:#0000ff;   /* 16진수 표기법 */
-    } 
+    }
     p {
       color:green;  /* 색상 이름 */
     }
@@ -318,25 +391,32 @@ hsla(0, 100%, 50%, 0.5) = 반쯤 투명한 빨간색
       font-weight:bold;
     }
   </style>
-  ~~~
+```
 
 - <rgb와 rgba로 표현하는 방법>
   - rgb는 red, green, blue의 줄임말
   - 하나도 섞이지 않았을 때는 0으로 표시, 가득 섞였을 때는 255로 표시, 그 사이의 값으로 각 색상의 양을 나타낸다.
-  ~~~css
-  h1 { color: rgb(0, 0, 255); }
-  ~~~
+  ```css
+  h1 {
+    color: rgb(0, 0, 255);
+  }
+  ```
   - rgba에서 a는 불투명도의 값을 나타내고, 0~1의 값 중에서 사용
     - 1은 완전히 불투명한 것, 0.5는 반투명, 0은 완전 투명
-  ~~~css
-  h1 { color: rgba(0, 0, 255, 0.5); }
-  ~~~
-  
+  ```css
+  h1 {
+    color: rgba(0, 0, 255, 0.5);
+  }
+  ```
+
 ### 텍스트를 정렬하는 text-align 속성
+
 - text-align 속성은 문단의 텍스트 정렬 방법을 지정한다.
-~~~css
-text-align: start | end | left | right | center | justify | match-parent
-~~~
+
+```css
+text-align: start | end | left | right | center | justify | match-parent;
+```
+
 - start: 현재 텍스트 줄의 시작 위치에 맞추어 문단 정렬
 - end: 현재 텍스트 줄의 끝 위치에 맞추어 문단 정렬
 - left: 왼쪽에 맞추어 문단 정렬
@@ -346,34 +426,53 @@ text-align: start | end | left | right | center | justify | match-parent
 - match-parent: 부모 요소를 따라 문단 정렬
 
 ### 줄 간격을 조정하는 line-height 속성
+
 - line-height 속상을 이용하여 줄 간격을 원하는 만큼 조절할 수 있다.
 - 줄 간격은 정확한 단위로 크깃값을 지정하거나 문단의 글자 크기를 기준으로 몇 배수인지 백분율로 지정할 수도 있다.
 - 보통 줄 간격은 글자 크기의 1.5~2배면 적당하다.
-~~~css
-p { font-size: 12px; line-height: 24px; }
-p { font-size: 12px; line-height: 2.0; }
-p { font-size: 12px; line-height: 200%; }
-~~~
+
+```css
+p {
+  font-size: 12px;
+  line-height: 24px;
+}
+p {
+  font-size: 12px;
+  line-height: 2;
+}
+p {
+  font-size: 12px;
+  line-height: 200%;
+}
+```
+
 - 텍스트를 세로 정렬할 때에도 line-height 속성을 사용한다.
 
 ### 텍스트의 줄을 표시하거나 없애 주는 text-decoration 속성
+
 - text-decoration 속성은 텍스트에 밑줄을 긋거나 취소선을 표시한다.
 - 텍스트에 하이퍼링크를 적용하면 기본적으로 밑줄이 생기는데 text-decoration 속성을 사용하면 없앨 수 있다.
-~~~css
-text-decoration: none | underline | overline | line-through
-~~~
+
+```css
+text-decoration: none | underline | overline | line-through;
+```
+
 - underline: 밑줄 / overline: 윗줄 / line-through: 취소선
 
 ### 텍스트에 그림자 효과를 추가하는 text-shadow 속성
+
 - text-shadow 속성은 텍스트에 그림자 효과를 추가해 텍스트를 조금 더 입체감 나게 보여 줄 수 있다.
-~~~css
-text-shadow: none | <가로 거리> <세로 거리> <번짐 정도> <색상>
-~~~
+
+```css
+text-shadow: none | <가로 거리> <세로 거리> <번짐 정도> <색상>;
+```
+
 - <가로 거리>: 텍스트로부터 그림자까지의 가로 거리이다. 필수 속성이며, 양숫값은 글자의 오른쪽, 음숫값은 글자의 왼쪽에 그림자를 만든다.
 - <세로 거리>: 텍스트로부터 그림자까지의 세로 거리이다. 필수 속성이며, 양숫값은 글자의 아래쪽, 음숫값은 글자의 위쪽에 그림자를 만든다.
 - <번짐 정도>: 그림자가 번지는 정도이다. 양숫값을 사용하면 그림자가 모든 방향으로 퍼져 나가므로 그림자가 크게 표시된다. 반대로 음숫값은 그림자가 모든 방향으로 축소되어 보인다. 기본값은 0이다.
 - <색상>: 그림자 색상을 지정한다. 한 가지만 지정할 수도 있고 공백으로 구분해 여러 색상을 지정할 수도 있다. 기본값은 현재 글자색이다.
-~~~css
+
+```css
   .shadow1 {
     color:red;
     text-shadow:1px 1px black;
@@ -386,9 +485,10 @@ text-shadow: none | <가로 거리> <세로 거리> <번짐 정도> <색상>
     text-shadow:7px -7px 20px #000;
   }
 </style>
-~~~
+```
 
 ### 텍스트의 대소 문자를 변환하는 text-transform 속성
+
 - text-transform 속성은 텍스트를 대소 문자 또는 전각 문자로 변환한다.
 - 이 속성은 한글에는 영향을 미치지 않고 영문자에만 적용된다.
 - none: 줄을 표시하지 않는다.
@@ -396,24 +496,28 @@ text-shadow: none | <가로 거리> <세로 거리> <번짐 정도> <색상>
 - uppercase: 모든 글자 대문자로 변환
 - lowercase: 모든 글자 소문자로 변환
 - full-width: 가능한 한 모든 문자를 전각 문자로 변환
-> '전각 문자'란 가로와 세로의 길이 비율이 같은 글자를 말한다. '반각 문자'는 가로와 세로의 길이 비율이 1:2인 글자를 말한다.
+  > '전각 문자'란 가로와 세로의 길이 비율이 같은 글자를 말한다. '반각 문자'는 가로와 세로의 길이 비율이 1:2인 글자를 말한다.
 
 ### 글자 간격을 조절하는 letter-spacing, word-spacing 속성
+
 - letter-spacing 속성은 글자와 글자 사이의 간격을 조절한다.
 - word-spacing 속성은 단어와 단어 사이의 간격을 조절한다.
 - 이 2가지 속성은 px, em과 같은 단위나 퍼센트(%)로 크깃값을 조절한다.
-~~~css
+
+```css
   .spacing1 {
     letter-spacing:0.2em;  /* 글자 간격 0.2em */
   }
   .spacing2 {
     letter-spacing:0.5em;  /* 글자 간격 0.5em */
-  }      
+  }
 </style>
-~~~
+```
 
 ## 목록 스타일
+
 ### 불릿 모양과 번호 스타일을 지정하는 list-style-type 속성
+
 - disc: 채운 원 모양
 - circle: 빈 원 모양
 - square: 채운 사각형 모양
@@ -424,62 +528,89 @@ text-shadow: none | <가로 거리> <세로 거리> <번짐 정도> <색상>
 - lower-alpha (또는 lower-latin): 알파벳 소문자 (a, b, c, ...)
 - upper-alpha (또는 upper-latin): 알파벳 대문자 (A, B, C, ...)
 - none: 불릿이나 숫자를 없앰
-~~~css
+
+```css
 .book1 {
-  list-style-type:none;  /* 불릿 없앰 */
+  list-style-type: none; /* 불릿 없앰 */
 }
 .book2 {
-  list-style-type: upper-alpha;  /* 알파벳 대문자 */
-} 
-~~~
+  list-style-type: upper-alpha; /* 알파벳 대문자 */
+}
+```
 
 ### 불릿 대신 이미지를 사용하는 list-style-image 속성
+
 - list-style-image 속성을 이용하면 불릿을 원하는 이미지로 바꿀 수 있다.
 - 불릿에 들어갈 이미지는 불릿 크기만큼 작아야 좋다.
-~~~css
-list-style-image: <url(이미지 파일 경로)> | none
-~~~
-~~~css
+
+```css
+list-style-image: <url(이미지 파일 경로) > | none;
+```
+
+```css
 ul {
-  list-style-image: url('images/dot.png') /* 불릿으로 사용할 이미지 */
+  list-style-image: url("images/dot.png"); /* 불릿으로 사용할 이미지 */
 }
-~~~
+```
 
 ### 목록에 들여 쓰는 list-style-position 속성
+
 - list-style-position 속성을 사용하면 불릿이나 번호의 위치를 들여 쓸 수 있다.
-~~~css
+
+```css
 list-style-position: inside | outside;
-~~~
+```
+
 - inside: 불릿이나 번호를 기본 위치보다 안으로 들여 쓴다.
 - outside: 기본값
-~~~css
+
+```css
 <style>
   .inside { list-style-position: inside; }  /* 목록 들여쓰기 */
 </style>
-~~~
+```
 
 ### 목록 속성을 한꺼번에 표시하는 list-style 속성
+
 - list-style 속성을 사용하면 속성들을 한꺼번에 표시할 수 있다.
-~~~css
-ul { list-style-type: none; } -> ul { list-style: none; }
-ol { list-style-type: lower-alpha; list-style-position: insde; } -> ol { list-style: lower-alpha insde; }
-~~~
+
+```css
+ul {
+  list-style-type: none;
+}
+- > ul {
+  list-style: none;
+}
+ol {
+  list-style-type: lower-alpha;
+  list-style-position: insde;
+}
+- > ol {
+  list-style: lower-alpha insde;
+}
+```
 
 ## 표 스타일
+
 ### 표 제목의 위치를 정해 주는 caption-side 속성
-~~~css
-caption-side: top | bottom
-~~~
+
+```css
+caption-side: top | bottom;
+```
+
 - top: 캡션을 표 윗부분에 표시. 기본값
 - bottom: 캡션을 표 아랫부분에 표
 
 ### 표에 테두리를 그려 주는 border 속성
-~~~css
-border: 크기 solid|dotted 색상
-~~~
+
+```css
+border: 크기 solid|dotted 색상;
+```
+
 - solid: 실선
 - dotted: 점선
-~~~css
+
+```css
 <style>
   table {
     caption-side: bottom;  /* 표 캡션 위치 */
@@ -491,23 +622,28 @@ border: 크기 solid|dotted 색상
     text-align:center;  /* 셀 내용 가운데 정렬 */
   }
 </style>
-~~~
+```
 
 ### 셀 사이의 여백을 지정하는 border-spacing 속성
+
 - 표와 셀에 따로 테두리를 지정하면 셀과 셀 사이에 여백이 생긴다.
 - border-spacing 속성을 사용하면 셀과 셀 사이의 여백을 조절할 수 있다.
-~~~css
-border-spacing: 수평거리 수직거리
-~~~
+
+```css
+border-spacing: 수평거리 수직거리;
+```
+
 - 수평 거리의 값과 수직 거리의 값을 공백으로 구분해서 나타내는데, 두 값이 같다면 1개만 지정해도 된다.
-> border-spacing은 border-collapse의 값이 separate일 때만 적용된다.
+  > border-spacing은 border-collapse의 값이 separate일 때만 적용된다.
 
 ### 표와 셀 테두리를 합쳐 주는 border-collapse 속성
+
 - 표와 셀에 테두리를 지정하면 셀과 셀 사이에 여백이 생긴다.
 - collapse: 표와 셀의 테두리를 합쳐 하나로 표시
 - separate: 표와 셀의 테두리를 따로 표시. 기본값
 - 이 속성은 \<table> 태그에 적용되는 스타일에만 지정하면 된다.
-~~~css
+
+```css
 <style>
   table {
     caption-side: bottom;  /* 표 캡션 위치 */
@@ -520,12 +656,16 @@ border-spacing: 수평거리 수직거리
     text-align:center;  /* 셀 내용 가운데 정렬 */
   }
 </style>
-~~~
+```
 
 # 레이아웃을 구성하는 CSS 박스 모델
+
 ## CSS와 박스 모델
+
 - CSS 박스 모델이란 웹 문서의 내용을 박스 형태로 정의하는 방법이다.
+
 ### 블록 레벨 요소와 인라인 레벨 요소
+
 - 블록 레벨(block-level) 요소: 태그를 사용해 요소를 삽입했을 때 혼자 한 줄을 차지
   - 해당 요소의 너비가 100%라는 뜻
   - 대표적인 태그: \<h1>, \<div>, \<p>
@@ -533,6 +673,7 @@ border-spacing: 수평거리 수직거리
   - 대표적인 태그: \<span>, \<img>, \<strong>
 
 ### 박스 모델의 기본 구성
+
 - 블록 레벨 요소 = 박스 형태
 - 박스 형태인 요소 = **박스 모델(box model) 요소**
 - 웹 문서 안에서 여러 요소를 원하는 위치에 배치하려면 CSS 박스 모델을 잘 알고 있어야함
@@ -541,6 +682,7 @@ border-spacing: 수평거리 수직거리
 ![box-model](https://blog.kakaocdn.net/dn/2c3JM/btqDkAv2s3h/ruswQmTfhWkHhN4rDLCPtK/img.png)
 
 ### 콘텐츠 영역의 크기를 지정하는 width, height 속성
+
 - 박스 모델에서 콘텐츠 영역의 크기를 지정할 때 너비는 width, 높이는 height 속성을 사용한다.
 - width와 height의 속성값
   - \<크기>: 너비나 높이의 값을 px이나 em 단위로 지정
@@ -548,6 +690,7 @@ border-spacing: 수평거리 수직거리
   - auto: 박스 모델의 너빗값이나 높잇값이 콘텐츠 양에 따라 자동으로 결정된다. 기본값!
 
 ### 박스 모델의 크기를 계산하는 box-sizing 속성
+
 - 실제 박스 모델이 차지하는 크기 = 콘텐츠 영역 + 패딩 + 테두리 두께
 - 매번 패딩과 테두리의 값을 계산해서 박스 모델의 크기를 넣어야 한다면 매우 복잡해짐. 그래서 필요한 것이 box-sizing 속성!
   - border-box: 테두리까지 포함해서 너비값을 지정
@@ -555,28 +698,39 @@ border-spacing: 수평거리 수직거리
 - 요소의 크기를 쉽게 계산하려면 box-sizing 속성을 border-box로 지정해 놓는 것이 좋다.
 
 ### 박스 모델에 그림자 효과를 주는 box-shadow 속성
+
 - 그림자는 이미지 또는 \<div>와 같이 전체 영역에 쩡하여 넣을 수 있다.
-~~~css
-box-shadow: <수평 거리> <수직 거리> <흐림 정도> <번짐 정도> <색상> inset
-~~~
+
+```css
+box-shadow: <수평 거리> <수직 거리> <흐림 정도> <번짐 정도> <색상> inset;
+```
+
 - \<수평 거리>: 그림자가 가로로 얼마나 떨어져 있는지를 나타냄. 필수값이며, 양숫값은 요소의 오른쪽에, 음숫값은 요소의 왼쪽에 그림자를 만든다.
 - \<수직 거리>: 그림자가 세로로 얼마나 떨어져 있는지를 나타냄. 필수값이며, 양숫값은 요소의 아래쪽에, 음숫값은 요소의 위쪽에 그림자를 만든다.
 - \<흐림 정도>: 0(진한 그림자) / 이 값이 커질수록 부드러운 그림자
 - \<번짐 정도>: 양숫값을 사용하면 모든 방향으로 그림자가 퍼짐. 음숫값은 모든 방향으로 그림자가 축소. 기본값은 0
 - \<색상>: 한 개 이상의 색상을 지정할 수 있다. 기본값은 검정색
 - inset: 안쪽 그림자로 그린다.
-~~~css
-.box1{ box-shadow:2px -2px 5px 0px;}  /* 오른쪽 윗부분에 그림자 */
-.box2{ box-shadow:5px 5px 15px 5px blue;}  /* 오른쪽 아랫부분에 파란색 그림자 */
-~~~
+
+```css
+.box1 {
+  box-shadow: 2px -2px 5px 0px;
+} /* 오른쪽 윗부분에 그림자 */
+.box2 {
+  box-shadow: 5px 5px 15px 5px blue;
+} /* 오른쪽 아랫부분에 파란색 그림자 */
+```
 
 ## 테두리 스타일 지정하기
+
 ### 박스 모델의 방향 살펴보기
+
 - 박스 모델의 방향
   - 맨 윗부분은 top, 오른쪽 right, 아래 bottom, 왼쪽 left
   - top -> right -> bottom -> left 시계 방향!
 
 ### 테두리 스타일을 지정하는 border-style 속성
+
 - 테두리 스타일을 지정하는 border-style 속성의 기본값은 none이라, 화면에 표시X
 - 따라서, 테두리를 그리려면 가장 먼저 테두리 스타일의 속성값을 지정해야 한다.
   - none: 테두리가 없다. (기본값)
@@ -588,39 +742,45 @@ box-shadow: <수평 거리> <수직 거리> <흐림 정도> <번짐 정도> <색
   - groove, inset, outset, ridge: 테두리를 창에 조각한 것처럼 표시.
 
 ### 테두리 두께를 지정하는 border-width 속성
-~~~css
-border-width: <크기> | thin | medium | thick
-~~~
-~~~css
+
+```css
+border-width: <크기> | thin | medium | thick;
+```
+
+```css
 #box1 {
-  border-width:2px;  /* 네 방향 모두 2px */ 
+  border-width: 2px; /* 네 방향 모두 2px */
 }
 #box2 {
-  border-width:thick thin;  /* top & bottom - thick, left & right - thin */
+  border-width: thick thin; /* top & bottom - thick, left & right - thin */
 }
 #box3 {
-  border-width:thick thin thin;  /* top - thick, right - thin, bottom - thin, left - thin */ 
+  border-width: thick thin thin; /* top - thick, right - thin, bottom - thin, left - thin */
 }
 #box4 {
-  border-width:10px 5px 5px 10px;  /* top - 10px, right - 5px, bottom - 5px, left - 10px */
+  border-width: 10px 5px 5px 10px; /* top - 10px, right - 5px, bottom - 5px, left - 10px */
 }
-~~~
+```
+
 1. 속성값이 한개. 이 경우에는 4개의 방향 모두 같은 값 적용
 2. 속성값이 두개. 첫 번째 값이 위아래 테두리 값, 두번째 값이 좌우 테두리 값 적용
 3. 속성값이 세개. top->right->bottom순으로 속성 값 적용. 없는 left는 right 속성과 똑같이 적용.
 4. 속성값이 네개. top->right->bottom->left순으로 속성 값 적용.
 
 ### 테두리 색상을 지정하는 border-color 속성
-~~~css
+
+```css
 #box1 { border-color:red;	}  /* 전체 테두리 - 빨강 */
-#box2 { 
+#box2 {
   border-top-color:blue; /* 위쪽 테두리 - 파랑 */
   border-left-color:red;  /* 왼쪽 테두리 - 빨강 */
-~~~
+```
 
 ### 테두리 스타일 묶어 지정하는 border 속성
+
 - borer 속성으로 테두리의 스타일과 두께, 색상을 한꺼번에 표현할 수 있다.
-~~~css
+
+```css
 h1 {
   padding-bottom: 5px;
   border-bottom: 3px solid rgb(75, 70, 70); /* 아래쪽 테두리만 3px짜리 회색 실선*/
@@ -629,59 +789,75 @@ p {
   padding: 10px;
   border: 3px dotted blue; /* 모든 테두리를 3px짜리 파란 점선 */
 }
-~~~
+```
 
 ### 둥근 테두리를 만드는 border-radius 속성
+
 - border-radius 속성을 사용하면 박스 모델의 테두리를 둥글게 만들 수 있다.
-~~~css
-border-radius: <크기> | <백분율>
-~~~
+
+```css
+border-radius: <크기> | <백분율>;
+```
+
 - 크기: 반지름 크기를 px, em의 단위와 함께 수치로 표현
 - 백분율: 현재 요소의 크기를 기준으로 비율(%)로 지정
 
 ### 꼭짓점마다 따로 둥글게 처리하기
+
 - 박스 모델에서 꼭짓점 4개를 모두 다르게 지정하고 싶다면 border와 radius 사이에 위치를 나타내는 예약어를 넣어 사용한다.
-~~~css
-border-top-left-radius:20px;  /* 왼쪽 위 꼭짓점만 둥글게 */
-border-top-right-radius:20px;  /* 오른쪽 위 꼭짓점만 둥글제 */
-~~~
+
+```css
+border-top-left-radius: 20px; /* 왼쪽 위 꼭짓점만 둥글게 */
+border-top-right-radius: 20px; /* 오른쪽 위 꼭짓점만 둥글제 */
+```
+
 > border-radius 속성을 사용해서 꼭짓점을 타원 형태로 만들 수도 있다. 이 경우에는 꼭짓점에 원 대신 타원이 있다고 생각한다.<br>
-border-radius: \<가로 반지름> / \<세로 반지름>;<br>
-border-위치-radius: \<가로 반지름> / \<세로 반지름>;
+> border-radius: \<가로 반지름> / \<세로 반지름>;<br>
+> border-위치-radius: \<가로 반지름> / \<세로 반지름>;
 
 ## 여백을 조절하는 속성
+
 ### 요소 주변의 여백을 설정하는 margin 속성
+
 - 마진(margin): 요소 주변의 여백을 의미
-~~~css
-margin: <크기> | <백분율> | auto
-~~~
+
+```css
+margin: <크기> | <백분율> | auto;
+```
+
 - 크기: 너빗값이나 높잇값을 px이나 em 같은 단위와 함께 수치로 지정
 - 백분율: 박스 모델을 포함한 부모 요소를 기준으로 너빗값이나 높잇값을 퍼센트(%)로 지정
 - auto: display 속성에서 지정한 값에 맞게 적절한 값을 자동으로 지정
 
 ### margin 속성을 사용하여 웹 문서를 가운데 정렬하기
+
 - margin 속성을 사용해 웹 문서의 내용을 화면의 중앙에 배치하려면 우선적으로 배치할 요소의 너빗값이 정해져 있어야함.
 - 그리고 margin-left와 margin-right의 속성값을 auto로 지정 -> CSS는 웹 브라우저 화면의 너비에서 요소 너빗값을 뺀 나머지 영역을 좌우 마진으로 자동 계산한다.
-~~~css
+
+```css
 #container {
-  background-color:#fff;
-  width:600px;
-  margin:20px auto;
-  padding:20px;
+  background-color: #fff;
+  width: 600px;
+  margin: 20px auto;
+  padding: 20px;
 }
-~~~
+```
 
 ### 마진 중첩 이해하기
+
 - 요소를 세로로 배치할 경우에 각 요소의 마진과 마진이 서로 만나면 마진값이 큰 쪽으로 겹쳐지는 문제인데, 이런 현상을 **마진 중첩(margin overlap)** 또는 마진 상쇄(margin collapse)라고 한다.
 - 이렇게 된 이유는 여러 요소를 세로로 배치할 때 맨 위의 마진과 맨 아래 마진에 비해 중간에 있는 마진이 지나치게 커지는 것을 방지하기 위한 것이다.
 - 마진 중첩은 아래 마진과 위 마진이 서로 만날 때 큰 마진값으로 합쳐지는 것이고, 오른쪽 마진과 왼쪽 마진이 만날 경우에는 중첩되지 않는다.
 
 ### 콘텐츠와 테두리 사이의 여백을 설정하는 padding 속성
+
 - 패딩(padding): 콘텐츠 영역과 테두리 사이의 여백
 - 패딩을 지정하는 방법은 마진과 거의 같다.
 
 ## 웹 문서의 레이아웃 만들기
+
 ### 배치 방법 결정하는 display 속성
+
 - display 속성을 사용하면 블록 레벨 요소와 인라인 레벨 여소를 서로 바꿔서 사용할 수 있다.
 - 주로 웹 문서의 내비게이션을 만들면서 메뉴 항목을 가로로 배치할 때 많이 사용하고, 이미지를 표 형태로 배치할 수도 있다.
 - display 속성값
@@ -689,24 +865,26 @@ margin: <크기> | <백분율> | auto
   - inline: 블록 레벨 요소를 인라인 레벨 요소로 만든다.
   - inline-block: 인라인 레벨 요소와 블록 레벨 요소의 속성을 모두 가지고 있고, 마진과 패딩을 지정할 수 있다.
   - none: 해당 요소를 화면에 표시 X
-~~~css
+
+```css
   <style>
     * {
       box-sizing: border-box;
     }
     nav ul {
-      list-style:none;      
+      list-style:none;
     }
     nav ul li {
-      display:inline-block;      
+      display:inline-block;
       padding:20px;
       margin:0 20px;
       border:1px solid #222;
     }
   </style>
-~~~
+```
 
 ## 왼쪽이나 오른쪽으로 배치하는 float 속성
+
 - float 속성은 웹 요소를 문서 위에 떠 있게 만든다.
   - '떠 있다'의 의미는 요소가 왼쪽 구석이나 오른쪽 구석에 배치된다는 것을 말한다.
 - float 속성값
@@ -715,6 +893,7 @@ margin: <크기> | <백분율> | auto
   - none: 좌우 어느 쪽에도 배치 X (기본값)
 
 ### float 속성을 해제하는 clear 속성
+
 - float 속성을 사용해 웹의 요소를 왼쪽이나 오른쪽에 배치하면 그다음에 넣는 요소에도 똑같은 속성이 전달된다.
 - 따라서 float 속성이 더 이상 유용하지 않다고 알려 주는 속성이 필요한데, 그것이 바로 clear 속성이다.
 - clear 속성값
@@ -725,39 +904,44 @@ margin: <크기> | <백분율> | auto
 > display : inline-block은 가로로 배치하면서도 기본 마진과 패딩을 가지고 있지만, float: left로 배치하면 가로로 배치될 때 요소에 기본 마진과 패딩이 없다. 그래서 필요하다면 요소마다 마진과 패딩을 지정해주어야 하고, clear 속성으로 플로팅을 해제해야 한다.
 
 ## 웹 요소의 위치 지정하기
+
 ### 웹 요소의 위치를 정하는 left, right, top, bottom 속성
+
 - 웹 문서에서 요소를 원하는 곳에 갖다 놓을 수 있게 위치를 지정한다.
 - 즉, position 속성으로 기준 위치를 정한 뒤 요소의 위치를 left, right, top, bottom 속성에서 선택하고 속성값을 지정하면 된다.
 - left: 기준 위치와 요소 사이에 왼쪽으로 얼마나 떨어져 있는지 지정한다.
 - right: 기준 위치와 요소 사이에 오른쪽으로 얼마나 떨어져 있는지 지정한다.
 - top: 기준 위치와 요소 사이에 위쪽으로 얼마나 떨어져 있는지 지정한다.
 - bottom: 기준 위치와 요소 사이에 아래쪽으로 얼마나 떨어져 있는지 지정한다.
-~~~css
-    #pos1{
-      position:absolute;  /* 포지셔닝 - absolute */
-      left:50px;  /* 왼쪽에서 50px 떨어지게 */
-      top:50px;   /* 위쪽에서 50px 떨어지게 */
-    }
-    #pos2 {
-      position:absolute;  /* 포지셔닝 - absolute */
-      right:100px;  /* 오른쪽에서 100px 떨어지게 */
-      top:100px;  /* 위쪽에서 100px 떨어지게 */
-    }
-    #pos3 {
-      position: absolute;  /* 포지셔닝 - absolute */
-      left:100px;   /* 왼쪽에서 50px 떨어지게 */
-      bottom:100px;  /* 아래쪽에서 100px 떨어지게 */
-    }
-~~~
+
+```css
+#pos1 {
+  position: absolute; /* 포지셔닝 - absolute */
+  left: 50px; /* 왼쪽에서 50px 떨어지게 */
+  top: 50px; /* 위쪽에서 50px 떨어지게 */
+}
+#pos2 {
+  position: absolute; /* 포지셔닝 - absolute */
+  right: 100px; /* 오른쪽에서 100px 떨어지게 */
+  top: 100px; /* 위쪽에서 100px 떨어지게 */
+}
+#pos3 {
+  position: absolute; /* 포지셔닝 - absolute */
+  left: 100px; /* 왼쪽에서 50px 떨어지게 */
+  bottom: 100px; /* 아래쪽에서 100px 떨어지게 */
+}
+```
 
 ### 배치 방법을 지정하는 position 속성
+
 - postion 속성을 이용하면 텍스트나 이미지 요소를 나란히 배치할 수도 있고 원하는 위치를 선택할 수 있다.
 - position 속성값
   - static: 문서의 흐름에 맞춰 배치한다. (기본값)
   - relative: 위칫값을 지정할 수 있다는 점을 제외하면 static과 같다.
   - absolute: relative값을 사용한 상위 요소를 기준으로 위치를 지정해 배치한다.
   - fixed: 브라우저 창을 기준으로 위치를 지정해 배치한다.
-~~~css
+
+```css
   #static {
     position:static;
   }
@@ -778,22 +962,29 @@ margin: <크기> | <백분율> | auto
     top:30px;  /* 위쪽에서 30px 떨어지게 */
   }
 </style>
-~~~
+```
+
 - 어떤 요소에 position: absolute를 사용하려면 부모 요소에는 position: relative라고 지정해야 원하는 대로 배치할 수 있다.
 
 # 이미지와 그러데이션 효과로 배경 꾸미기
+
 ## 배경색과 배경 범위 지정하기
+
 ### 배경색을 지정하는 background-color 속성
+
 - 배경색을 지정하려면 배경을 넣고 싶은 요소의 스타일 규칙을 만들 때 backgroud-color 속성을 사용한다.
 - 앞에서 설명한 16진수나 rgb값 또는 색상 이름을 사용해서 지정한다.
-~~~css
+
+```css
 background-color: #008000;
-background-color: rgb(0,128,0);
+background-color: rgb(0, 128, 0);
 background-color: green;
-~~~
+```
+
 - 예외로 background-color값은 하위 요소에 스타일이 상속되지 않는다.
 
 ### 배경색의 적용 범위를 조절하는 background-clip 속성
+
 - 박스 모델 관점에서 배경의 적용 범위를 조절할 수 있다.
 - background-clip 속성값
   - border-box: 박스 모델의 가장 외곽인 테두리까지 적용한다. (기본값)
@@ -801,17 +992,22 @@ background-color: green;
   - content-box: 박스 모델에서 내용(콘텐츠) 부분에만 적용한다.
 
 ## 배경 이미지 지정하기
+
 ### 웹 요소에 배경 이미지를 넣는 background-image 속성
+
 - 웹 요소에 배경 이미지를 넣을 때 가장 기본으로 알아 둘 속성은 background-image이다.
 - 다음 기본형과 같이 url()에 이미지 파일 경로를 넣어서 사용한다.
-~~~css
-background-image: url('이미지 파일 경로')
-~~~
+
+```css
+background-image: url("이미지 파일 경로");
+```
+
 - 이미지 파일은 jpg, gif, png 형식을 사용하며 파일 경로에는 작은따옴표('')나 큰따옴표("")를 붙인다.
 - 파일 경로는 현재 웹 문서를 기준으로 상대 경로를 지정할 수도 있고 http:// 로 시작하는 절대 경로를 사용할 수도 있다.
 - 배경을 넣을 때 요소보다 이미지 크기가 작으면 이미지가 가로와 세로로 반복되면서 요소의 배경을 가득 채운다.
 
 ### 배경 이미지의 반복 방법을 지정하는 background-repeat 속성
+
 - background-repeat 속성을 사용하면 배경 이미지를 가로와 세로 중에서 어떤 방향으로 반복할지 지정하거나, 반복하지 않고 한 번만 나타나게 할 수도 있다.
 - background-repeat 속성값
   - repeat: 브라우저 화면에 가득 찰 때까지 가로와 세로로 반복한다. (기본값)
@@ -820,25 +1016,31 @@ background-image: url('이미지 파일 경로')
   - no-repeat: 한 번만 표시하고 반복하지 않는다.
 
 ### 배경 이미지의 위치를 조절하는 background-position 속성
+
 - background-position 속성을 이용하면 배경 이미지의 수평 위치 또는 수직 위치의 값을 지정할 수 있다.
-~~~css
+
+```css
 background-position: <수평 위치> <수직 위치>;
 수평 위치: left | center | right | <백분율> | <길이 값>
 수직 위치: top | center | bottom | <백분율> | <길이 값>
-~~~
+```
+
 - 키워드
   - 배경 이미지의 위치를 지정할 때 가장 많이 사용하는 속성값은 키워드이다.
   - 수평 위치는 left, center, right 중에서 선택할 수 있고 수직 위치는 top, bottom, center 중에서 선택한다.
 - 백분율(%)
+
   - 위치 속성값을 백분율로 표시한다는 것은 요소가 있는 해당 위치에 배경 이미지의 위치를 백분율로 계산하여 맞춘다는 뜻이다.
   - 예를 들어 background-position: 30% 60%; 라면 배경 이미지를 넣을 요소의 왼쪽 모서리로부터 가로 30%, 세로 60%의 위치에 배경 이미지의 가로 세로가 각각 30%, 60%인 위치를 맞춘다.
 
 - 크기
+
   - 배경 이미지의 위치를 길이로 직접 지정할 수도 있다.
   - 예를 들어 background-image: 30px 20px;이라고 지정하면 가로 30픽셀, 세로 20픽셀의 위치에 배경 이미지의 왼쪽 상단 모서리를 맞춘다.
 
 - 다음 예제는 불릿 대신 배경 이미지 사용하기입니다.
-~~~css
+
+```css
 <style>
   ul {
     list-style:none;   /* 불릿 없앰 */
@@ -852,9 +1054,10 @@ background-position: <수평 위치> <수직 위치>;
     line-height:40px;  /* 줄간격 */
   }
 </style>
-~~~
+```
 
 ### 배경 이미지의 적용 범위를 조절하는 background-origin 속성
+
 - 박스 모델에 패딩이나 테두리가 있다면 배경 이미지를 패딩까지 표시하거나 테두리까지 포함해서 표시할 수도 있다.
 - background-origin 속성값
   - content-box: 박스 모델에서 내용 부분에만 배경 이미지를 표시한다. (기본값)
@@ -862,17 +1065,21 @@ background-position: <수평 위치> <수직 위치>;
   - border-box: 박스 모델에서 테두리까지 배경 이미지를 표시한다.
 
 ### 배경 이미지를 고정하는 background-attachment 속성
+
 - background-attachment 속성을 사용하면 배경 이미지를 고정할 수 있다.
   - scroll: 화면을 스크롤하면 배경 이미지도 스크롤된다. (기본값)
   - fixed: 화면을 스크롤하면 배경 이미지는 고정되고 내용만 스크롤된다.
 
 ### background 속성 하나로 배경 이미지 제어하기
+
 - 지금까지 배경 이미지 관련 속성을 background라는 하나의 속성으로 줄여 사용할 수 있다.
-~~~css
-background: url('images/bg4.png') no-repeat center bottom fixed;
-~~~
+
+```css
+background: url("images/bg4.png") no-repeat center bottom fixed;
+```
 
 ### 배경 이미지 크기를 조절하는 background-size 속성
+
 - background-size 속성을 사용하여 배경 이미지의 크기를 조절할 수 있다.
 - 속성값이 하나라면 그 값은 너비로 인식하고 높이는 원래 이미지의 너비와 높이 비율에 따라 자동 계산한다.
 - background-size의 속성값
@@ -883,46 +1090,70 @@ background: url('images/bg4.png') no-repeat center bottom fixed;
   - <백분율>: 배경 이미지가 들어갈 요소의 크기를 기준으로 값을 백분율로 지정하고 그 크기에 맞도록 배경 이미지를 확대, 축소한다.
 
 ## 그러데이션 효과로 배경 꾸미기
+
 ### 선형 그러데이션
+
 - 선형 그러데이션이란 색상이 수직, 수평 또는 대각선 방향으로 일정하게 변하는 것을 말한다.
 - 이것을 만들어 주는 함수는 linear-gradient인데 색상이 어느 방향으로 바뀌는지 그리고 어떤 색상으로 바뀌는지 알려 주어야 한다.
-~~~css
+
+```css
 linear-gradient(to <방향> 또는 <각도>, <색상 중지점>, [<색상 중지점>, .....]);
-~~~
+```
+
 - 방향
+
   - 그라데이션 방향을 지시할 때는 끝 지점을 기준으로 to 예약어와 함께 사용한다.
   - to 다음에는 방향을 나타내는 예약어를 최대 2개까지 사용할 수 있다.
   - 이때 예약어는 수평 방향을 나타내는 left와 right, 수직 방향을 나타내는 top과 bottom을 사용한다.
   - ex) 색상이 왼쪽에서 오른쪽으로 변하는 그러데이션 - to right
   - ex) 왼쪽 아래에서 오른쪽 위로 변하는 그러데이션 - to right top 또는 to top right
   - 위치나 각도 옵션을 생략하면 top bottom으로 인식
-  ~~~css
-  background: linear-gradient(to right bottom, blue, white);  /* 왼쪽 위에서 오른쪽 아래 방향으로, 파랑에서 흰색으로 */
-  ~~~
+
+  ```css
+  background: linear-gradient(
+    to right bottom,
+    blue,
+    white
+  ); /* 왼쪽 위에서 오른쪽 아래 방향으로, 파랑에서 흰색으로 */
+  ```
 
 - 각도
+
   - 각도는 선형 그러데이션에서 색상이 바뀌는 방향을 알려 주는 방법이다.
   - 이때 각도는 그러데이션이 끝나는 부분이고 값은 deg로 표시한다.
   - ex) 왼쪽 아래에서 오른쪽 위 방향 - 45deg
-  ~~~css
-  background: linear-gradient(45deg, #f00, #fff); /* 45도 (오른쪽 위)방향으로, 빨간색에서 흰색으로 */
-  ~~~
+
+  ```css
+  background: linear-gradient(
+    45deg,
+    #f00,
+    #fff
+  ); /* 45도 (오른쪽 위)방향으로, 빨간색에서 흰색으로 */
+  ```
 
 - 색상 중지점
   - 2가지 색이상의 선형 그러데이션을 만들려면 색상이 바뀌는 부분을 지정해 주어야 한다.
   - 그러데이션에서 바뀌는 색을 **색상 중지점**이라고 한다.
   - 색상 중지점을 지정할 때 쉼표(,)로 색상을 구분하는데, 색상만 지정할 수도 있고 색솽과 함께 중지점의 위치도 함께 지정할 수 있다.
   - 다음 예제는 시작 색상과 끝 색상을 파란색(#06f)로 하고, 시작 위치에서 30% 되는 지점에 흰색을 두어 위에서 아래로 부드럽게 연결되는 그러데이션을 정의한 것이다.
-  ~~~css
-  background: linear-gradient(to bottom, #06f, white 30%, #06f);  /* 위에서부터 30% 위치에 색상 중지점 지정 */
-  ~~~
+  ```css
+  background: linear-gradient(
+    to bottom,
+    #06f,
+    white 30%,
+    #06f
+  ); /* 위에서부터 30% 위치에 색상 중지점 지정 */
+  ```
 
 ### 원형 그러데이션
+
 - 원형 그러데이션은 원 또는 타원의 중심에서부터 동심원을 그리며 바깥 방향으로 색상이 바뀐다.
 - 따라서 색상이 바뀌기 시작하는 원의 중심과 크기를 정하고 그러데이션의 모양을 선택한다.
-~~~css
+
+```css
 radial-gradient(<모양> <크기> at <위치>, <색상 중지점>, [<색상 중지점>, .....]);
-~~~
+```
+
 - 모양
   - 원형 그러데이션에서 만들어지는 모양은 원형(circle), 타원형(ellipse) 이다. 모양을 따로 지정하지 않으면 타원형으로 인식한다.
 - 크기
@@ -937,560 +1168,707 @@ radial-gradient(<모양> <크기> at <위치>, <색상 중지점>, [<색상 중�
   - 키워드(left,center,right / top, center, bottom) 또는 백분율(30%, 20%)로 나타낸다.
   - 속성값을 생략하면 가로와 세로 모두 중앙인 center로 인식한다.
   - 다음 예제는 20% 20% 위치에서 흰색에서 파란색으로 변하는 원형 그러데이션이다.
-  ~~~css
-  background: radial-gradient(circle at 20% 20%,white,blue);  /* 20% 20%에서 시작하여 흰색에서 파란색으로 바뀌는 원형 그러데이션 */
-  ~~~
+  ```css
+  background: radial-gradient(
+    circle at 20% 20%,
+    white,
+    blue
+  ); /* 20% 20%에서 시작하여 흰색에서 파란색으로 바뀌는 원형 그러데이션 */
+  ```
 - 색상 중지점
   - 그라데이션의 색상과 어느 부분에서 색상을 바꿀지 위치도 함께 지정해줄 수 있다.
-  ~~~css
+  ```css
   		.grad1{
-			background:skyblue;  /* css3를 지원하지 않는 브라우저용 */
-			background:radial-gradient(yellow, white, orange);  /* 노란색에서 흰색을 거쳐 주황색으로 바뀌는 타원형 그러데이션 */
-		}
-		.grad2{
-			background:skyblue;  /* css3를 지원하지 않는 브라우저용 */
-			background:radial-gradient(yellow, white 10%, orange 60%);   /* 노란색에서 10% 위치의 흰색, 60% 위치의 주황색으로 바뀌는 타원형 그러데이션 */
-		}
-	</style>
-  ~~~
+  		background:skyblue;  /* css3를 지원하지 않는 브라우저용 */
+  		background:radial-gradient(yellow, white, orange);  /* 노란색에서 흰색을 거쳐 주황색으로 바뀌는 타원형 그러데이션 */
+  	}
+  	.grad2{
+  		background:skyblue;  /* css3를 지원하지 않는 브라우저용 */
+  		background:radial-gradient(yellow, white 10%, orange 60%);   /* 노란색에서 10% 위치의 흰색, 60% 위치의 주황색으로 바뀌는 타원형 그러데이션 */
+  	}
+  </style>
+  ```
 
 ### 그라데이션을 사용한 패턴 만들기
+
 - 선형 그라데이션을 반복할 때는 repeating-linear-gradient를 사용한다.
 - 원형 그러데이션을 반복할 때는 repeating-radial-gradient를 사용한다.
 - 그냥 선형 그러데이션을 반복하면 그러데이션끼리 만나는 부분이 자연스럽지 않다. 그래서 그러데이션을 반복헤서 패턴을 만들 때는 각 색상 중지점의 위치를 적절하게 조절해야 한다.
 - 다음 예제는 선형 그러데이션과 원형 그러데이션의 시작 색상과 끝 색상을 명확히 지정하여 패턴을 만들었다.
-~~~css
+
+```css
 .grad1 {
-  background: red; 
-  background: repeating-linear-gradient(yellow, yellow 20px, red 20px, red 40px); 
+  background: red;
+  background: repeating-linear-gradient(
+    yellow,
+    yellow 20px,
+    red 20px,
+    red 40px
+  );
 }
 .grad2 {
-  background: #ccc; 
-  background: repeating-radial-gradient(circle, white, white 10%, #ccc 10%, #ccc 20%); 
+  background: #ccc;
+  background: repeating-radial-gradient(
+    circle,
+    white,
+    white 10%,
+    #ccc 10%,
+    #ccc 20%
+  );
 }
-~~~
+```
+
 - 선형 그러데이션 예시를 보면 0px~20px은 노란색 20px~40px은 빨간색으로 칠해진다.
 
 # CSS 고급 선택자
+
 ## 연결 선택자
+
 ### 하위 요소에 스타일을 적용하는 하위 선택자와 자식 선택자
+
 - 하위 요소: 특정 요소를 기준으로 그 안에 포함된 요소
 - 자식 요소: 현재 요소를 기준을 바로 한 단계 아래 요소
 - 손자 요소: 자식 요소의 한 단계 아래
 - 하위 선택자(자손 선택자)
   - 하위 선택자를 사용하면 부모 요소에 포함된 하위 요소를 모두 선택한다.
   - 하위 선택자는 상위 요소와 하위 요소를 공백으로 구분한다.
-  ~~~
+  ```
   상위요소 하위요소
-  ~~~
+  ```
   - 다음과 같이 section 요소 안에 포함된 p 요소를 모두 선택하려면 section과 p 사이에 **공백 한 칸**을 두고 나란히 써준다. 그리고 중괄호 안에 스타일 규칙을 써준다.
-  ~~~css
-  section p { ..... }
-  ~~~
+  ```css
+  section p {
+    .....;
+  }
+  ```
 - 자식 선택자
   - 자식 선택자는 하위 선택자와 다르게 자식 요소에만 스타일을 적용하는 선택자이다.
   - 두 요소 사이에 '>' 기호를 표시해 부모 요소와 자식 요소를 구분한다.
-  ~~~
+  ```
   부모요소 > 자식요소
-  ~~~
+  ```
   - 다음과 같이 section 요소에 포함된 p 요소 중에서 자식 요소만 선택하려면 section과 p 사이에 자식 선택자 기호인 '>'를 넣는다.
-  ~~~css
-  section > p { ..... }
-  ~~~
-  
+  ```css
+  section > p {
+    .....;
+  }
+  ```
+
 ### 형제 요소에 스타일을 적용하는 인전 형제 선택자와 형제 선택자
+
 - 형제 관계: 웹 문서에서 부모 요소가 같을 경우
 - 형 요소: 형제 관계인 요소에서 먼저 나오는 요소
 - 동생 요소: 나중에 나오는 요소
 - 인접 형제 선택자
+
   - 형제 요소 중에서 첫 번째 동생 요소만 선택하는 것을 **인접 형제 선택자** 라고 한다.
   - 요소1과 요소2 사이에 '+' 기호를 표시한다.
   - 요소1과 요소2는 같은 레벨이면서 요소1 이후 가장 먼저 오는 요소2를 선택한다.
-  ~~~
+
+  ```
   요소1 + 요소2
-  ~~~
+  ```
+
   - 예를 들어 h1 요소와 형제 요소인 p 요소 중에서 첫 번째 p 요소만 선택하고 싶다면 아래처럼 한다.
-  ~~~css
-  h1 + p { ..... }
-  ~~~
+
+  ```css
+  h1 + p {
+    .....;
+  }
+  ```
 
 - 형제 선택자
   - 형제 선택자는 형제 요소의 스타일을 정의하는데 인접 형제 선택자와 달리 모든 형제 요소에 적용한다.
   - 첫 번째 요소와 두 번째 요소 사이에 '~'기호를 표시한다.
-  ~~~
+  ```
   요소1 ~ 요소2
-  ~~~
+  ```
   - h1 요소 뒤에 오는 모든 형제 p 요소의 글자를 지정한다.
-  ~~~css
-  h1 ~ p { ..... }
-  ~~~
-  
+  ```css
+  h1 ~ p {
+    .....;
+  }
+  ```
+
 ## 속성 선택자
+
 ### 특정 속성이 있는 요소를 선택하는 [속성] 선택자
+
 - 속성값에 따라 원하는 요소를 선택할 때 사용하는 것이 **[속성] 선택자**이다.
 - 대괄호([ ]) 사이에 원하는 속성을 입력하면 된다.
 - 예를 들어 a 요소 중에서 href 속성이 있는 요소를 선택하려면 다음과 같이 작성한다.
-~~~css
-a[href] { ..... }
-~~~
-~~~html
+
+```css
+a[href] {
+  .....;
+}
+```
+
+```html
 <li><a>메인 메뉴 : </a></li>
 <li><a href="#">메뉴 1</a></li>
 <li><a href="#">메뉴 2</a></li>
 <li><a href="#">메뉴 3</a></li>
 <li><a href="#">메뉴 4</a></li>
-~~~
+```
 
 ### 특정 속성값이 있는 요소를 선택하는 [속성 = 속성값] 선택자
+
 - **[속성 = 속성값] 선택자**는 주어진 속성과 속성값이 일치하는 요소를 찾아 스타일을 지정할 때 사용한다.
 - 이 형식은 대괄호([ ])안에 속성과 속성값을 넣고 그 사이에 '='기호를 표시한다.
-- 예를 들어 a 요소 중에서 target 속성값이 '_blank'인 것만 선택하고 싶다면 다음과 같이 작성한다.
-~~~css
-a[target = _blank] { ..... }
-~~~
-~~~css
+- 예를 들어 a 요소 중에서 target 속성값이 '\_blank'인 것만 선택하고 싶다면 다음과 같이 작성한다.
+
+```css
+a[target="_blank"] {
+  .....;
+}
+```
+
+```css
   <li><a href="hhttps://html.spec.whatwg.org" target="_blank">HTML</a></li>
   <li><a href="https://www.w3.org/TR/selectors">CSS Selector Level 3</a></li>
-  <li><a href="https://www.w3.org/TR/css3-mediaqueries">미디어쿼리</a></li>		
-~~~
+  <li><a href="https://www.w3.org/TR/css3-mediaqueries">미디어쿼리</a></li>
+```
 
 ### 여러 값 중에서 특정 속성값이 포함된 속성 요소를 선택하는 [속성 ~= 값] 선택자
+
 - **[속성 ~= 값] 선택자**는 여러 속성값 중에서 해당 속성값이 포함된 요소를 선택한다.
 - 이 선택지는 속성이 하나면서 속성값이 여러 개일 때 특정 속성값을 찾는 데 편리하다.
 - 예를 들어 하나의 요소에 클래스 스타일을 여러 개 적용할 수 있는데, 그중에 button 스타일이 있는 요소를 찾으려면 다음과 같이 작성한다.
-~~~css
-[class ~= button] { ..... }
-~~~
+
+```css
+[class~="button"] {
+  .....;
+}
+```
+
 - 단, flat-button이나 buttons처럼 button 외에 다른 글자가 속성값에 포함되어 있으면 선택하지 않는다.
-~~~html
+
+```html
 <li><a href="#" class="flat">메뉴 1</a></li>
 <li><a href="#" class="flat">메뉴 2</a></li>
 <li><a href="#" class="button">메뉴 3</a></li>
-<li><a href="#" class="flat button" >메뉴 4</a></li>
-~~~
+<li><a href="#" class="flat button">메뉴 4</a></li>
+```
 
 ### 특정 속성값이 포함된 속성 요소를 선택하는 [속성 |= 값] 선택자
+
 - **[속성 |= 값] 선택자**는 특정 속성값이 포함된 속성에 스타일을 적용한다.
 - 이때 속성값은 한 단어로 일치해야 한다. 앞에서 다룬 [속성 ~= 값] 선택자와 비슷해보이지만, [속성 |= 선택자]는 지정한 값과 정확하게 일치하거나 지정한 값을 포함해서 하이픈(-)으로 연결된 단어도 선택한다.
 - 예를 들어 title 속성값에 us가 있거나 us-로 연결된 속성값이 있는 a 요소를 찾는다면 다음과 같이 작성한다.
-~~~css
-a[title |= us] { ..... }
-~~~
-~~~html
+
+```css
+a[title|="us"] {
+  .....;
+}
+```
+
+```html
 <li><a href="#" title="us-english">영어</a></li>
 <li><a href="#" title="ja">일본어</a></li>
 <li><a href="#" title="chn">중국어</a></li>
-~~~
+```
 
 ### 특정 속성값으로 시작하는 속성 요소를 선택하는 [속성 ^= 값]
+
 - 속성값이 정확하게 일치하지 않더라도 지정한 속성값으로 시작하는 요소를 찾으려면 **[속성 ^= 값] 선택자**를 사용한다.
 - 예를 들어 title 속성값이 eng로 시작하는 a 요소를 찾는다면 다음과 같이 작성한다.
-~~~css
-a[title ^= eng] { ..... }
-~~~
+
+```css
+a[title^="eng"] {
+  .....;
+}
+```
+
 - 다음 예제는 a 요소의 title 속성값을 살펴보고 시작 글자를 비교해 스타일을 정의한 것이다.
-~~~html
+
+```html
 <li><a href="#" title="english">영어</a></li>
 <li><a href="#" title="japanese">일본어</a></li>
 <li><a href="#" title="chinese">중국어</a></li>
-~~~
+```
 
 ### 특정한 값으로 끝나는 속성의 요소를 선택하는 [속성 $= 값] 선택자
+
 - **[속성 $= 값] 선택자**는 지정한 속성값으로 끝나는 요소를 선택한다.
 - 예를 들어 링크한 파일의 이름의 마지막 단어가 xls인 요소를 찾는다면 다음과 같이 작성한다.
-~~~css
-[href $= xls] { ..... }
-~~~
-~~~css
+
+```css
+[href$="xls"] {
+  .....;
+}
+```
+
+```css
 <li><a href="intro.xls">엑셀 파일</a></li>
-~~~
+```
 
 ### 일부 속성값이 일치하는 요소를 선택하는 [속성 *= 값] 선택자
+
 - **[속성 *= 값] 선택자**는 속성값이 어느 위치에 있든지 지정한 속성값이 포함되어 있다면 해당 요소를 선택한다.
 - 예를 들어 href 속성값 중에 'w3'가 포함된 요소를 선택한다면 다음과 같이 작성한다.
-~~~css
-[href *= w3] { ..... }
-~~~
-~~~html
-<li><a href="https://www.w3.org/TR/css3-mediaqueries">미디어쿼리</a></li>		
-~~~
+
+```css
+[href*="w3"] {
+  .....;
+}
+```
+
+```html
+<li><a href="https://www.w3.org/TR/css3-mediaqueries">미디어쿼리</a></li>
+```
 
 ## 가상 클래스와 가상 요소
+
 ### 사용자 동작에 반응하는 가상 클래스
+
 - 사용자가 웹 요소를 클릭하거나 마우스 포인터를 올려놓는 등 특정 동작을 할 때 스타일이 바뀌도록 만들고 싶다면 가상 클래스 선택자를 사용한다.
+
 1. 방문하지 않은 링크에 스타일을 적용하는 ':link 가상 클래스 선택자'
-    - 텍스트 링크는 기본적으로 파란색 글자와 밑줄로 표시된다.
-    - 이때 링크의 밑줄을 없애거나 색상을 바꾸려면 :link 선택자를 사용한다.
+   - 텍스트 링크는 기본적으로 파란색 글자와 밑줄로 표시된다.
+   - 이때 링크의 밑줄을 없애거나 색상을 바꾸려면 :link 선택자를 사용한다.
 2. 방문한 링크에 스타일을 적용하는 ':visited 가상 클래스 선택자'
-    - 한 번 이상 방문한 텍스트 링크는 보라색이 기본값이다.
-    - 이때 사용자가 방문한 텍스트 링크와 색상이 달라지지 않게 하려면 ':visited 선택자'를 사용한다.
+   - 한 번 이상 방문한 텍스트 링크는 보라색이 기본값이다.
+   - 이때 사용자가 방문한 텍스트 링크와 색상이 달라지지 않게 하려면 ':visited 선택자'를 사용한다.
 3. 특정 요소에 마우스 포인터를 올려놓으면 스타일을 적용하는 ':hover 가상 클래스 선택자'
-    - ':hover 선택자'는 웹 요소 위로 마우스 포인터를 올려놓을 때 스타일을 적용한다.
+   - ':hover 선택자'는 웹 요소 위로 마우스 포인터를 올려놓을 때 스타일을 적용한다.
 4. 웹 요소를 활성화했을 때 스타일을 적용하는 ':active 가상 클래스 선택자'
-    - ':active 선택자'는 웹 요소의 링크나 이미지 등을 활성화했을 때, 즉 클릭했을 때 스타일을 지정한다.
+   - ':active 선택자'는 웹 요소의 링크나 이미지 등을 활성화했을 때, 즉 클릭했을 때 스타일을 지정한다.
 5. 웹 요소에 초점이 맞추어졌을 때 스타일을 적용하는 ':focus 가상 클래스 선택자'
-    - ':focus 선택자'는 웹 요소에 초점이 맞추어졌을 때 스타일을 적용한다.
-    - 예를 들어 텍스트 필드 안에 마우스 포인터를 올려놓거나, 웹 문서에서 Tab을 눌러 입력 커서를 이동했을 때 스타일을 지정한다.
+   - ':focus 선택자'는 웹 요소에 초점이 맞추어졌을 때 스타일을 적용한다.
+   - 예를 들어 텍스트 필드 안에 마우스 포인터를 올려놓거나, 웹 문서에서 Tab을 눌러 입력 커서를 이동했을 때 스타일을 지정한다.
+
 - 1~4의 가상 클래스 선택자는 메뉴 링크에서 자주 사용하는데, 이때 다음과 같은 순서로 정의해야 한다. 이 순서가 바뀌면 스타일을 정의하더라도 제대로 적용되지 않는다.
   > 1. :link / 2. :visited / 3. :hover / 4. :active
-~~~css
-.navi a:link, .navi a:visited{
-  display:block;
-  font-size:14px;
-  color:#000;
-  padding: 10px; 
-  text-decoration: none;  /* 밑줄 없앰 */
+
+```css
+.navi a:link,
+.navi a:visited {
+  display: block;
+  font-size: 14px;
+  color: #000;
+  padding: 10px;
+  text-decoration: none; /* 밑줄 없앰 */
   text-align: center;
 }
-.navi a:hover,  .navi a:focus {
-  background-color:#222;  /* 배경 색 */
-  color:#fff;  /* 글자 색 */
+.navi a:hover,
+.navi a:focus {
+  background-color: #222; /* 배경 색 */
+  color: #fff; /* 글자 색 */
 }
 .navi a:active {
-  background-color:#f00;  /* 배경 색 */
+  background-color: #f00; /* 배경 색 */
 }
-~~~
+```
 
 ### 요소 상태에 따른 가상 클래스
+
 - 웹 사이트나 애플리케이션 화면에서 요소의 상태에 따라 스타일을 적용할 수 있는데, 이때 가상 클래스 선택자를 사용한다.
+
 1. 앵커 대상에 스타일을 적용하는 ':target 가상 클래스 선택자'
-    - 문서에서 같은 사이트나 다른 사이트의 페이지로 이동할 때에는 링크를 이용하고, 같은 문서 안에서 다른 위치로 이동할 때에는 앵커를 이용한다.
-    - 이때, :target 선택자를 사옹하면 앵커로 연결된 부분, 즉 앵커의 목적지가 되는 부분의 스타일을 적용할 수 있다.
-    - 앵커를 사용해 intro라는 위치로 링크할 경우 intro 요소의 스타일을 바꾸고 싶다면 :target 선택자를 사용해 다음 예제와 같이 작성할 수 있다.
-    ~~~css
-    #intro:target {
-    background-color:#0069e0;  /* 배경색 - 파란색 */
-    color:#fff;  /* 글자색 - 흰색 */
-    ~~~
-    ~~~html
-    <nav class="navi">
-      <ul>
-        <li><a href="#intro">이용 안내</a></li>
-        <li><a href="#room">객실 소개</a></li>
-        <li><a href="#reservation">예약 방법 및 요금</a></li>
-        <li><a href="ps-2.html">예약하기</a></li>
-      </ul>
-    </nav>  
-    <div id="intro" class="contents">
-      <h2>이용 안내</h2>
-      <p>Excepteur do est eiusmod nulla et veniam. Labore officia officia ex aliqua exercitation aliqua laborum Lorem deserunt ut ullamco labore anim. Officia eu duis aliquip incididunt. Do laborum et consequat aliqua sint consectetur.</p>
-    </div>
-    ~~~
+   - 문서에서 같은 사이트나 다른 사이트의 페이지로 이동할 때에는 링크를 이용하고, 같은 문서 안에서 다른 위치로 이동할 때에는 앵커를 이용한다.
+   - 이때, :target 선택자를 사옹하면 앵커로 연결된 부분, 즉 앵커의 목적지가 되는 부분의 스타일을 적용할 수 있다.
+   - 앵커를 사용해 intro라는 위치로 링크할 경우 intro 요소의 스타일을 바꾸고 싶다면 :target 선택자를 사용해 다음 예제와 같이 작성할 수 있다.
+   ```css
+   #intro:target {
+   background-color:#0069e0;  /* 배경색 - 파란색 */
+   color:#fff;  /* 글자색 - 흰색 */
+   ```
+   ```html
+   <nav class="navi">
+     <ul>
+       <li><a href="#intro">이용 안내</a></li>
+       <li><a href="#room">객실 소개</a></li>
+       <li><a href="#reservation">예약 방법 및 요금</a></li>
+       <li><a href="ps-2.html">예약하기</a></li>
+     </ul>
+   </nav>
+   <div id="intro" class="contents">
+     <h2>이용 안내</h2>
+     <p>
+       Excepteur do est eiusmod nulla et veniam. Labore officia officia ex
+       aliqua exercitation aliqua laborum Lorem deserunt ut ullamco labore anim.
+       Officia eu duis aliquip incididunt. Do laborum et consequat aliqua sint
+       consectetur.
+     </p>
+   </div>
+   ```
 2. 요소의 사용 여부에 따라 스타일을 적용하는 ':enabled와 :disabled 가상 클래스 선택자'
-    - 해당 요소가 사용할 수 있는 상태일 때 스타일을 지정하려면 :enabled 선택자를 사용한다.
-    - 반대로 사용할 수 없는 상태일 때 스타일을 지정하려면 :disabled 선택자를 사용한다.
-    - 예를 들어 텍스트 영역 필드(textarea)를 사용해 회원 약관을 보여 줄 때는 사용자가 입력할 수 없도록 disabled 속성을 지정해야 하는데, 이때 :disabled 선택자를 사용하면 이런 텍스트 영역 필드의 스타일을 쉽게 적용할 수 있다.
+
+   - 해당 요소가 사용할 수 있는 상태일 때 스타일을 지정하려면 :enabled 선택자를 사용한다.
+   - 반대로 사용할 수 없는 상태일 때 스타일을 지정하려면 :disabled 선택자를 사용한다.
+   - 예를 들어 텍스트 영역 필드(textarea)를 사용해 회원 약관을 보여 줄 때는 사용자가 입력할 수 없도록 disabled 속성을 지정해야 하는데, 이때 :disabled 선택자를 사용하면 이런 텍스트 영역 필드의 스타일을 쉽게 적용할 수 있다.
 
 3. 선택한 항목의 스타일을 적용하는 ':checked 가상 클래스 선택자'
-    - 폼의 라디오 박스나 체크 박스에서 선택된 항목에는 checked라는 속성이 추가된다.
-    - checked 속성이 있는 요소의 스타일을 지정할 때 :chekced 선택자를 사용하면 편리하다.
-    - 예를 들어 라디오 버튼을 클릭했을 때 레이블을 빨간색 굵은 글자로 바꾸려면 다음과 같이 입력한다. 여기에서는 \<input>과 \<label> 태그가 형제 관계이므로 + 선택자를 사용한다.
-      ~~~css
-      #signup fieldset:first-of-type label {
-        float: left;
-        font-size: 13px;
-        width: 60px;
-      }
-      ~~~
-      ~~~html
-      <ul>
-        <li>
-          <input type="radio" name="room" id="basic">
-          <label for="basic">기본형(최대 2인)</label>
-        <li>      
-        <li>
-          <input type="radio" name="room" id="family">
-          <label for="family">가족형(최대 8인)</label>
-        </li>          
-      </ul>
-      ~~~
+
+   - 폼의 라디오 박스나 체크 박스에서 선택된 항목에는 checked라는 속성이 추가된다.
+   - checked 속성이 있는 요소의 스타일을 지정할 때 :chekced 선택자를 사용하면 편리하다.
+   - 예를 들어 라디오 버튼을 클릭했을 때 레이블을 빨간색 굵은 글자로 바꾸려면 다음과 같이 입력한다. 여기에서는 \<input>과 \<label> 태그가 형제 관계이므로 + 선택자를 사용한다.
+
+     ```css
+     #signup fieldset:first-of-type label {
+       float: left;
+       font-size: 13px;
+       width: 60px;
+     }
+     ```
+
+     ```html
+     <ul>
+       <li>
+         <input type="radio" name="room" id="basic" />
+         <label for="basic">기본형(최대 2인)</label>
+       </li>
+
+       <li></li>
+       <li>
+         <input type="radio" name="room" id="family" />
+         <label for="family">가족형(최대 8인)</label>
+       </li>
+     </ul>
+     ```
 
 4. 특정 요소를 제외하고 스타일을 적용하는 ':not 가상 클래스 선택자'
-    - :not 선택자의 not은 '괄호 안에 있는 요소를 제외한'이라는 의미이다.
-    - 예를 들어 다음 폼에는 텍스트와 전화번호 필드 그리고 라디오 버튼이 있는데, 이 중에서 텍스트와 전화번호 필드에 스타일을 적용하려고 한다.
-    ~~~css
-    #signup input[type=text], input[type=tel] {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 5px;
-    width: 200px;
-    }
-    ~~~
-    - 그런데 스타일을 적용하려고 하는 필드를 나열하는 것보다 적용하지 않는 필드가 더 적기 때문에 이럴 경우에는 :not 선택자를 사용하는 것이 더 편리하다.
-    ~~~css
-    #signup input:not([type=radio]) {
-      border: 1px solid #ccc;
-      border-radius: 3px;
-      padding: 5px;
-      width: 200px;
-    }
+   - :not 선택자의 not은 '괄호 안에 있는 요소를 제외한'이라는 의미이다.
+   - 예를 들어 다음 폼에는 텍스트와 전화번호 필드 그리고 라디오 버튼이 있는데, 이 중에서 텍스트와 전화번호 필드에 스타일을 적용하려고 한다.
+   ```css
+   #signup input[type="text"],
+   input[type="tel"] {
+     border: 1px solid #ccc;
+     border-radius: 3px;
+     padding: 5px;
+     width: 200px;
+   }
+   ```
+   - 그런데 스타일을 적용하려고 하는 필드를 나열하는 것보다 적용하지 않는 필드가 더 적기 때문에 이럴 경우에는 :not 선택자를 사용하는 것이 더 편리하다.
+   ```css
+   #signup input:not([type="radio"]) {
+     border: 1px solid #ccc;
+     border-radius: 3px;
+     padding: 5px;
+     width: 200px;
+   }
+   ```
 
 ### 구조 가상 클래스
+
 - 구조 가상 클래스란 웹 문서의 구조를 기준으로 특정 위치에 있는 요소를 찾아 스타일을 적용할 때 사용하는 가상 클래스 선택자이다.
+
 1. 특정 위치의 자식 요소 선택하기
-    - :nth-child(n) : 부모 안에 있는 모든 요소 중에서 n번째 자식 요소를 선택한다.
-    - :nth-of-type(n) : 부모 안에 있는 A 요소 중에서 n번째 요소를 선택한다.
-    - 그 외 여러가지 많으니 구글링!
+   - :nth-child(n) : 부모 안에 있는 모든 요소 중에서 n번째 자식 요소를 선택한다.
+   - :nth-of-type(n) : 부모 안에 있는 A 요소 중에서 n번째 요소를 선택한다.
+   - 그 외 여러가지 많으니 구글링!
 2. 수식을 사용해 위치 지정하기
-    - 1, 3, 5번째 처럼 위치가 규칙적으로 바뀐다면 an+b처럼 수식을 사용할 수도 있다.
-    - 이때 n값은 0부터 시작한다.
-    - 홀수 번째에 스타일을 줄 때는 :nth-child(odd), 짝수 번째에 스타일을 줄 때는 :nth-child(even)을 사용할 수 있다.
-    ~~~css
-    /* div 요소에서 세 번째 자식인 p 요소에 스타일을 적용 */
-    div p:nth-child(3)
-    /* div 요소에서 홀수 번째로 나타나는 자식인 p 요소에 스타일을 적용 */
-    div p:nth-child(odd), div p:nth-child(2n+1)
-    /* div 요소에서 짝수 번째로 나타나는 자식인 p 요소에 스타일 적용 */
-    div p:nth-child(even), div p:nth-child(2n)
-    ~~~
-    ~~~css
-    table tr:nth-of-type(2n+1) {  /* 홀수 번째 열에만 스타일 적용 */
-			background:lightgray;
-			color:black;
-    }
-    ~~~
+   - 1, 3, 5번째 처럼 위치가 규칙적으로 바뀐다면 an+b처럼 수식을 사용할 수도 있다.
+   - 이때 n값은 0부터 시작한다.
+   - 홀수 번째에 스타일을 줄 때는 :nth-child(odd), 짝수 번째에 스타일을 줄 때는 :nth-child(even)을 사용할 수 있다.
+   ```css
+   /* div 요소에서 세 번째 자식인 p 요소에 스타일을 적용 */
+   div p:nth-child(3)
+   /* div 요소에서 홀수 번째로 나타나는 자식인 p 요소에 스타일을 적용 */
+   div p:nth-child(odd), div p:nth-child(2n+1)
+   /* div 요소에서 짝수 번째로 나타나는 자식인 p 요소에 스타일 적용 */
+   div p:nth-child(even), div p:nth-child(2n)
+   ```
+   ```css
+   table tr:nth-of-type(2n + 1) {
+     /* 홀수 번째 열에만 스타일 적용 */
+     background: lightgray;
+     color: black;
+   }
+   ```
 
 ### 가상 요소
+
 - 가상 클래스가 웹 문서의 여러 요소 중에서 원하는 요소를 선택한다면, 가상 요수는 문서 안의 특정 부분에 스타일을 지정하기 위해 가상으로 요소를 만들어 추가한다.
 - 가상 요소를 만들어 사용하는 이유는 특별히 화면에 보이는 부분을 꾸밀 때 불필요한 태그를 사용하지 않도록 하기 위한 것이다.
 - 가상 요소는 가상 클래스와 구별하도록 가상 요소 이름 앞에 콜론 2개(::)를 붙여서 표시한다.
+
 1. 첫 번째 줄, 첫 번째 글자에 스타일을 적용하는 '::first-line 요소, ::first-letter 요소'
-    - 지정한 요소의 첫 번째 줄이나 첫 번째 글자에 스타일을 적용할 수 있다.
-    - ::first-letter 요소는 해당 요소의 첫 번째 글자를 가리키는 데, 첫번째 글자는 반드시 첫 번째 줄에 있어야 한다.
+   - 지정한 요소의 첫 번째 줄이나 첫 번째 글자에 스타일을 적용할 수 있다.
+   - ::first-letter 요소는 해당 요소의 첫 번째 글자를 가리키는 데, 첫번째 글자는 반드시 첫 번째 줄에 있어야 한다.
 2. 내용 앞뒤에 콘텐츠를 추가하는 '::before 요소, ::after 요소'
-    - 지정한 요소의 내용 앞뒤에 스타일을 넣을 수 있다.
-    - 이 요소를 사용하면 요소의 앞뒤에 텍스트나 이미지 등을 추가할 수 있다.
-    - 다음은 ::after 요소를 사용해 제품 목록에 'NEW!!'라는 텍스트를 추가한 예제이다.
-    ~~~css
-    li.new::after {
-      content:"NEW!!";
-      font-size:x-small;
-      padding:2px 4px;
-      margin: 0 10px;
-      border-radius:2px;
-      background:#f00;
-      color:#fff;
-    }
-    ~~~
-    ~~~ html
-    <ul>
-      <li class="new">제품 A</li>
-      <li>제품 B</li>
-      <li>제품 C</li>
-      <li class="new">제품 D</li>
-    </ul>
-    ~~~
+   - 지정한 요소의 내용 앞뒤에 스타일을 넣을 수 있다.
+   - 이 요소를 사용하면 요소의 앞뒤에 텍스트나 이미지 등을 추가할 수 있다.
+   - 다음은 ::after 요소를 사용해 제품 목록에 'NEW!!'라는 텍스트를 추가한 예제이다.
+   ```css
+   li.new::after {
+     content: "NEW!!";
+     font-size: x-small;
+     padding: 2px 4px;
+     margin: 0 10px;
+     border-radius: 2px;
+     background: #f00;
+     color: #fff;
+   }
+   ```
+   ```html
+   <ul>
+     <li class="new">제품 A</li>
+     <li>제품 B</li>
+     <li>제품 C</li>
+     <li class="new">제품 D</li>
+   </ul>
+   ```
 
 # 트랜지션과 애니메이션
+
 ## 변형 알아보기
+
 ### transform과 변형 함수
+
 - CSS에서 변형을 적용하려면 transform 속성과 변형 함수 이름을 함께 작성해야 한다.
-~~~
+
+```
 transform: 함수
-~~~
+```
+
 - 웹 요소를 이동시키는 변형 함수는 translate()인데, 예를 들어 웹 요소를 x축으로 50px, y축으로 100px 이동하는 클래스 선택자 .photo를 정의하려면 다음과 같이 사용한다.
-~~~css
-.photo { transform: translate(50px, 100px); }
-~~~
+
+```css
+.photo {
+  transform: translate(50px, 100px);
+}
+```
+
 1. 2차원 변형과 3차원 변형
-    - **2차원 변형**은 웹 요소를 평면에서 변형한다.
-    - 평면에서 변형할 때는 2차원 좌표를 사용하는데, x축은 오른쪽으로 갈수록 값이 커지고 y축은 아래로 내려갈수록 값이 커진다.
-    - **3차원 변형**은 x축과 y축에 원근감을 주는 z축을 추가해서 변형한다. 3차원 변형에서 z축은 앞뒤로 이동하며, 보는 사람 쪽으로 다가올수록 값이 커지고 뒤로 갈수록 값이 작아진다.
+   - **2차원 변형**은 웹 요소를 평면에서 변형한다.
+   - 평면에서 변형할 때는 2차원 좌표를 사용하는데, x축은 오른쪽으로 갈수록 값이 커지고 y축은 아래로 내려갈수록 값이 커진다.
+   - **3차원 변형**은 x축과 y축에 원근감을 주는 z축을 추가해서 변형한다. 3차원 변형에서 z축은 앞뒤로 이동하며, 보는 사람 쪽으로 다가올수록 값이 커지고 뒤로 갈수록 값이 작아진다.
 2. 2차원 변형 함수
-    - translate(tx, ty): 지정한 크기만큼 x축, y축으로 이동
-    - scale(sx, sy): 지정한 크기만큼 x축, y축으로 확대/축소
-    - rotate(각도): 지정한 각도만큼 회전
-    - skew(ax, ay): 지정한 각도만큼 x축, y축으로 왜곡
+   - translate(tx, ty): 지정한 크기만큼 x축, y축으로 이동
+   - scale(sx, sy): 지정한 크기만큼 x축, y축으로 확대/축소
+   - rotate(각도): 지정한 각도만큼 회전
+   - skew(ax, ay): 지정한 각도만큼 x축, y축으로 왜곡
 3. 3차원 변형 함수
-    - translate3d(tx, ty, tz): 지정한 크기만큼 x축, y축, z축으로 이동
-    - scale3d(sx, sy, sz): 지정한 크기만큼 x축, y축, z축으로 확대/축소
-    - rotate(rx, ry, rz, 각도): 지정한 각도만큼 회전
-    - perspective(길이): 입체적으로 보일 수 있도록 깊잇값을 지정
+   - translate3d(tx, ty, tz): 지정한 크기만큼 x축, y축, z축으로 이동
+   - scale3d(sx, sy, sz): 지정한 크기만큼 x축, y축, z축으로 확대/축소
+   - rotate(rx, ry, rz, 각도): 지정한 각도만큼 회전
+   - perspective(길이): 입체적으로 보일 수 있도록 깊잇값을 지정
 
 ### 웹 요소를 이동시키는 translate() 함수
+
 - translate() 함수는 x축이나 y축 또는 양쪽 방향으로 이동할 거리를 지정하면 해당 요소가 지정한 크기만큼 이동한다.
-~~~css
+
+```css
 transform: translate(tx, ty)
 transform: translate3d(tx, ty, tz)
 transform: translateX(tx)
 transform: translateY(ty)
 transform: translateZ(tz)
-~~~
-~~~css
+```
+
+```css
 #movex:hover {
-  transform: translateX(50px);  /* x축으로(가로) 50px 이동 */
+  transform: translateX(50px); /* x축으로(가로) 50px 이동 */
 }
 #movey:hover {
-  transform: translateY(20px);  /* y축으로(세로) 20px 이동 */
+  transform: translateY(20px); /* y축으로(세로) 20px 이동 */
 }
 #movexy:hover {
-  transform: translate(10px, 20px);  /* x축으로(가로) 10px, y축으로(세로) 20px 이동 */
+  transform: translate(
+    10px,
+    20px
+  ); /* x축으로(가로) 10px, y축으로(세로) 20px 이동 */
 }
-~~~
+```
 
 ### 요소를 확대/축소하는 scale() 함수
+
 - scale() 함수는 웹 요소를 지정한 크기만큼 확대하거나 축소한다.
 - 괄호 안의 값이 1보다 크면 확대되고 1보다 작으면 축소된다.
-~~~css
+
+```css
 transform: scale(sx, sy)
 transform: scale3d(sx, sy, sz)
 transform: scaleX(sx)
 transform: scaleY(sy)
 transform: scaleZ(sy)
-~~~
+```
+
 - scale(sx, sy)에 값이 하나뿐일 경우에는 x, y에 같은 값을 적용한다. ex) scale(2) = scale(2,2) 요소를 두배로 확대!
-~~~css
-#scalex:hover{
-  transform: scaleX(2);  /* x축으로(가로) 2배 확대 */ 
+
+```css
+#scalex:hover {
+  transform: scaleX(2); /* x축으로(가로) 2배 확대 */
 }
-#scaley:hover{
-  transform: scaleY(1.5);  /* y축으로(세로) 1.5배 확대 */ 
-} 
-#scale:hover{
-  transform: scale(0.7);  /* x, y축으로(가로, 세로) 0.7배 확대 */ 
+#scaley:hover {
+  transform: scaleY(1.5); /* y축으로(세로) 1.5배 확대 */
 }
-~~~
+#scale:hover {
+  transform: scale(0.7); /* x, y축으로(가로, 세로) 0.7배 확대 */
+}
+```
 
 ### 요소를 회전시키는 rotate() 함수
+
 1. 2차원 rotate() 함수
-    - rotate() 함수를 2차원에서 사용할 때는 각도만 지정하면 된다.
-    - 함수는 웹 요소를 지정한 각도만큼 오른쪽(시계 방향)이나 왼쪽(시계 반대 방향)으로 회전시킨다.
-    ~~~css
-    transform: rotate(각도)
-    ~~~
-    - 각도: 각도(degree)나 래디안(radian)을 사용한다. <1래디안 = 180도>
-    - 회전 각도가 양수일 경우 오른쪽으로 회전, 음수일 경우 왼쪽으로 회전
-    ~~~css
-    #rotate1:hover {
-      transform: rotate(40deg);  /* 시계 방향(오른쪽)으로 40도 회전 */
-    }
-    #rotate2:hover {
-      transform: rotate(-40deg);  /* 시계 반대 방향(왼쪽)으로 40도 회전 */
-    }
-    ~~~
+
+   - rotate() 함수를 2차원에서 사용할 때는 각도만 지정하면 된다.
+   - 함수는 웹 요소를 지정한 각도만큼 오른쪽(시계 방향)이나 왼쪽(시계 반대 방향)으로 회전시킨다.
+
+   ```css
+   transform: rotate(각도);
+   ```
+
+   - 각도: 각도(degree)나 래디안(radian)을 사용한다. <1래디안 = 180도>
+   - 회전 각도가 양수일 경우 오른쪽으로 회전, 음수일 경우 왼쪽으로 회전
+
+   ```css
+   #rotate1:hover {
+     transform: rotate(40deg); /* 시계 방향(오른쪽)으로 40도 회전 */
+   }
+   #rotate2:hover {
+     transform: rotate(-40deg); /* 시계 반대 방향(왼쪽)으로 40도 회전 */
+   }
+   ```
 
 2. 3차원 rotate() 함수
-    ~~~css
-    transform: rotate(rx, ry, 각도)
-    transform: rotate3d(rx, ry, rz, 각도)
-    transform: rotateX(각도)
-    transform: rotateY(각도)
-    transform: rotateZ(각도)
-    ~~~
-    - perspective 속성을 함께 사용해서 원근감을 추가해 주면 회전 형태를 입체적으로 표현할 수 있다.
-    - 원래 있던 위치에서 사용자가 있는 방향이나 혹은 반대 방향으로 잡아당기거나 밀어내어 원근감을 표현한다.
-    - perspective 속성에서 사용하는 값은 0보다 커야 하며, 원래 있던 위치에서 사용자가 있는 쪽으로 얼마나 이동하는지를 픽셀 크기로 나타낸다.
-    - 값이 클수록 사용자로부터 멀어진다.
-    - 이때 주의할 점은 perspective 속성은 변형하는 요소가 아니라 **변형하는 요소의 부모 요소**에 정의해야 한다는 것이다.
-    - 다음 예제는 도형 x축, y축, z축으로 각각 55도씩 회전하거나 x,y,z,축에 방향 벡터를 지정하고 55도를 회전한다.
-    ~~~css
-    .origin {
-      ...
-      perspective: 200px;  /* 원근감 추가 */ 
-    }
-    .origin > div {				
-      ...
-      transition:all 3s;  /* 3초 동안 회전하도록 트랜지션 적용 */
-    }
-    #rotatex:hover {
-      transform: rotateX(55deg);  /* x축으로 55도 회전 */
-    }
-    #rotatey:hover {
-      transform: rotateY(55deg);  /* y축으로 55도 회전 */
-    }
-    #rotatez:hover {
-      transform: rotateZ(55deg);   /* z축으로 55도 회전 */
-    }
-    #rotatexyz:hover {
-      transform: rotate3d(2.5, 1.2, -1.5, 55deg);  /* x,y,z축으로 55도 회전 */
-    }
-    ~~~
+   ```css
+   transform: rotate(rx, ry, 각도)
+   transform: rotate3d(rx, ry, rz, 각도)
+   transform: rotateX(각도)
+   transform: rotateY(각도)
+   transform: rotateZ(각도)
+   ```
+   - perspective 속성을 함께 사용해서 원근감을 추가해 주면 회전 형태를 입체적으로 표현할 수 있다.
+   - 원래 있던 위치에서 사용자가 있는 방향이나 혹은 반대 방향으로 잡아당기거나 밀어내어 원근감을 표현한다.
+   - perspective 속성에서 사용하는 값은 0보다 커야 하며, 원래 있던 위치에서 사용자가 있는 쪽으로 얼마나 이동하는지를 픽셀 크기로 나타낸다.
+   - 값이 클수록 사용자로부터 멀어진다.
+   - 이때 주의할 점은 perspective 속성은 변형하는 요소가 아니라 **변형하는 요소의 부모 요소**에 정의해야 한다는 것이다.
+   - 다음 예제는 도형 x축, y축, z축으로 각각 55도씩 회전하거나 x,y,z,축에 방향 벡터를 지정하고 55도를 회전한다.
+   ```css
+   .origin {
+     ...
+     perspective: 200px;  /* 원근감 추가 */
+   }
+   .origin > div {
+     ...
+     transition:all 3s;  /* 3초 동안 회전하도록 트랜지션 적용 */
+   }
+   #rotatex:hover {
+     transform: rotateX(55deg);  /* x축으로 55도 회전 */
+   }
+   #rotatey:hover {
+     transform: rotateY(55deg);  /* y축으로 55도 회전 */
+   }
+   #rotatez:hover {
+     transform: rotateZ(55deg);   /* z축으로 55도 회전 */
+   }
+   #rotatexyz:hover {
+     transform: rotate3d(2.5, 1.2, -1.5, 55deg);  /* x,y,z축으로 55도 회전 */
+   }
+   ```
 3. 요소를 비틀어 왜곡하는 skew() 함수
-    - skew() 함수는 지정한 각도만큼 요소를 비틀어 왜곡한다. 이때 양쪽 방향으로 비틀거나 한쪽 방향으로만 비틀 수도 있다.
-    ~~~css
-    transform: skew(x각도, y각도)
-    transform: skewX(x각도)
-    transform: skewY(y각도)
-    ~~~
-    - skew(x각도, y각도)에 두번째 값이 주어지지 않으면 y축 각도를 0으로 간주한다.
-    ~~~css
-    #skewx:hover {
-        transform: skewX(30deg);  /* x축 기준으로 30도 비틀기 */
-    }
-    #skewy:hover {
-      transform: skewY(15deg);  /* y축 기준으로 15도 비틀기 */
-    }
-    #skewxy:hover {
-      transform: skew(-25deg, -15deg);  /* x축 기준으로 -25도, y축 기준으로 -15도 비틀기 */
-    }
-    ~~~
+   - skew() 함수는 지정한 각도만큼 요소를 비틀어 왜곡한다. 이때 양쪽 방향으로 비틀거나 한쪽 방향으로만 비틀 수도 있다.
+   ```css
+   transform: skew(x각도, y각도)
+   transform: skewX(x각도)
+   transform: skewY(y각도)
+   ```
+   - skew(x각도, y각도)에 두번째 값이 주어지지 않으면 y축 각도를 0으로 간주한다.
+   ```css
+   #skewx:hover {
+     transform: skewX(30deg); /* x축 기준으로 30도 비틀기 */
+   }
+   #skewy:hover {
+     transform: skewY(15deg); /* y축 기준으로 15도 비틀기 */
+   }
+   #skewxy:hover {
+     transform: skew(
+       -25deg,
+       -15deg
+     ); /* x축 기준으로 -25도, y축 기준으로 -15도 비틀기 */
+   }
+   ```
 
 ## 트랜지션 알아보기
+
 ### 트랜지션이란
+
 - 웹 요소의 스타일 속성이 시간에 따라 바뀌는 것을 트랜지션이라고 한다.
 
 ### 트랜지션과 속성
+
 - transition-property: 트랜지션의 대상을 지정
 - transition-duration: 트랜지션을 실행할 시간을 지정
 - transition-timing-function: 트랜지션의 실행 형태를 지정
 - transition-delay: 트랜지션의 지연 시간을 지정
 - transition: 한꺼번에 속성 저장
+
 1. 트랜지션의 대상을 지정하는 transition-property 속성
-    - 트랜지션을 만들려면 먼저 transition-property 속성을 사용하여 어떤 속성에 트랜지션을 적용할 것인지 대상을 지정해야 한다.
-    ~~~css
-    transtion-property: all | none | <속성 이름>
-    ~~~
-    - all: all값을 사용하거나 transition-property를 생략할 경우 요소의 모든 속성이 트랜지션 대상이 된다. (기본값)
-    - none: 트랜지션을 하는 동안 아무 속성도 바뀌지 않는다.
-    - 속성 이름: 트랜지션 효과를 적용할 속성을 지정한다. (속성이 여럿일 경우 쉼표로 구분)
-    ~~~css
-    transition-property: all;
-    transition-property: background-color;
-    transition-property: width, height;
-    ~~~
+
+   - 트랜지션을 만들려면 먼저 transition-property 속성을 사용하여 어떤 속성에 트랜지션을 적용할 것인지 대상을 지정해야 한다.
+
+   ```css
+   transtion-property: all | none | <속성 이름>;
+   ```
+
+   - all: all값을 사용하거나 transition-property를 생략할 경우 요소의 모든 속성이 트랜지션 대상이 된다. (기본값)
+   - none: 트랜지션을 하는 동안 아무 속성도 바뀌지 않는다.
+   - 속성 이름: 트랜지션 효과를 적용할 속성을 지정한다. (속성이 여럿일 경우 쉼표로 구분)
+
+   ```css
+   transition-property: all;
+   transition-property: background-color;
+   transition-property: width, height;
+   ```
 
 2. 트랜지션의 진행 시간을 지정하는 transition-duration 속성
-    - 진행 시간을 지정해야 속성이 자연스럽게 바뀌는 애니메이션 효과를 만들 수 있다.
-    - 시간 단위: 초(second) 또는 밀리초(millisecond)
-    - 트랜지션의 대상 속성이 여러 개라면 진행 시간도 쉼표(,)로 구분해서 여러개 지정
-    ~~~css
-    transition-duration: <시간>
-    ~~~
-    - 다음 예제는 높잇값은 1초 안에 바뀌게 하고 너빗값은 2초에 걸쳐 바뀌게 한다.
-    ~~~css
-    transition-property: width, height;  /* 트랜지션 대상 - 너비, 높이 */
-    transition-duration: 2s, 1s;  /* 트랜지션 시간 - 2초, 1초 */
-    ~~~
+
+   - 진행 시간을 지정해야 속성이 자연스럽게 바뀌는 애니메이션 효과를 만들 수 있다.
+   - 시간 단위: 초(second) 또는 밀리초(millisecond)
+   - 트랜지션의 대상 속성이 여러 개라면 진행 시간도 쉼표(,)로 구분해서 여러개 지정
+
+   ```css
+   transition-duration: <시간>;
+   ```
+
+   - 다음 예제는 높잇값은 1초 안에 바뀌게 하고 너빗값은 2초에 걸쳐 바뀌게 한다.
+
+   ```css
+   transition-property: width, height; /* 트랜지션 대상 - 너비, 높이 */
+   transition-duration: 2s, 1s; /* 트랜지션 시간 - 2초, 1초 */
+   ```
 
 3. 트랜지션의 속도 곡선을 지정하는 transition-timing-function 속성
-    - 트랜지션 효과의 시작, 중간, 끝에서 속도를 지정해 전체 속도 곡선을 만들 수 있다.
-    - 속도 곡선은 미리 정해진 키워드나 베지에 곡선을 이용해 표현한다.
-    ~~~css
-    transition-timing-function: linear | ease | ease-in | ease-out | ease-in-out | cubic-bezier(n, n, n, n)
-    ~~~
-    - ease: 처음에는 천천히 시작하고 점점 빨라지다가 마지막엔 천천히 끝낸다. (기본값)
-    - linear: 시작부터 끝까지 똑같은 속도
-    - ease-in: 느리게 시작
-    - ease-out: 느리게 끝냄
-    - ease-in-out: 느리게 시작, 느리게 끝냄
-    - cubic-bezier(n, n, n, n): 베지에 함수를 정의해서 사용. 이때 n값은 0~1 사이만 사용할 수 있다.
+
+   - 트랜지션 효과의 시작, 중간, 끝에서 속도를 지정해 전체 속도 곡선을 만들 수 있다.
+   - 속도 곡선은 미리 정해진 키워드나 베지에 곡선을 이용해 표현한다.
+
+   ```css
+   transition-timing-function: linear | ease | ease-in | ease-out | ease-in-out
+     | cubic-bezier(n, n, n, n);
+   ```
+
+   - ease: 처음에는 천천히 시작하고 점점 빨라지다가 마지막엔 천천히 끝낸다. (기본값)
+   - linear: 시작부터 끝까지 똑같은 속도
+   - ease-in: 느리게 시작
+   - ease-out: 느리게 끝냄
+   - ease-in-out: 느리게 시작, 느리게 끝냄
+   - cubic-bezier(n, n, n, n): 베지에 함수를 정의해서 사용. 이때 n값은 0~1 사이만 사용할 수 있다.
 
 4. 트랜지션의 지연 시간을 설정하는 transition-delay 속성
-    - 이 속성을 사용하면 지정한 시간만큼 기다렸다가 트랜지션이 시작된다.
-    - 단위: 초(s) 또는 밀리초(ms) <기본값: 0>
-    ~~~css
-    transition-delay: <시간>
-    ~~~
+
+   - 이 속성을 사용하면 지정한 시간만큼 기다렸다가 트랜지션이 시작된다.
+   - 단위: 초(s) 또는 밀리초(ms) <기본값: 0>
+
+   ```css
+   transition-delay: <시간>;
+   ```
 
 5. 트랜지션의 속성을 한꺼번에 표기하는 transition 속성
-    - 트랜지션의 적용 대상이 전체이고 각각의 진행 시간이 같다면 transition 속성으로 한꺼번에 지정하는 것이 편리하다.
-    ~~~css
-    transition: <transition-property값> | <transition-duration값> | <transition-timing-function값> | <transition-delay값>
-    ~~~
-    - 속성값을 작성하는 순서는 상관없다. 다만 시간값을 사용하는 속성이 2개(진행 시간, 지연시간)이므로 시간값이 2개 있다면 앞에 오는 시간값을 transition-duration 속성으로, 뒤에 오는 시간값은 transition-dealy 속성으로 간주한다.
+   - 트랜지션의 적용 대상이 전체이고 각각의 진행 시간이 같다면 transition 속성으로 한꺼번에 지정하는 것이 편리하다.
+   ```css
+   transition: <transition-property값> | <transition-duration값> |
+     <transition-timing-function값> | <transition-delay값>;
+   ```
+   - 속성값을 작성하는 순서는 상관없다. 다만 시간값을 사용하는 속성이 2개(진행 시간, 지연시간)이므로 시간값이 2개 있다면 앞에 오는 시간값을 transition-duration 속성으로, 뒤에 오는 시간값은 transition-dealy 속성으로 간주한다.
 
 ## 애니메이션 알아보기
+
 ### CSS 애니메이션에서 사용하는 속성
+
 - CSS3의 animation 속성을 사용하면 자바스크립트를 사용하지 않고도 웹 요소의 애니메이션을 추가할 수 있다.
 - animation 속성은 특정 지점에서 스타일을 바꾸면서 애니메이션을 만드는데, 이렇게 중간에 스타일이 바뀌는 지점을 **키프레임**이라고 한다.
 - animation의 속성
@@ -1504,137 +1882,181 @@ transform: scaleZ(sy)
   - animation: 속성을 한꺼번에 묶어서 지정
 
 1. 애니메이션의 지점과 이름을 설정하는 @keyframes 속성, animation-name 속성
-    - 애니메이션의 시작과 끝을 비롯하여 상태가 바뀌는 부분이 있다면 @keyframes 속성을 이용해 바뀌는 지점을 설정한다.
-    ~~~css
-    @keyframes <이름> {
-      <선택자> { <스타일> }
-    }
-    ~~~
-    - 또한 웹 문서에서는 애니메이션을 여러 개 정의할 수 있으므로 이름을 이용해 애니메이션을 구별해야 한다. 이때 animation-name 속성으로 어떤 애니메이션을 사용할지 이름으로 구분한다.
-    ~~~css
-    animation-name: <키프레임 이름> | none
-    ~~~
-    - @keyframes 속성에서 사용하는 선택자는 스타일 속성값이 바뀌는 지점을 가리킨다. 예를 들어 애니메이션의 중간 지점을 추가하려면 시작 위치를 0%, 끝 위치를 100%로 놓고 50% 위치에 키프레임을 추가하면 된다. 시작과 끝 위치만 사용하려면 0%, 100%와 같은 값 대신 from과 to라는 키워드를 사용한다.
+
+   - 애니메이션의 시작과 끝을 비롯하여 상태가 바뀌는 부분이 있다면 @keyframes 속성을 이용해 바뀌는 지점을 설정한다.
+
+   ```css
+   @keyframes <이름> {
+     <선택자> { <스타일> }
+   }
+   ```
+
+   - 또한 웹 문서에서는 애니메이션을 여러 개 정의할 수 있으므로 이름을 이용해 애니메이션을 구별해야 한다. 이때 animation-name 속성으로 어떤 애니메이션을 사용할지 이름으로 구분한다.
+
+   ```css
+   animation-name: <키프레임 이름> | none;
+   ```
+
+   - @keyframes 속성에서 사용하는 선택자는 스타일 속성값이 바뀌는 지점을 가리킨다. 예를 들어 애니메이션의 중간 지점을 추가하려면 시작 위치를 0%, 끝 위치를 100%로 놓고 50% 위치에 키프레임을 추가하면 된다. 시작과 끝 위치만 사용하려면 0%, 100%와 같은 값 대신 from과 to라는 키워드를 사용한다.
 
 2. 애니메이션의 실행 시간을 지정하는 animation-duration 속성
-    - animation-duration 속성은 애니메이션을 얼마 동안 재생할 것인지 설정한다.
-    ~~~css
-    animation-duration: <시간>
-    ~~~
-    - 시간 단위: 초(s), 밀리초(ms)
-    - 기본값은 0이므로 속성값을 정하지 않으면 애니메이션 실행 X
-    - 다음 예제는 @keyframes을 이용해 shape와 rotate라는 애니메이션을 가각 정의하고, #box1과 #box2에 각각 animation-name: shape와 animation-name: rotate를 사용해 애니메이션을 각각 실행한다.
-    ~~~css
-    #box1 {
-			background-color: #4cff00;
-			border: 1px solid transparent;
-			animation-name: shape;  /* 애니메이션 지정 */ 
-			animation-duration: 3s;  /* 애니메이션 실행 시간 */
-		}
-		#box2 {
-			background-color: #8f06b0;
-			border: 1px solid transparent;
-			animation-name: rotate;  /* 애니메이션 지정 */
-			animation-duration: 3s;  /* 애니메이션 실행 시간 */
-		}
 
-		@keyframes shape { /* shape 애니메이션 정의 */
-			from {
-				border: 1px solid transparent;  /* 1px짜리 투명한 테두리 */
-			}
-			to {
-				border: 1px solid #000;  /* 검정색 테두리 */
-				border-radius: 50%;  /* 테두리를 둥글게 */
-			}
-		}
+   - animation-duration 속성은 애니메이션을 얼마 동안 재생할 것인지 설정한다.
 
-		@keyframes rotate {  /* rotate 애니메이션 정의 */
-			from {
-				transform:rotate(0deg)  /* 시작은 0도에서 */
-			}
-			to {
-				transform: rotate(45deg);  /* 45도까지 회전 */
-			}
-		}
-    ~~~
+   ```css
+   animation-duration: <시간>;
+   ```
+
+   - 시간 단위: 초(s), 밀리초(ms)
+   - 기본값은 0이므로 속성값을 정하지 않으면 애니메이션 실행 X
+   - 다음 예제는 @keyframes을 이용해 shape와 rotate라는 애니메이션을 가각 정의하고, #box1과 #box2에 각각 animation-name: shape와 animation-name: rotate를 사용해 애니메이션을 각각 실행한다.
+
+   ```css
+   #box1 {
+     background-color: #4cff00;
+     border: 1px solid transparent;
+     animation-name: shape; /* 애니메이션 지정 */
+     animation-duration: 3s; /* 애니메이션 실행 시간 */
+   }
+   #box2 {
+     background-color: #8f06b0;
+     border: 1px solid transparent;
+     animation-name: rotate; /* 애니메이션 지정 */
+     animation-duration: 3s; /* 애니메이션 실행 시간 */
+   }
+
+   @keyframes shape {
+     /* shape 애니메이션 정의 */
+     from {
+       border: 1px solid transparent; /* 1px짜리 투명한 테두리 */
+     }
+     to {
+       border: 1px solid #000; /* 검정색 테두리 */
+       border-radius: 50%; /* 테두리를 둥글게 */
+     }
+   }
+
+   @keyframes rotate {
+     /* rotate 애니메이션 정의 */
+     from {
+       transform: rotate(0deg); /* 시작은 0도에서 */
+     }
+     to {
+       transform: rotate(45deg); /* 45도까지 회전 */
+     }
+   }
+   ```
 
 3. 애니메이션의 방향을 지정하는 animation-direction 속성
-    - 애니메이션은 기본적으로 keyframes 정의한 from에서 to 순으로 진행하는데 animation-direction 속성을 사용해서 진행 방향으로 바꿀 수 있다.
-    ~~~css
-    animation-direction: normal | reverse | alternate | alternate-reverse
-    ~~~
-    - animation-direction의 속성값
-      - normal: 애니메이션을 from에서 to로 진행한다. (기본값)
-      - reverse: 애니메이션을 to에서 from으로, 원래 방향과는 반대로 진행한다.
-      - alternate: 홀수 번째는 normal로, 짝수 번째는 reverse로 진행한다.
-      - alternate-reverse: 홀수 번째는 reverse로, 짝수 번째는 normal로 진행한다.
-  
+
+   - 애니메이션은 기본적으로 keyframes 정의한 from에서 to 순으로 진행하는데 animation-direction 속성을 사용해서 진행 방향으로 바꿀 수 있다.
+
+   ```css
+   animation-direction: normal | reverse | alternate | alternate-reverse;
+   ```
+
+   - animation-direction의 속성값
+     - normal: 애니메이션을 from에서 to로 진행한다. (기본값)
+     - reverse: 애니메이션을 to에서 from으로, 원래 방향과는 반대로 진행한다.
+     - alternate: 홀수 번째는 normal로, 짝수 번째는 reverse로 진행한다.
+     - alternate-reverse: 홀수 번째는 reverse로, 짝수 번째는 normal로 진행한다.
+
 4. 반복 횟수를 지정하는 animation-iteration-count 속성
-    - 상황에 따라 애니메이션을 반복해서 보여 줘야 할 때는 animation-iteration-count 속성을 사용해 반복 횟수를 지정한다.
-    ~~~css
-    animation-iteration-count: <숫자> | infinite
-    ~~~
+
+   - 상황에 따라 애니메이션을 반복해서 보여 줘야 할 때는 animation-iteration-count 속성을 사용해 반복 횟수를 지정한다.
+
+   ```css
+   animation-iteration-count: <숫자> | infinite;
+   ```
 
 5. 애니메이션의 속도 곡선을 지정하는 animation-timing-function 속성
-    - 트랜지션과 마찬가지로 animation에서도 애니메이션의 시작, 중간, 끝에서 속도를 지정하여 전체 속도 곡선을 만들 수 있다.
-    ~~~css
-    animation-timing-function: linear | ease | ease-in | ease-out | ease-in-out | cubic-bezier(n, n, n, n)
-    ~~~
+
+   - 트랜지션과 마찬가지로 animation에서도 애니메이션의 시작, 중간, 끝에서 속도를 지정하여 전체 속도 곡선을 만들 수 있다.
+
+   ```css
+   animation-timing-function: linear | ease | ease-in | ease-out | ease-in-out |
+     cubic-bezier(n, n, n, n);
+   ```
 
 6. 애니메이션의 속성을 한꺼번에 표기하는 animation 속성
-    - 애니메이션 속성을 한꺼번에 표기한다.
-    - 주의할 점은 애니메이션 속성을 사용할 때 animation-duration 속성을 반드시 표기해야 한다. 애니메이션 실행 시간을 지정하지 않으면 기본값으로 0이 적용되어 애니메이션 효과를 보지 못하기 때문이다.
-    ~~~css
-    .box {
-      width: 100px;
-      height: 100px;
-      margin: 60px auto;      
-      animation: rotate 1.5s infinite, background 1.5s infinite alternate;
-    }
 
-    @keyframes rotate {  /* 0도 -> x축 -180도 회전 -> y축 -180도 회전 */
-      from { transform: perspective(120px) rotateX(0deg) rotateY(0deg); }
-      50% { transform: perspective(120px) rotateX(-180deg) rotateY(0deg); }
-      to { transform: perspective(120px) rotateX(-180deg) rotateY(-180deg); }
-    }
+   - 애니메이션 속성을 한꺼번에 표기한다.
+   - 주의할 점은 애니메이션 속성을 사용할 때 animation-duration 속성을 반드시 표기해야 한다. 애니메이션 실행 시간을 지정하지 않으면 기본값으로 0이 적용되어 애니메이션 효과를 보지 못하기 때문이다.
 
-    @keyframes background {  /* 배경색 빨강 -> 초록 -> 파랑 */
-      from { background-color: red; }
-      50% { background-color: green }
-      to { background-color: blue; }
-    }
-    ~~~
+   ```css
+   .box {
+     width: 100px;
+     height: 100px;
+     margin: 60px auto;
+     animation: rotate 1.5s infinite, background 1.5s infinite alternate;
+   }
+
+   @keyframes rotate {
+     /* 0도 -> x축 -180도 회전 -> y축 -180도 회전 */
+     from {
+       transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+     }
+     50% {
+       transform: perspective(120px) rotateX(-180deg) rotateY(0deg);
+     }
+     to {
+       transform: perspective(120px) rotateX(-180deg) rotateY(-180deg);
+     }
+   }
+
+   @keyframes background {
+     /* 배경색 빨강 -> 초록 -> 파랑 */
+     from {
+       background-color: red;
+     }
+     50% {
+       background-color: green;
+     }
+     to {
+       background-color: blue;
+     }
+   }
+   ```
 
 # 반응형 웹과 미디어 쿼리
+
 ## 반응형 웹 알아보기
+
 ### 반응형 웹 디자인이란
+
 - 화면 크기가 다양한 모바일이 계속 쏟아져 나오는데 그때마다 사이트를 따로따로 제작하는 것은 매우 비효율적!
 - 이런 점을 고려해서 화면 크기에 '반응'하는 화면 요소를 자동으로 바꾸어 사이트를 구현하는 것이 바로 **반응형 웹 디자인**이다.
 
 ### 모바일 기기를 위한 뷰포트
+
 - PC 화면에 맞춰서 제작한 사이트를 모바일 기기에서 확인하면 원래 PC 화면 크기만큼 표시하므로 글자가 아주 작다. 혹은 모바일 기기에 적합한 사이트를 제작했더라도 정작 스마트폰 화면에서 내용을 확인하면 원래 의도한 대로 표시되지 않기도 한다.
 - 이것은 웹키트(webkit)를 기반으로 한 모바일 브라우저의 기본 뷰포트 너비가 980px이기 때문이다. 다시 말해 웹 페이지 너비를 스마트폰용인 320px로 맞추어 웹 사이트를 제작하더라도 무조건 980px로 표시하려고 한다.
 
 ### 뷰포트 지정하기
+
 - 뷰포트는 \<meta> 태그를 이용해 \<head>와 \</head> 태그 사이에 작성한다.
-~~~css
+
+```css
 <meta name="viewport" content="속성1=값1", "속성2=값2", ...>
-~~~
+```
+
 - 뷰포트의 속성
 
-|종류|설명|사용 가능한 값|기본값|
-|:---:|:---:|:---:|:---:|
-|width|뷰포트 너비|device-width 또는 크기|브라우저 기본값
-|height|뷰포트 높이|device-height 또는 크기|브라우저 기본값
-|user-scalable|확대/축소 가능 여부|yes 또는 no<br>(yes는 1로, device-width와 device-height값은 10으로 간주)|yes
-|initial-scale|초기 확대/축소 값|1~10|1
+|     종류      |        설명         |                              사용 가능한 값                              |     기본값      |
+| :-----------: | :-----------------: | :----------------------------------------------------------------------: | :-------------: |
+|     width     |     뷰포트 너비     |                          device-width 또는 크기                          | 브라우저 기본값 |
+|    height     |     뷰포트 높이     |                         device-height 또는 크기                          | 브라우저 기본값 |
+| user-scalable | 확대/축소 가능 여부 | yes 또는 no<br>(yes는 1로, device-width와 device-height값은 10으로 간주) |       yes       |
+| initial-scale |  초기 확대/축소 값  |                                   1~10                                   |        1        |
 
 - 다음은 가장 많이 사용하는 뷰포트 속성으로 웹 페이지 뷰포트의 너비를 스마트폰 화면 너비에 맞추고 초기 화면 배율을 1로 지정한다.
-~~~html
-<meta name="viewport" content="width=deice-width, initial-scale=1">
-~~~
+
+```html
+<meta name="viewport" content="width=deice-width, initial-scale=1" />
+```
 
 ### 뷰포트 단위
+
 - 뷰포트 개념이 등장하기 전까지는 CSS에서 크기를 지정할 때 주로 px, %의 단위를 사용했지만 이제는 다음과 같이 뷰포트를 기준으로 하는 단위를 사용할 수도 있다.
   - vw(viewport width): 1vw는 뷰포트 너비의 1%와 같다.
   - vh(viewport height): 1vh는 뷰포트 높이의 1%와 같다.
@@ -1644,26 +2066,35 @@ transform: scaleZ(sy)
   - 1vw = 10px, 1vh = 8px, 1vmin = 8px, 1vmax = 10px
 
 ## 미디어 쿼리 알아보기
+
 ### 미디어 쿼리 알아보기
+
 - CSS 모듈인 **미디어 쿼리**는 사이트에 접속하는 장치에 따라 특정한 CSS 스타일을 사용하는 방법이다. 미디어 쿼리를 사용하면 접속하는 기기의 화면 크기에 따라 레이아웃이 달라진다.
-> 미디어 쿼리 사이트(mediaqueri.es)에 접속하면 미디어 쿼리를 이용하여 만든 다양한 사이트가 날짜별로 정렬되어 있다. 여기서 섬네일 이미지를 선택하면 해당 사이트로 이동할 수 있다.
+  > 미디어 쿼리 사이트(mediaqueri.es)에 접속하면 미디어 쿼리를 이용하여 만든 다양한 사이트가 날짜별로 정렬되어 있다. 여기서 섬네일 이미지를 선택하면 해당 사이트로 이동할 수 있다.
 
 ### 미디어 쿼리 구문
+
 - 미디어 쿼리는 @media 속성을 사용해 특정 미디어에서 어떤 CSS를 적용할 것인지 지정해 준다.
-~~~css
-@media [only | not] 미디어 유형 [and 조건] * [and 조건]
-~~~
+
+```css
+@media [only | not] 미디어 유형 [and 조건] * [and 조건];
+```
+
 1. only: 미디어 쿼리를 지원하지 않는 웹 브라우저에서는 미디어 쿼리를 무시하고 실행하지 않는다.
 2. not: not 다음에 지정하는 미디어 유형을 제외한다. (ex. not tv = tv를 제외)
 3. and: 조건을 여러 개 연결해서 추가할 수 있다.
+
 - 미디어 쿼리 구문은 \<style>과 \</style> 사이에 사용하며 대소 문자를 구별하지 않는다.
 - 예를 들어 다음 소스는 미디어 유형이 screen이면서 최소 너비가 768px이고 최대 너비는 1439px일 경우에 적용할 CSS를 정의하는 구문이다.
-~~~css
+
+```css
 @media screen and (min-width: 768px) and (max-width: 1439px) {
-  ...
+  ...;
 }
-~~~
+```
+
 <미디어 유형의 종류>
+
 - 미디어 쿼리는 미디어별로 적용할 CSS를 따로 작성하므로 @media 속성 다음에 미디어 유형을 알려줘야 한다.
   - all: 모든 미디어 유형에서 사용
   - print: 인쇄 장치에서 사용
@@ -1675,55 +2106,67 @@ transform: scaleZ(sy)
   - projection: 프로젝터에서 사용
   - tty: 디스플레이 기능이 제한된 장치에 맞는 CSS에서 사용.
   - embossed: 점자 프린터에서 사용
-~~~css
-@media screen { /* 화면용 스타일 작성 */
-  ...
+
+```css
+@media screen {
+  /* 화면용 스타일 작성 */
+  ...;
 }
-@media print { /* 인쇄용 스타일 작성 */
-  ...
+@media print {
+  /* 인쇄용 스타일 작성 */
+  ...;
 }
-~~~
+```
 
 <웹 문서의 가로 너비와 세로 높이 속성>
+
 - 실제 웹 문서의 내용이 화면에 나타나는 영역을 뷰포트라고 하는데 뷰포트의 너비와 높이를 미디어의 쿼리의 조건으로 사용할 수 있다.
 - 이때 높잇값은 미디어에 따라 달라지므로 주의해야 한다.
-> screen이 아닌 미디어에서는 스크롤을 포함한 전체 문서를 height로 지정해야하 하며, print에서는 한 페이지 높이를 기준으로 한다.
+  > screen이 아닌 미디어에서는 스크롤을 포함한 전체 문서를 height로 지정해야하 하며, print에서는 한 페이지 높이를 기준으로 한다.
   - width, height: 웹 페이지의 가로 너비, 세로 높이를 지정한다.
   - min-width, min-height: 웹 페이지의 최소 너비, 높이를 지정한다.
   - max-width, max-height: 웹 페이지의 최대 너비, 높이를 지정한다.
-~~~css
-@media screen and (min-width: 1440px) { /* 너비가 최소 1440px인 화면용 스타일 */
-  ...
+
+```css
+@media screen and (min-width: 1440px) {
+  /* 너비가 최소 1440px인 화면용 스타일 */
+  ...;
 }
-~~~
+```
 
 <단말기의 가로 너비와 세로 높이 속성>
+
 - 단말기 너비와 높이는 단말기 브라우저 창의 너비와 높이를 말한다.
 - 이때 주의할 점은 대부분의 단말기 해상도와 실제 브라우저의 너비가 다르다는 것이다.<br>(ex. 아이폰 단말기 자체의 해상도와 아이폰의 웹 브라우저인 사파리의 너비는 다르다.)
   - device-width, device-height: 단말기의 가로 너비, 세로 높이를 지정
   - min-device-width, min-device-height: 단말기의 최소 너비, 높이 지정
   - max-device-width, max-device-height: 단말기의 최대 너비, 높이 지정
 - 예를 들어 아이폰 X일 경우에 미디어 쿼리는 다음과 같이 작성한다.
-~~~css
+
+```css
 @media screen and (min-device-width: 375px) and (min-device-height: 812px) {
-  ...
+  ...;
 }
-~~~
+```
 
 <화면 회전 속성>
+
 - 미디어 쿼리에서 prientation 속성을 사용하면 기기의 방향을 확인할 수 있고, 그에 따라서 웹 사이트의 레이아웃을 바꿀 수 있다.
   - orientation: portrait - 단말기의 세로 모드를 지정한다.
   - orientation: landscape - 단말기의 가로 모드를 지정한다.
 - 예를 들어 아이폰 X를 가로로 돌릴 경우에 미디어 쿼리는 다음과 같이 작성한다.
-~~~css
+
+```css
 @media screen and (min-device-width: 812px) and (orientation: landscape) {
-  ...
+  ...;
 }
-~~~
+```
+
 - 이 외에도 화면 비율이나 단말기 화면 비율, 색상당 비트 수 같은 여러 가지 미디어 쿼리 조건이 있다.
-> 더 자세히 알고 싶다면 [링크](w3.org/TR/css3-mediaqueries)
+  > 더 자세히 알고 싶다면 [링크](w3.org/TR/css3-mediaqueries)
 
 <미디어 쿼리의 중단점>
+
 - 미디어 쿼리를 작성할 때 화면 크기에 따라 서로 다른 CSS를 적용할 분기점을 **중단점**이라고 한다.
 - 시중에 나온 모든 기기를 반영할 수는 없으므로 모바일과 태블릿, 데스크톱정도로만 구분하는 것이 좋다.
 - 처리 속도나 화면 크기 등에서 다른 기기보다 모바일의 제약 조건이 더 많으므로 모바일의 레이아웃을 기본으로 하여 CSS를 만든다.
@@ -1732,59 +2175,81 @@ transform: scaleZ(sy)
   - 스마트폰: 모바일 페이지는 미디어 쿼리를 사용하지 않고 기본 CSS로 작성한다. 만일 스마트폰 방향까지 고려해서 제작한다면 min-width의 세로와 가로를 각각 portrait 320px, landscape 480px로 지정한다.
   - 태블릿: 세로 크기가 768px 이상이면 태블릿으로 지정한다. 가로 크기는 데스크톱과 똑같이 1024px 이상으로 지정한다.
   - 데스크톱: 화면 크기가 1024px 이상이면 데스크톱으로 설정한다.
-> 뷰포트 크깃값 정리 사이트: [링크](yesviz.com/devices.php)
+    > 뷰포트 크깃값 정리 사이트: [링크](yesviz.com/devices.php)
 
 ### 미디어 쿼리 적용하기
+
 - 미디어 쿼리를 적용하는 방법은 크게 외부 CSS 파일로 연결하는 방법과 웹 문서에 직접 정의하는 방법이 있다.
+
 #### 외부 CSS 파일 연결하기
+
 - 이 방법은 각 조건별로 CSS 파일을 따로 저장한 뒤 \<link> 태그나 @import 문을 사용해서 연결한다.
+
 1. 먼저 \<link>태그는 \<head>와 \</head> 태그 사이에 넣는다. 속성의 순서는 상관없다.
-~~~html
-<link rel="stylesheet" media="미디어 쿼리 조건" href="css 파일 경로">
-~~~
+
+```html
+<link rel="stylesheet" media="미디어 쿼리 조건" href="css 파일 경로" />
+```
+
 - 예를 들어 인쇄용 CSS를 정의한 css/print.css 파일을 만들어 놓았다면 다음과 같은 코드를 작성하여 웹 문서와 연결하면 된다.
-~~~html
-<link rel="stylesheet" media="print" href="css/print.css">
-~~~
+
+```html
+<link rel="stylesheet" media="print" href="css/print.css" />
+```
+
 2. 외부 CSS 파일을 연결하는 또 다른 방법으로는 @import 문을 사용할 수 있다.
+
 - @import 문은 CSS를 정의하는 \<style>과 \<style> 태그 사이에 다음과 같이 사용한다.
-~~~css
-@import url(css 파일 경로) 미디어 쿼리 조건
-~~~
+
+```css
+@import url(css 파일 경로) 미디어 쿼리 조건;
+```
+
 - 예를 들어 태블릿용 CSS를 정의한 css/table.css 파일을 만들고, 너빗값이 321px 이상이면서 768px 이하일 때에 미디어 쿼리를 적용하려면 다음과 같이 지정한다.
-~~~css
-@import url("css/table.css") only screen and (min-width: 321px) and (max-width: 768px);
-~~~
+
+```css
+@import url("css/table.css") only screen and (min-width: 321px) and
+  (max-width: 768px);
+```
+
 > 인터넷 익스플로러의 경우 @import 문과 자바스크립트가 함께 있을 경우 자바스크립트를 먼저 내려받은 후에 @import 문에 있는 CSS를 다운로드 한다. 그래서 자바스크립트에서 스타일과 관련된 정보를 처리해야 할 경우 오류가 날 수도 있다. 그래서 CSS 파일이 많고 규모가 큰 사이트를 개발한다면 @import 문보다 \<link> 태그를 주로 사용한다.
 
 #### 웹 문서에 직접 정의하기
+
 - 외부 CSS 파일을 만들지 않고 웹 문서에서 미디어 쿼리를 직접 지정하는 방법이 2가지 있다.
+
 1. \<style> 태그 안에서 media 속성을 사용하여 조건을 지정하고, 그 조건에 맞는 스타일 규칙을 정의하는 것이다.
-~~~css
+
+```css
 <style media="<조건>"> {
   <스타일 규칙>
 }
 </style>
-~~~
+```
+
 - 예를 들어 다음은 media 속성을 사용해 화면 너비가 320px 이하일 때 배경색을 주황색으로 바꾸는 미디어 쿼리이다.
-~~~html
+
+```html
 <style media="screen and (max-width: 320px)">
   body {
     background-color: orange;
   }
 </style>
-~~~
+```
 
 2. 스타일을 선언할 때 @media 문을 사용해 각 조건별로 스타일을 지정해 놓고 스타일을 선택해서 적용하는 것이다.
-~~~html
+
+```html
 <style>
   @media <조건> {
     <스타일 규칙>
   }
 </style>
-~~~
+```
+
 - 예를 들어 @media 문을 사용해 화면 너비가 320px 이하일 경우 배경색을 주황색으로 바꾸는 미디어 쿼리는 다음과 같이 사용한다.
-~~~html
+
+```html
 <style>
   @media screen and (max-width: 320px) {
     body {
@@ -1792,5 +2257,290 @@ transform: scaleZ(sy)
     }
   }
 </style>
-~~~
+```
+
 - 첫 번째 방법은 하나의 \<style> 태그 안에서 하나의 조건을 지정하지만, 두 번째 방법은 \<style> 태그 안에 여러 개의 조건에 따른 스타일을 모두 나열해 놓고 그중에서 선택해서 사용한다.
+
+## 그리드 레이아웃 알아보기
+
+### 그리드 레이아웃이란
+
+- 반응형 웹 디자인을 사용한 사이트는 화면 너비에 따라 웹 문서의 요소를 재배치해야 한다. 재배치하려면 기준이 되는 레이아웃이 필요한데 이때 **그리드 레이아웃(grid layout)** 을 사용한다.
+- 그리드 레이아웃이란 웹 사이트를 여러 개의 칼럼(column)으로 나눈 후 메뉴나 본문, 이미지 등의 웹 요소를 화면에 맞게 배치하는 것을 말한다.
+- 그리드 레이아웃을 사용하면 화면ㅇ르 규칙적으로 배열하므로 레이아웃을 일관성 있게 유지할 수 있다.
+
+#### 레이아웃의 3가지 특징
+
+1. 시각적으로 안정된 디자인을 만들 수 있다
+2. 업데이트가 편한 웹 디자인을 구성할 수 있다
+
+- 그리드 레이아웃을 이용하면 실제 내용을 넣지 않은 상태에서도 사이트 레이아웃을 미리 만들어 볼 수 있다.
+
+3. 요소를 자유롭게 배치할 수 있다
+
+- 그리드 레이아웃을 사용하면 한 줄에 여러 요소를 배치할 수도 있고, 중요한 내용은 좀 더 넓은 공간에 두어 사용자에게 잘 보이게 할 수도 있다.
+
+### 그리드 레이아웃을 만드는 방법
+
+1. 기존에 알고 있던 가변 그리드를 CSS의 float 속성으로 사용
+2. 플렉서블 박스 레이아웃
+3. CSS 그리드 레이아웃
+
+#### 플렉서블 박스 레이아웃
+
+- 플렉서블 박스 레이아웃(플렉스 박스)은 그리드 레이아웃을 기본으로 하고 각 박스를 원하는 위치에 따라 배치하는 것이다.
+- 이때 여유 공간이 생길 경우 너비나 높이를 적절하게 늘이거나 줄일 수도 있다.
+- 플렉스 박스는 수평 방향이나 수직 방향 중에서 한쪽을 주축으로 정하고 박스를 배치한다.
+- 예를 들어 주축을 수평으로 정하면 박스를 왼쪽에서부터 오른쪽으로 순서대로 배치하는데, 화면 너비를 넘어가면 수직으로 이동해서 다시 순서대로 배치한다.
+
+#### CSS 그리드 레이아웃
+
+- CSS 그리드 레이아웃은 플렉스 박스랑 다르게 수평과 수직 어느 방향이든 배치할 수 있다.
+- 마치 레고 블록을 끼워 맞추듯 요소를 배치한다.
+
+## 플렉스 박스 레이아웃 알아보기
+
+![flexbox](https://media.vlpt.us/images/hanan0105/post/8a2016e2-d133-4209-bffa-4ae939271da2/image.png)
+
+### 플렉스 박스 항목을 배치하는 속성
+
+- 플렉스 박스에는 플렉스 항목이 여러 개 있는데 일괄적으로 한꺼번에 배치할 수도 있고, 주축이나 교차축 기준으로 다양하게 배치할 수도 있다.
+
+- 플렉스 박스 항목을 배치하는 속성
+
+| 종류            | 설명                             |
+| --------------- | -------------------------------- |
+| justify-content | 주축 방향                        |
+| align-items     | 교차축 방향                      |
+| align-self      | 교차축에 있는 개별 항목          |
+| align-content   | 교차축에서 여러 줄로 표시된 항목 |
+
+#### 플렉스 컨테이너를 지정하는 display 속성
+
+- 플렉스 박스 레이아웃을 만들려면 먼저 웹 콘텐츠를 플렉스 컨테이너로 묶어 주어야 한다.
+- 즉, 배치할 웹 요소가 있으면 그 요소를 감싸는 부모 요소를 만들고, 그 부모 요소를 플렉스 컨테이너로 만들어야 한다.
+- 이때 특정 요소가 플렉스 컨테이너로 동작하려면 display 속성을 이용해 이 부분에 플렉스 박스 레이아웃을 적용하겠다고 지정해야 한다.
+
+| 종류        | 설명                                                     |
+| ----------- | -------------------------------------------------------- |
+| flex        | 컨테이너 안의 플렉스 항목을 블록 레벨 요소로 배치한다.   |
+| inline-flex | 컨테이너 안의 플렉스 항목을 인라인 레벨 요소로 배치한다. |
+
+#### 플렉스 방향을 지정하는 flex-direction 속성
+
+- 플렉스 컨테이너 안에서 플렉스 항목을 배치하는 주축과 방향을 지정하는 속성이다.
+
+| 종류           | 설명                                         |
+| -------------- | -------------------------------------------- |
+| row            | 주축을 가로로 지정(왼쪽에서 오른쪽) <기본값> |
+| row-reverse    | 주축을 가로로 지정(오른쪽에서 왼쪽)          |
+| column         | 주축을 세로로 지정(위쪽에서 아래쪽)          |
+| column-reverse | 주축을 세로로 지정(아래쪽에서 위쪽)          |
+
+#### 플렉스 항목의 줄을 바꾸는 flex-wrap 속성
+
+- flex-wrap 속성은 플렉스 컨테이너 너비보다 많은 플렉스 항목이 있을 경우 줄을 바꿀지 여부를 지정한다.
+
+| 종류         | 설명                                                    |
+| ------------ | ------------------------------------------------------- |
+| nowrap       | 플렉스 항목을 한 줄에 표시(기본값)                      |
+| wrap         | 플렉스 항목을 여러 줄에 표시                            |
+| wrap-reverse | 플렉스 항목을 여러 줄에 표시하되, 시작점과 끝이 바뀐다. |
+
+#### 배치 방향과 줄 바꿈을 한꺼번에 지정하는 flex-flow 속성
+
+- flex-flow = flex-direction + flex-wrap
+- 기본값은 row nowrap
+
+```css
+#opt1 {
+  flex-flow: row wrap; /* 왼쪽에서 오른쪽, 여러 줄 */
+}
+#opt2 {
+  flex-flow: row nowrap; /* 왼쪽에서 오른쪽, 한 줄 */
+}
+```
+
+#### 주축 정렬 방법을 지정하는 justify-content 속성
+
+| 종류          | 설명                                                                                                 |
+| ------------- | ---------------------------------------------------------------------------------------------------- |
+| flex-start    | 주축의 시작점에 맞춰 배치                                                                            |
+| flex-end      | 주축의 끝점에 맞춰 배치                                                                              |
+| center        | 주축의 중앙에 맞춰 배치                                                                              |
+| space-between | 첫 번째 항목과 끝 항목을 주축의 시작점과 끝점에 배치한 후 나머지 항목은 그 사이에 같은 간격으로 배치 |
+| space-around  | 모든 항목을 주축에 같은 간격으로 배치                                                                |
+
+#### 교차축 정렬 방법을 지정하는 align-items 속성
+
+| 종류       | 설명                                       |
+| ---------- | ------------------------------------------ |
+| flex-start | 교차축의 시작점에 맞춰 배치                |
+| flex-end   | 교차축의 끝점에 맞춰 배치                  |
+| center     | 교차축의 중앙에 맞춰 배치                  |
+| baseline   | 교차축의 문자 기준선에 맞춰 배치           |
+| stretch    | 플렉스 항목을 늘려 교차축에 가득 차게 배치 |
+
+#### 특정 항목만 정렬 방법을 지정하는 align-self 속성
+
+- align-item 속성은 교차축을 기준으로 플렉스 항목의 정렬 방법을 결정하지만 그중에서 특정 항목만 지정하고 싶다면 align-self 속성을 사용한다.
+- 그래서 align-self 속성은 플렉스 컨테이너 선택자에서 사용하는게 아닌 플렉스 항목 선택자에서 사용한다.
+- align-self 속성에서 사용하는 값은 align-items 속성에서 사용하는 값과 같다.
+
+```css
+.container {
+  ...
+  display:flex;         /* 플렉스 컨테이너 지정 */
+  align-items: center;  /* 교차축의 중앙에 배치 */
+}
+
+...
+
+#box1 {
+  align-self: flex-start; /* 교차축의 시작점에 배치 */
+}
+#box3 {
+  align-self: stretch; /* 교차축에 가득 차게 늘림 */
+}
+```
+
+#### 여러 줄일 때 교차축 정렬 방법을 지정하는 align-content 속성
+
+- 주축에서 줄 바꿈이 생겨서 플렉스 항목을 여러 줄로 표시할 때 align-content 속성을 사용하면 교차축에서 플렉스 항목 간의 간격을 지정할 수 있다.
+  > 한 줄인 경우에는 align-items 속성 사용
+
+| 종류          | 설명                                                                                                |
+| ------------- | --------------------------------------------------------------------------------------------------- |
+| flex-start    | 교차축 시작점에 맞춰 배치                                                                           |
+| flex-end      | 교차축 끝점에 맞춰 배치                                                                             |
+| center        | 교차축 중앙에 맞춰 배치                                                                             |
+| space-between | 첫 번째 항목과 끝 항목을 교차축의 시작점과 끝점에 맞추고 나머지 항목은 그 사이에 같은 가격으로 배치 |
+| space-around  | 모든 항목을 교차축에 같은 간격으로 배치                                                             |
+| stretch       | 플렉스 항목을 늘려서 교차축에 가득 차게 배치                                                        |
+
+#### 플렉스 레이아웃을 활용해 항상 중앙에 베치하기
+
+```css
+body {
+  background: url("images/bg5.jpg") no-repeat left top fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+```
+
+## CSS 그리드 레이아웃 사용하기
+
+### CSS 그리드 레이아웃에서 사용하는 용어
+
+- CSS 그리드 레이아웃에서는 그리드 항목을 배치할 때 가로와 세로를 모두 사용한다. 그래서 플렉스 항목은 1차원이고 CSS 그리드 레이아웃은 2차원이라고 말한다.
+- CSS 그리드 레이아웃은 가로 방향을 가리키는 줄(row)과 세로 방향을 가리키는 칼럼(column)으로 웹 화면으로 구성한다.
+- 그리고 칼럼과 칼럼 사이, 줄과 줄 사이의 간격을 지정해서 원하는 형태의 레이아웃을 만든다.
+
+### CSS 그리드 레이아웃 항목을 배치하는 속성
+
+#### 그리드 컨테이너를 지정하는 display 속성
+
+- 그리드 레이아웃을 지정할 떄에는 가장 먼저 그리드를 적용할 요소의 바깥 부분을 그리드 컨테이너로 만들어야 한다.
+
+| 종류        | 설명                                         |
+| ----------- | -------------------------------------------- |
+| grid        | 컨테이너 안의 항목을 블록 레벨 요소로 배치   |
+| inline-grid | 컨테이너 안의 항목을 인라인 레벨 요소로 배치 |
+
+#### 칼럼과 줄을 지정하는 grid-template-columns, grid-template-rows 속성
+
+- 그리드 컨테이너 안에 항목을 배치할 때 칼럼과 줄의 크기와 개수를 지정한다.
+- grid-template-colums 속성은 그리드 컨테이너 안의 항목을 몇 개의 칼럼으로 배치할지, 각 컬럼의 너비를 얼마로 할지 지정한다.
+- 다음은 .items 요소를 그리드 레이아웃으로 배치하기 위해 그 바깥을 감싸는 #wrapper 요소를 그리드 컨테이너로 지정한 예제이다. 그리고 너비를 200px인 칼럼 3개로 배치했다. 여러 줄이 될 경우 줄 높이는 100px로 지정한다.
+
+```css
+#wrapper {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-template-rows: 100px;
+}
+```
+
+```html
+<body>
+  <div id="wrapper">
+    <div class="items"></div>
+    <div class="items"></div>
+    <div class="items"></div>
+    <div class="items"></div>
+    <div class="items"></div>
+  </div>
+</body>
+```
+
+#### 상대적인 크기를 지정하는 fr 단위
+
+- 그리드 레이아웃에서 칼럼이나 줄의 크기를 지정할 때 픽셀(px)을 이용하면 항상 크기가 고정되므로 반응형 웹 디자인에는 적합하지 않다.
+- 그래서 그리드 레이아웃에서는 상대적인 크기를 지정할 수 있도록 fr(fraction) 단위를 사용한다.
+- 예를 들어 너비가 같은 칼럼을 3개 배치하고 싶다면
+
+```css
+grid-template-columns: 1fr 1fr 1fr;
+```
+
+- 또는 칼럼을 2:1:2로 배치하고 싶다면 다음과 같이 지정한다.
+
+```css
+grid-template-columns: 2fr 1fr 2fr;
+```
+
+#### 값이 반복될 때 줄여서 표현할 수 있는 repeat() 함수
+
+- px이나 fr 단위를 사용하면 똑같은 값을 여러 번 반복해야 한다.
+- CSS 그리드 레이아웃에서는 내장된 repeat()이라는 함수를 사용하면 간단히 표현할 수 있다.
+
+```css
+gird-template-columns: 1fr 1fr 1fr;
+=
+gird-template-columns: repeat(3, 1fr);
+```
+
+#### 최솟값과 최댓값을 지정하는 minmax() 함수
+
+- 앞선 예제에서는 줄 높이를 임의로 100px로 지정했는데, 이럴 경우 줄 높이보다 내용이 더 많으면 보이지 않는다.
+- 이럴 때 minmax() 함수를 사용하면 줄 높이를 고정하지 않고 최솟값과 최댓값을 사용해서 유연하게 지정할 수 있다.
+
+```css
+#wrapper {
+  width: 600px;
+  display: grid; /* 그리드 컨테이너 지정 */
+  grid-template-columns: repeat(3, 1fr); /* 너비가 같은 칼럼 3개 */
+  grid-template-rows: minmax(100px, auto); /* 줄 높이 최소 100px */
+}
+```
+
+#### 자동으로 칼럼 개수를 조절하는 auto-fill, auto-fit 값
+
+- 앞에서 repeat() 함수를 사용해서 크기가 같은 칼럼을 반복할 때는 다음과 같이 칼럼의 개수를 지정해주었다.
+- 이때 칼럼의 너빗값과 함께 auto-fit이나 auto-fill을 지정하면 화면 너비에 따라 칼럼 개수를 조절할 수 있다. 예를 들어 다음과 같이 너비가 200px인 칼럼을 화면 너비에 가득 찰 때까지 배치한다.
+
+```css
+grid-template-columns: repeat(auto-fit, 200px);
+```
+
+- auto-fit이나 auto-fill 모두 칼럼 개수를 자동으로 조절해 주므로 화면이 넓어지면 칼럼 개수가 많아지고 반대로 화면이 좁아지면 칼럼 개수가 줄어든다.
+- 두 값의 차이점은 남는 공간을 채울지 말지 여부에 달렸다.
+- auto-fit을 사용하면 화면이 넓을 때에는 남는 공간 없이 꽉 채워서 칼럼을 표시한다.
+- auto-fill을 사용하면 칼럼의 최소 너비만 표시하고 남는 공간은 그대로 둔다.
+
+#### 그리드 항목의 간격을 지정하는 grid-column-gap, grid-row-gap, grid-gap 속성
+
+- 항목과 항목 사이의 간격을 조절한다.
+
+| 종류            | 설명                                  |
+| --------------- | ------------------------------------- |
+| grid-column-gap | 칼럼과 칼럼 사이의 간격을 지정        |
+| grid-row-app    | 줄과 줄 사이의 간격을 지정            |
+| grid-gap        | 칼럼과 줄 사이의 간격을 한꺼번에 지정 |
+
+- grid-gap 속성을 이용해 칼럼과 줄의 간격을 한꺼번에 지정할 수도 있는데, 이때 첫 번째 값은 grid-row-gap에 해당하고 두 번째 값은 grid-column-gap에 해당한다.
+
+- 이 외에도 플렉스 박스 레이아웃에서 살펴보았던 justify-content나 align-content 같은 속성을 사용하여 그리드 레이아웃의 항목을 정렬할 수 있다.
