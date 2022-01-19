@@ -2544,3 +2544,112 @@ grid-template-columns: repeat(auto-fit, 200px);
 - grid-gap 속성을 이용해 칼럼과 줄의 간격을 한꺼번에 지정할 수도 있는데, 이때 첫 번째 값은 grid-row-gap에 해당하고 두 번째 값은 grid-column-gap에 해당한다.
 
 - 이 외에도 플렉스 박스 레이아웃에서 살펴보았던 justify-content나 align-content 같은 속성을 사용하여 그리드 레이아웃의 항목을 정렬할 수 있다.
+
+#### 그리드 라인을 이용해 배치하기
+
+- 그리드 레이아웃은 눈에 보이지 않는 그리드 라인이 포함되어 있다.
+- 예를 들어 칼럼 3개와 줄 3개로 이루어진 그리드 레이아웃은 칼럼 라인과 줄 라인이 각각 4개씩이다.
+
+| 종류              | 설명                                                            | 예시                 |
+| ----------------- | --------------------------------------------------------------- | -------------------- |
+| grid-column-start | 칼럼 시작의 라인 번호를 지정한다.                               | grid-column-start: 1 |
+| grid-column-end   | 칼럼 마지막의 라인 번호를 지정한다.                             | grid-column-end: 1   |
+| grid-column       | 칼럼 시작 번호와 칼럼 끝 번호 사이에 슬래시(/)를 넣어 사용한다. | grid-column: 1/4     |
+| grid-row-start    | 줄 시작의 라인 번호를 지정한다.                                 | grid-row-start: 2    |
+| grid-row-end      | 줄 마지막의 라인 번호를 지정한다.                               | grid-row-end: 4      |
+| grid-row          | 줄 시작 번호와 줄 끝 번호 사이에 슬래시(/)를 넣어 사용한다.     | grid-row: 2/4        |
+
+```css
+#wrapper {
+  width: 700px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 100px);
+}
+.box {
+  padding: 15px;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+.box1 {
+  background-color: #3689ff;
+  grid-column: 1/4;
+}
+.box2 {
+  background-color: #00cf12;
+  grid-row: 2/4;
+  /* grid-column:1/2; */
+  grid-column-start: 1;
+}
+.box3 {
+  background-color: #ff9019;
+  grid-column: 2/4;
+  /* grid-row:2/3; */
+  grid-row-start: 2;
+}
+.box4 {
+  background-color: #ffd000;
+  grid-column-start: 3;
+  grid-row-start: 3;
+}
+```
+
+```html
+<div id="wrapper">
+  <div class="box box1">box1</div>
+  <div class="box box2">box2</div>
+  <div class="box box3">box3</div>
+  <div class="box box4">box4</div>
+</div>
+```
+
+#### 템플릿 영역을 만들어 배치하기
+
+- 템플릿 영역으로 항목을 배치하면 그리드 레이아웃을 만드는 것보다 더 쉽다.
+- 맨 먼저 grid-area 속성을 사용해서 각 영역에 템플릿 이름을 지정해준다.
+
+```css
+.box1 {
+  background-color: #3689ff;
+  grid-area: box1;
+}
+.box2 {
+  background-color: #00cf12;
+  grid-area: box2;
+}
+.box3 {
+  background-color: #ff9019;
+  grid-area: box3;
+}
+.box4 {
+  background-color: #ffd000;
+  grid-area: box4;
+}
+```
+
+```html
+<div id="wrapper">
+  <div class="box box1">box1</div>
+  <div class="box box2">box2</div>
+  <div class="box box3">box3</div>
+  <div class="box box4">box4</div>
+</div>
+```
+
+- 이어엇 그리드 컨테이너로 사용하는 #wrapper 요소에서 grid-template-areas 속성을 사용해 템플릿 영역을 어떻게 배치할지 지정한다.
+- 템플릿 영역을 비워 두려면 그 자리에 마침표(.)를 넣는다.
+- 한 줄에 들어갈 템플릿 영역을 큰따옴표(" ")로 묶어 주면 되는데, 한 줄마다 줄 바꿈을 하면 마치 눈으로 보듯 템플릿 영역을 나열할 수 있어서 좀 더 쉽게 작성할 수 있다.
+
+```css
+#wrapper {
+  width: 700px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 100px);
+  grid-template-areas:
+    "box1 box1 box1"
+    "box2 box3 box3"
+    "box2 . box4";
+}
+```
