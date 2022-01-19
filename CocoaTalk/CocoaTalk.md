@@ -86,3 +86,68 @@
   ```html
   <img src="이미지경로" />
   ```
+
+## #2.5 More Tags and Head
+
+### img Tag
+
+- img 태그 파일 경로를 적을 때 파일의 확장자까지 명시해야 함.
+- 이미지 파일이 폴더 안에 있을 경우 폴더 이름도 명시해야 함.
+  - 이렇게 적는걸 'path notation(경로 표기법)' 이라고 함.
+
+### HTML 문서 구조 작성법
+
+1. \<!DOCTYPE html>
+
+- 브라우저에게 "이건 html 문서야"라고 알려주는 역할.
+- 모든 html 파일 첫번째 줄에 들어감.
+
+2. HTML 태그 열기
+3. Head 태그 열기 - 웹사이트의 환경 설정
+4. Body 태그 열기 - 우리가 볼 수 있는 content 보여줌
+
+## #2.6 Its All About the Head
+
+### head 태그
+
+- \<html lang="kr">
+  - 우리 사이트에서 사용되는 언어가 무엇인지 알려줌으로써 구글, 네이버, bing 같은 검색엔진들에 도움을 준다.
+- title 태그: 타이틀
+- meta 태그: 부가적인 정보
+  - content
+  - name
+  - 구글이 검색할 때 찾는 태그이므로 중요함
+- charset: 브라우저에게 text를 어떻게 그려달라는지 말해준다.
+  - 꼭 meta charset="utf-8"을 잊지말고 넣어라. 그렇지 않으면 글자가 깨진다.
+
+## #2.7 More Tags
+
+- html, css, js에 관한 정보를 구글에 검색할 때는 mdn 이라는 키워드를 포함시켜서 검색하면 좋다. (ex. html tags mdn)
+- **모든 태그를 암기하려 하지말고 직접 구글링해서 태그의 이름과 속성들이 어떻게 쓰이는지 보고, 이해하고, 참고해라.**
+
+## #2.8~.2.9 Form Tags and IDs.
+
+- label Tag
+  - label은 input과 함께 작동해야함
+  - label에는 'for' 속성, input에는 'id' 속성을 사용한다. (두 개의 값이 동일해야함)
+- id는 body 안에 어떤 태그에든 넣을 수 있는 attibute다.
+  - id가 중요한 이유는 unique identifier(고유 식별자)기 때문이다
+  - element당 하나의 id만 가질 수 있다.
+  - scripting이나 css를 식별하려는 목적을 가진게 id이다.
+
+## #2.10 Semantic HTML
+
+- 문서를 보기만해도 그 의미를 짐작할 수 있는 태그를 **시맨틱(semantic) 태그** 라고 한다.
+
+1. 의미가 없는 논시맨틱 태그 (Non-Semantic Tag)
+   - div 태그
+     - div는 division(분할, 구분, 경계선) 이라는 단어에서 나옴
+     - div = 박스
+2. 의미가 있는 시맨틱 태그 (Semantic Tag)
+   - header
+   - main
+   - footer
+
+- 옛날에는 div를 떡칠해서 웹페이지를 구성했지만, 요즘에는 시맨틱 태그를 이용하여 웹페이지를 만든다.
+  - 시맨틱 태그를 이용하면 코드 이해가 더 빨라져서 좋다. (검색엔진, 프로그래머 모두 이해 가능)
+- **항상 시맨틱 태그로 작성하려고 노력하자!!**
