@@ -36,6 +36,8 @@
 - 무언가 클릭할 때 어떤 일이 생기는 것 = 동적 상호작용성(interactivity)
 - 모든 웹사이트에서 Javascript가 필요한 것은 아님
 
+# 2 LEARNING HTML
+
 ## #2.0 Our First HTML File
 
 - 브라우저는 HTML 파일에 에러가 있다고 말해주지 않고, 늘 컨텐츠를 보여주려 하려는 성질이 있다.
@@ -151,3 +153,77 @@
 - 옛날에는 div를 떡칠해서 웹페이지를 구성했지만, 요즘에는 시맨틱 태그를 이용하여 웹페이지를 만든다.
   - 시맨틱 태그를 이용하면 코드 이해가 더 빨라져서 좋다. (검색엔진, 프로그래머 모두 이해 가능)
 - **항상 시맨틱 태그로 작성하려고 노력하자!!**
+
+# 3 LEARNING CSS
+
+## #3.0 How to Add CSS to HTML
+
+- CSS를 적용하는 두 가지 방법
+
+1. 같은 HTML 파일에 HTML 코드와 CSS 코드를 놓는 방법
+   - style 태그 사용
+     - style 태그는 head 태그 안에 있어야 한다.
+2. CSS와 HTML을 분리하는 것 (추천!)
+   - style.css 파일 생성
+     - head에 link 태그를 이용해 파일을 연결하고, html과 css의 파일 관계를 rel 속성으로 명시한다.
+     ```html
+     <link href="style.css" rel="stylesheet" />
+     ```
+
+## #3.1 Writing Our First CSS Lines
+
+- CSS는 HTML을 가리키는 것 → 가리키는 것을 selector 라고 부른다.
+- 선택자의 글씨체, 색깔, 글자 크기 등을 가리키는걸 "속성" 이라고 한다.
+- 속성들을 묶어주기 위해서 curly bracket(중괄호) 를 사용
+
+## #3.2 What Does Cascading Mean
+
+- CSS에서 C는 'Cascading'을 뜻한다.
+- Cascading Style Sheet 란 브라우저가 CSS 코드를 읽을 때 위에 있는 코드부터 차례차례 읽힌다는 것!
+- 즉, 나중에 적힌 코드의 스타일을 적용한다.
+
+## #3.3 Blocks and Inlines
+
+### Block 개념
+
+- 모든 웹사이트들은 Box로 이루어짐.
+- 박스 옆에는 다른 요소가 올 수 없음
+- ex) div, header, main, section, footer, article 등
+
+### inline 개념
+
+- 옆에 다른 요소가 올 수 있음
+- ex) span, link, image
+
+## #3.4 Margin Part One
+
+- display 속성을 이용하면 block과 inline 전환이 가능하다.
+  - inline
+  - block
+- inline은 높이와 너비가 없다 → 박스가 아니다!
+- block은 높이와 너비가 있다.
+- block만 가지고 있는 특성
+
+  - block은 박스고 세가지 특성이 있다.
+    - margin
+    - padding
+    - border
+
+- 브라우저는 요소들에게 많은 style 속성을 준다. (원하지 않아도!)
+  - ex. h1 태그, 요소와 요소 사이의 빈 공간
+    > 크롬에서 확인 가능하다. (user agent stylesheet)
+
+### margin
+
+- margin은 box의 border(경계)의 바깥에 있는 공간
+
+## #3.5 Margin Part Two
+
+- margin: 크기1 크기2 크기3 크기4
+  - 위, 오른쪽, 아래, 왼쪽 순으로 마진을 부여 → 시계 방향!!
+
+### Collapsing margins
+
+- Collapsing margins는 마진 상쇄 현상이라고 부른다.
+  - box와 box의 경계가 같다면 두 마진은 하나로 취급한다.
+  - 단, 위 아래에서만 일어나고 왼쪽, 오른쪽에서는 일어나지 않는다.
