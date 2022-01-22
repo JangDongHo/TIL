@@ -227,3 +227,81 @@
 - Collapsing margins는 마진 상쇄 현상이라고 부른다.
   - box와 box의 경계가 같다면 두 마진은 하나로 취급한다.
   - 단, 위 아래에서만 일어나고 왼쪽, 오른쪽에서는 일어나지 않는다.
+
+## #3.6 Paddings and IDs
+
+### Padding
+
+- box의 경계로부터 '안쪽'에 있는 공간
+- id 속성을 사용하면 같은 태그에 다른 스타일을 줄 수 있다.
+  - id를 선택하려면 '#' 뒤에 id명을 쓰면 된다.
+
+## #3.7 Border
+
+### border
+
+- box의 경계(border)
+- border 선 종류는 'solid'를 가장 많이 쓴다.
+  > 그 외의 선 종류는 'border-style mdn' 검색
+- border은 inline과 block 모두에 적용된다.
+  > '\*'는 전체 태그를 선택하는 선택자이다.
+
+## #3.8 Classes
+
+- inline에서 padding은 사방에 다 가질수 있는데, 예외로 margin은 좌우로만 가질 수 있다.
+  - 만약 위 아래 margin을 적용하고 싶다면 inline 요소들을 block으로 바꿔야 한다.
+
+### class
+
+- 각 selector 간에 쉼표를 넣을 수 있다.
+- id는 유니크한 값을 가져야 하는데 불필요하게 값이 반복 될 경우 class를 사용한다.
+- class는 여러 요소들에서 쓸 수 있다.
+- class selector은 앞에 온점(.)을 붙여준다.
+- id는 한 요소에만 스타일을 적용시키는데, style은 여러 개 지정이 가능하다.
+
+## #3.9 Inline Block
+
+- inline은 너비랑 높이를 가질 수 없다.
+- 이럴 땐 inline-block을 사용하면 된다.
+- 근데 inline-block은 구리다
+  - 정체를 알 수 없는 여백, 정해진 형식이 존재하지 않음
+- inline-blcok은 Responsive Design(반응형 디자인)을 지원하지 않는다!
+
+## #3.10 Flexbox Part One
+
+- Flex box는 2d(2차원) 레이아웃에서 아주 잘 작동한다.
+
+### 중요한 규칙
+
+1. 자식 요소에는 어떤 것도 적지 말아야한다. (부모 요소에만 명시한다)
+2. 주축(main axis)
+3. 교차축(cross axis)
+
+![flex](https://i.imgur.com/uOqaswk.png)
+
+- justify-content: 주축 정렬
+- align-items: 교차축 정렬
+
+> vh: viewport height<br>
+> viewport = screen, 100vh = 화면 전체에 해당
+
+## #3.11 Flexbox Part Two
+
+### flex-direction
+
+- flex 박스의 진행방향
+- row(기본값)
+- row-reverse
+- column
+- column-reverse
+  - 만약 flex-direction이 column이면 주축은 수직이 되고 교차축은 수평이 된다.
+
+### flex wrap
+
+- flex 박스의 줄 바꿈 여부
+- nowrap: 줄 바꿈X(기본값)
+- flexbox는 width의 값을 초기값으로만 보고, 모든 요소는 같은 줄에 있게 하기 위해 width를 변경할 수 있다.
+- wrap: 줄 바꿈
+- wrap-reverse: 줄 바꿈(반대)
+
+> 아주 멋있게 레이아웃을 만들고싶다면 'CSS 마스터클래스' 검색
