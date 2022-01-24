@@ -305,3 +305,40 @@
 - wrap-reverse: 줄 바꿈(반대)
 
 > 아주 멋있게 레이아웃을 만들고싶다면 'CSS 마스터클래스' 검색
+
+## #3.12 Fixed
+
+### Fixed
+
+- 요소의 위치를 고정시킨다.
+- fixed의 특징은 레이어를 부수고 다른 레이어에 위치 하려한다. (모든 것의 위에 있으려고 한다.)
+
+## #3.13 Relative Absolute
+
+- static: 레이아웃이 박스를 처음 위치하는 곳에 두는 것을 말한다. (기본값)
+- relative: element가 처음 위치하는 곳을 기준으로 수정한다.
+- absolute: 가장 가까운 relative 부모를 기준으로 이동한다. (만약 없으면, body를 기준으로 옮긴다.)
+
+## #3.14 Pseudo Selectors Part One
+
+### pseudo selectors
+
+- 좀 더 세부적으로 element를 선택해준다.
+- last-child: 마지막 자식 선택
+- first-child: 첫번째 자식 선택
+- nth-child(n): n번째 자식 선택
+  - nth-child(even) or nth-child(2n): 짝수 자식 선택
+  - nth-child(odd) or nth-child(2n+1): 홀수 자식 선택
+
+## #3.15 Combinators
+
+- 부모 자식: 부모 요소 안에 있는 자식 요소를 선택
+- 부모 > 자식: 부모 요소 아래의 자식 요소들을 선택
+- 형제1 + 형제2: 형제1과 형제 요소인 바로 다음에 있는 형제2만 선택
+
+## #3.16 Pseudo Selectors Part Two
+
+- 형제1 ~ 형제2: 만약 형제2가 형제1의 형제인데 바로 뒤에 오지 않을 때 사용한다.
+- optional, required
+- 태그[속성 = "값"]: 속성이 "값"인 태그 선택
+- 태그[속성 ~= "값"]: 속성에 "값"이라는 단어를 포함한 태그 선택
