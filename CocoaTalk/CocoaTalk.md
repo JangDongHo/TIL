@@ -342,3 +342,83 @@
 - optional, required
 - 태그[속성 = "값"]: 속성이 "값"인 태그 선택
 - 태그[속성 ~= "값"]: 속성에 "값"이라는 단어를 포함한 태그 선택
+
+## #3.17 States
+
+- :active : 마우스로 클릭했을 때
+- :focus : 키보드로 선택되었을 때
+- :hover over: 마우스가 대상 위에 있을 때
+- :visited: 링크를 클릭할 때
+- :focus-within : focused인 자식을 가진 부모 요소에 적용
+- state는 태그와 혼합해서 사용 가능하다.
+
+```
+태그1:state 태그2 {
+  ...
+}
+```
+
+= 태그1이 state가 되면 태그2 작동
+
+```
+태그1:state 태그2:state {
+  ...
+}
+```
+
+state와 state가 결합하면 두 개 모두 만족해야 두번째 태그가 작동된다.
+
+# ADVANCED CSS
+
+## #4.0 Transitions part One
+
+- 어떤 상태에서 다른 상태로의 "변화"를 애니메이션으로 만드는 방법
+- transition은 state가 없는 요소에 붙어야한다.
+- 대상이 무조건 state에도 있어야 한다!
+
+```
+transition: 속성 시간 속도
+```
+
+## #4.1 Transitions part Two
+
+### ease-in function
+
+- 브라우저에게 애니메이션이 어떻게 변할지 말해준다.
+- linear, ease-in, ease-out, ease-in-out, ease
+
+## #4.2 Transformations
+
+- 한 요소를 transform(변형)시킬 수 있다.
+- rotate(회전), scale(크기 변경), translate(옮기기), skew(비스듬히 기울기기)
+- transform은 box element를 변형시키지 않는다. (margin이나 padding 변화 X)
+- transform에 시간을 적용하고 싶으면 transition을 사용하면 된다.
+
+### #4.3 Animations part One
+
+- 애니메이션은 우리가 원하는 만큼 애니메이션을 만들고 재생시킬 수 있다.
+
+```css
+@keyframes 이름 {
+  from {
+    ...;
+  }
+  to {
+    ...;
+  }
+}
+```
+
+```css
+@keyframes 이름 {
+  0% {
+    ...;
+  }
+  50% {
+    ...;
+  }
+  100% {
+    ...;
+  }
+}
+```
