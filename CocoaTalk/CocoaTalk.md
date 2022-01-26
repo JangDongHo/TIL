@@ -36,7 +36,7 @@
 - 무언가 클릭할 때 어떤 일이 생기는 것 = 동적 상호작용성(interactivity)
 - 모든 웹사이트에서 Javascript가 필요한 것은 아님
 
-# 2 LEARNING HTML
+# #2 LEARNING HTML
 
 ## #2.0 Our First HTML File
 
@@ -154,7 +154,7 @@
   - 시맨틱 태그를 이용하면 코드 이해가 더 빨라져서 좋다. (검색엔진, 프로그래머 모두 이해 가능)
 - **항상 시맨틱 태그로 작성하려고 노력하자!!**
 
-# 3 LEARNING CSS
+# #3 LEARNING CSS
 
 ## #3.0 How to Add CSS to HTML
 
@@ -366,9 +366,35 @@
 }
 ```
 
-state와 state가 결합하면 두 개 모두 만족해야 두번째 태그가 작동된다.
+- state와 state가 결합하면 두 개 모두 만족해야 두번째 태그가 작동된다.
 
-# ADVANCED CSS
+## #3.18 Recap
+
+- ::placeholder: placeholder 스타일 지정
+- ::selection: 요소를 드래그 했을 때 스타일 지정
+- ::first-letter: 첫 번째 문자 스타일 지정
+- ::first-line: 첫 번째 라인 스타일 지정
+
+## #3.19 Colors and Variables
+
+1. hexadecimal color (16진수 컬러)
+2. RGB
+
+### Custom Property
+
+- :root: 모든 document의 뿌리
+
+```css
+:root {
+  --main-color: #fcce00;
+}
+```
+
+```css
+var(--main-color)
+```
+
+# #4 ADVANCED CSS
 
 ## #4.0 Transitions part One
 
@@ -422,3 +448,77 @@ transition: 속성 시간 속도
   }
 }
 ```
+
+### #4.5 Media Queries
+
+- Media query: 오직 CSS만을 이용해서 스크린의 사이즈를 알 수 있는 방법
+
+```css
+@media screen and (max-width: 400px) {
+  ...
+}
+- 스크린의 크기가 400px보다 작을 때 CSS 적용
+```
+
+- orientation: landscape (가로)
+- orientation: portrait (세로)
+
+### #4.6 Media Quries Recap
+
+- min-device-width: 오직 핸드폰에만 적용
+- screen, print(프린터)
+
+# #5 GIT AND GITHUB
+
+- git은 어떤 파일이든 수정된 내역을 알 수 있다.
+- git은 파일을 계속 추적(Tracking) 하는 것이다.
+- github에는 기본적으로 변경 내역을 업로드한다.
+- git은 파일 변경내역을 계속해서 추적하는 version control system이고, github는 파일 내역과 파일들을 올려주는 공간이다.
+
+# #5.1 What is Github
+
+- repository: 히스토리를 저장할 저장소
+- commit: 시점
+- github를 이용해서 파일의 변경사항을 탐색함.
+- git은 파일들을 주시하면서 관리해주는 도구, github는 git의 변경내역을 볼 수 있는 사이트
+
+# #6 CLONING TIME
+
+## #6.9 Introduction
+
+- gitignore: 무시하고 싶은 파일 이름을 기록하는 파일
+
+## #6.1 Sign Up Screen Part One
+
+- 기본 파일을 'index.html'로 하는 이유는 대부분의 웹서버가 디폴트로 index.html을 찾아보도록 설정 돼있기 때문이다.
+- 클래스 이름을 지정할 때는 흔한 이름 말고 부모와 자식을 같이 명시하도록 지어라.
+  - 그렇지 않으면, 나중에 코드를 볼 때 힘들다.
+- 주석은 프로그래머만 볼 수 있는 코드를 말한다.
+
+```css
+<!-- 아아 -->
+```
+
+## #6.2 BEM
+
+### BEM(Block Element Modifier)
+
+- 좀 더 쉽게 읽히는 CSS를 가지는 것 (규칙)
+- id와 class를 섞어서 쓰면 나중에 헷갈리기 때문에 오랜 시간 문제를 겪은 프로그래머들이 모든 부분에 class를 작성하기로 함.
+- --: 색깔, 크기 등
+- \_\_(언더바): 정보
+
+## #6.3 Font Awesome
+
+- 아이콘 사이트 추천: [링크](https://fontawesome.com/)
+
+## #6.5 Status Bar CSS
+
+- justify-content 대신 컨테이너 하나를 중심에 놓는 CSS hack(기술) = '레시피 같은 것'
+  - 이상하지만 잘 되는 방법을 찾아서 사람들이 공유한 것
+
+1. 먼저 justify-content를 center로 몰아 넣는다.
+2. 모든 column에 width: 33%를 부여한다.
+3. 두번째 column에 flex를 넣고 justify-content를 center로 설정
+4. 마지막 column에 flex를 넣고
+   justify-content를 flex-end로 설정한다.
