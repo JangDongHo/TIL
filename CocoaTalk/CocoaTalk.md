@@ -484,7 +484,7 @@ transition: 속성 시간 속도
 
 # #6 CLONING TIME
 
-## #6.9 Introduction
+## #6.0 Introduction
 
 - gitignore: 무시하고 싶은 파일 이름을 기록하는 파일
 
@@ -522,3 +522,99 @@ transition: 속성 시간 속도
 3. 두번째 column에 flex를 넣고 justify-content를 center로 설정
 4. 마지막 column에 flex를 넣고
    justify-content를 flex-end로 설정한다.
+
+## #6.6 Sign Up Screen Part Two
+
+- 우리가 원하든 원하지 않든 브라우저가 주는 CSS가 있다.
+  - 그래서 reset.css를 작성해서 따로 컨트롤 해주는게 좋다.
+- 상단바 같이 모든 페이지에 있는 요소는 따로 파일을 분리시켜서 import 해주는게 더 낫다.
+- div 같은 요소가 아니라 p나 span 같은 간단한 텍스트 요소는 text-algin으로 중앙정렬 하는게 좋다.
+
+## #6.8 Log In Form Part Two
+
+### CSS Not 속성
+
+### cursor 속성
+
+- pointer, not allowed, progress 등
+
+### color: inherit;
+
+- 색상을 부모로부터 상속 받는다.
+
+## #6.9 Recap and Forms
+
+- 조금 더 organization하게 CSS 파일들을 관리하고싶으면 Screens 폴더, Components 폴더 등으로 나눠라.
+- 그 외에는 reset.css, styles.css, variables,css 등으로 나눈다.
+
+### Form의 아주 중요한 2가지 속성
+
+1. action: 어떤 페이지로 data를 보낼건지 정할 수 있다.
+2. method
+   - POST: 백엔드 서버에 정보를 전송하는 방식 (강의와는 맞지 않음.)
+   - GET: 보안에 취약, 이름과 pw를 GET 방식으로 내보내면 안된다. URL에 포함되어도 상관없는 정보들을 GET 방식으로 내보낸다.
+
+## #6.10 Navigation Bar Part One
+
+- 새로운 스크린을 만들 때 처음부터 다시 만들 필요 없다. 앞에꺼 먼저 복사해서 필요없는걸 지워나간다.
+- 코드를 작성할 때 단축키를 이용해라. (ex. nav>ul>li\*4>a)
+- styles.css에 import할 때 순서 중요하다.
+
+## #6.16 User Component part One
+
+- 비슷한 구성의 스타일들은 컴포넌트 파일로 만든다.
+
+## #6.23 Find Screen Part Three
+
+- 디자인(보여지는 것) 때문에 대문자가 필요하다면 HTML 코드에서는 소문자로 작성하고 CSS 코드에서 대문자로 바꿔준다.
+  - text-transform: uppercase (대문자 변환)
+- 독립적인 곳에서는 class 쓸 필요 X, 여러 곳에 지정해야한다? class 사용!
+
+## #6.27 Settings Screen part One
+
+- 아이콘과 글자가 있는 리스트는 ul를 활용해라!
+
+## #6.29 Chat Screen Part Two
+
+- fixed로 고정할 때 항상 width값의 %를 확인하고, top이나 bottom 값을 신경써라!
+- 요소가 다른 요소에 겹쳤을 경우 z-index로 해결한다. 클수록 우선순위가 높아진다. (기본값: 0)
+
+## #6.34 Splash Screen Part One
+
+### splash 화면
+
+1. position을 absoulute로 설정한다. (이때, 부모는 body)
+2. width, height를 각각 100vh, 100vw로 만든다.
+3. top값을 0으로 설정한다.
+
+## #6.35 Splash Screen Part Two
+
+- 애니메이션은 애니메이션 종료 후 디폴트 값으로 돌아가려 한다.
+
+### forwards 속성
+
+- 애니메이션의 마지막 속성값을 유지한다.
+
+### visibility 속성
+
+- 마우스에 걸리지 않게 빠져버린다. (단, html에는 그대로 존재한다. 아예 없애려면 js가 필요하다.)
+
+## #6.37 More Animations
+
+### will-change 속성
+
+- 브라우저에게 렌더링 힌트를 주고 element에 실행되길 기대하는 변화를 명시한다.
+- 애니메이션이 불안정할 때 사용한다. (브라우저가 컴퓨터의 그래픽 카드를 이용해서 애니메이션을 가속화 시킨다.)
+
+## #6.38 Animating Chats screen
+
+- focus-within: 내부적으로 focus된 element가 있는지 알 수 있도록 해준다.
+
+## 심도있게 공부해볼 것
+
+- box-sizing
+- position
+- fixed
+- animation
+- BEM
+- 코드 단축키
