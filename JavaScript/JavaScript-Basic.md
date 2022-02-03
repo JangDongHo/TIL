@@ -704,3 +704,325 @@ console.log(multi);
 #### ES6를 사용한다면 예약어 var보다 let을 사용하는 것이 좋다.
 
 - var를 사용한 변수는 재선언할 수 있으므로 실수로 같은 변수를 다시 선언하더라도 오류가 발생하지 않는다. 이럴 때 재선언할 수 없는 let를 사용하는 것이 좀 더 안전하다.
+
+## 15-4 재사용할 수 있는 함수 만들기
+
+### 매개변수, 인수, return 알아보기
+
+- 함수를 실행하는 데 필요한 값을 함수 밖에서 제공하면 함수를 재사용할 수 있다.
+- 이렇게 하려면 함수를 선언할 때부터 외부에서 값을 받아 줄 변수를 미리 만들어야 한다.
+- 이것을 **매개변수(parameter)** 라고 하고 함수를 호출할 때 괄호 안에 매개변수의 이름을 넣는다.
+- 매개변수의 이름을 붙이는 방법은 일반적인 변수 이름을 붙이는 것과 같다.
+- 매개변수는 선언된 함수 안에서만 사용하며, 매개변수를 여러 개 사용할 때는 매개변수 이름 사이에 쉼표(,)를 찍어 나열한다.
+
+#### 함수 선언할 때 매개변수 지정하기
+
+- 결괏값을 함수 밖에서 사용하려면 함수를 실행한 위치로 돌려줘야 하는데, 이러한 동작을 **값을 반환한다(return)** 이라고 한다.
+- 함수의 결괏값을 반환할 때는 예약어 return을 사용해서 다음에 넘겨줄 값을 지정해 주면 된다.
+
+```js
+function addNumber(num1, num2) {
+  var sum = num1 + num2;
+  return sum;
+}
+```
+
+- 매개변수가 있는 함수를 호출할 때 실제 값 부분을 **인수(argument)** 라고 한다.
+- num1, num2를 매개변수라고 하고, addNumber(2, 3)처럼 함수를 실행할 때 괄호 안에 넣어 준 숫자 2와 3을 인수라고 한다.
+
+```js
+var result = addNumber(2, 3);
+document.write("두 수를 더 한 값 : " + result);
+```
+
+### 함수를 실행하는 과정
+
+1. 자바스크립트 해석기가 function 이라는 예약어를 만나면 함수를 선언하는 부분이라는 걸 인식하고 함수 블록({})을 해석한다. 아직 실행하지 않는다.
+2. addNumber(2, 3)을 만나면 해석해 두었던 addNumber() 함수를 실행한다.
+3. addNumber() 함수에서 2는 num1로, 3은 num2로 넘기고 더한 값을 sum 변수에 저장한다.
+4. 함수 실행이 모두 끝나면 결괏값 sum을 함수 호출 위치, 즉 var result로 넘긴다.
+5. 넘겨받은 결괏값을 result라는 변수에 저장한다.
+6. result 변수에 있는 값을 화면에 표시한다.
+
+### 매개변수 기본값 지정하기
+
+```js
+<script>
+  function multiple(a, b = 5, c = 10) { 	// b = 5, c = 10으로 기본값 지정
+    return a * b + c;
+  }
+
+  var result1 = multiple(5, 10, 20); // a = 5, b = 10, c = 20
+  document.write("multiple(5, 10, 20)을 실행하면 결과는 " + result1 + "입니다. <br>")
+  var result2 = multiple(10, 20);    // a = 10, b = 20, c = 10(기본값)
+  document.write("multiple(10, 20)을 실행하면 세번째 매개변수는 기본값을 사용하고 결과는 " + result2 + "입니다.<br>")
+  var result3 = multiple(30);        // a = 30, b = 5(기본값), c = 10(기본값)
+  document.write("multiple(30)을 실행하면 두번째,  세번째 매개변수는 기본값을 사용하고 결과는 " + result3 + "입니다.")
+</script>
+```
+
+## 15-5 함수 표현식
+
+### 익명 함수
+
+- **익명 함수**는 이름이 없는 함수를 말한다.
+- 익명 함수는 함수 자체가 **식**이므로 함수를 변수에 할당할 수 있으며, 또한 다른 함수의 매개변수로 사용할 수도 있다.
+
+```js
+<script>
+  var sum = function(a, b){
+    return a + b;
+  }
+  document.write("함수 실행 결과 : " + sum(10, 20) );
+</script>
+```
+
+### 즉시 실행 함수
+
+- **즉시 실행 함수**는 한 번만 실행하는 함수이고, 함수를 정의하면서 동시에 실행할 수 있다.
+- 즉시 실행 함수는 함수를 실행하는 순간에 자바스크립트 해석기에서 함수를 해석한다.
+- 즉시 실행 함수의 기본 형식은 당므과 같다. 함수를 식 형태로 선언하므로 마지막에 세미콜론(;)을 붙인다.
+
+```js
+(function () {
+  명령;
+})();
+```
+
+또는
+
+```js
+(function (매개변수) {
+  명령;
+})(인수);
+```
+
+- 이 예제 소스들은 따로 호출하지 않았지만 바로 실행된다.
+
+```js
+<script>
+  (function() {
+    var userName = prompt("이름을 입력하세요.");
+    document.write("안녕하세요? <span class='accent'>" + userName + "</span>님!");
+  }());
+</script>
+```
+
+```js
+<script>
+  (function(a, b){   // 함수 선언을 위한 매개변수
+    sum = a + b;
+  }(100, 200));       // 마지막에 함수 실행을 위한 인수
+  document.write("함수 실행 결과 : " + sum);
+</script>
+```
+
+### 화살표 함수
+
+- ES6 버전부터는 => 표기법(화살표 표기법)을 사용해 함수 선언을 좀 더 간단하게 작성할 수 있다.
+- 이 방법은 간단히 **화살표 함수**라고 하는데 익명 함수에서만 사용할 수 있다.
+
+```
+(매개변수) => { 함수 내용 }
+```
+
+#### 매개변수가 없을 경우
+
+```js
+const hi = function () {
+  return "안녕하세요?";
+};
+```
+
+```js
+const hi = () => "안녕하세요?";
+```
+
+- 그리고 중괄호 안에 내용이 한 줄뿐이라면 중괄호를 생략해서 다음과 같이 작성할 수도 있다. 이때 return 문은 생략된 것으로 간주한다.
+
+```
+const hi = () => "안녕하세요?";
+```
+
+#### 매개변수가 1개인 경우
+
+- 매개변수가 하나인 경우 매개변수의 괄호는 생략할 수 있다.
+
+```js
+let hi = function (user) {
+  document.write(user + "님, 안녕하세요?");
+};
+```
+
+```js
+let hi = (user) => {
+  document.write(user + "님, 안녕하세요?");
+};
+```
+
+#### 매개변수가 2개 이상인 경우
+
+```js
+let sum = (a, b) => a + b;
+
+document.write("두 수의 합 : " + sum(10, 20));
+```
+
+## 15-6 이벤트와 이벤트 처리기
+
+### 이벤트 알아보기
+
+- 이벤트는 웹 브라우저나 사용자가 행하는 어떤 동작을 말한다. (키보드를 누르거나, 웹 브라우저에서 새로운 페이지를 불러오는 것 등)
+- 하지만 웹 브라우저 안에서 이루어지는 모든 동작이 이벤트는 아니다. 이벤트는 웹 페이지를 읽어 오거나 링크를 클릭하는 것처럼 웹 문서 영역 안에서 이루어지는 동작만 말한다.
+
+#### 마우스 이벤트
+
+- 마우스 이벤트는 마우스를 이용해서 버튼이나 휠 버튼을 조작할 때 발생한다.
+
+| 종류      | 설명                                                                  |
+| --------- | --------------------------------------------------------------------- |
+| click     | 사용자가 HTML 요소를 클릭할 때 이벤트가 발생한다.                     |
+| dbclick   | " 더블 클릭할 때 발생한다.                                            |
+| mousedown | 사용자가 요소 위에서 마우스 버튼을 눌렀을 때 이벤트가 발생한다.       |
+| mousemove | " 마우스 포인트를 움직일 때 발생한다.                                 |
+| mouseover | 마우스 포인터가 요소 위로 옮겨질 때 이벤트가 발생한다.                |
+| mouseout  | 마우스 포인터가 요소를 벗어날 때 이벤트가 발생한다.                   |
+| mouseup   | 사용자가 요소 위에 놓인 마우스 버튼에서 손을 뗄 때 이벤트가 발생한다. |
+
+#### 키보드 이벤트
+
+- 키보드 이벤트는 키보드에서 특정 키를 조작할 때 발생한다.
+
+| 종류     | 설명                                          |
+| -------- | --------------------------------------------- |
+| keydown  | 사용자가 키를 누르는 동안 이벤트가 발생한다.  |
+| keypress | 사용자가 키를 눌렀을 때 이벤트가 발생한다.    |
+| keyup    | 사용자가 키에서 손을 뗄 때 이벤트가 발생한다. |
+
+#### 문서 로딩 이벤트
+
+- 서버에서 웹 문서를 가져오거나 문서를 위아래로 스크롤하는 등 웹 문서를 브라우저 창에 보여주는 것과 관련된 이벤트이다.
+
+| 종류   | 설명                                                                |
+| ------ | ------------------------------------------------------------------- |
+| abort  | 문서가 완전히 로딩되기 전에 불러오기를 멈췄을 때 이벤트가 발생한다. |
+| error  | 문서가 정확히 로딩되지 않았을 때 이벤트가 발생한다.                 |
+| load   | 문서 로딩이 끝나면 이벤트가 발생한다.                               |
+| resize | 문서 화면 크기가 바뀌었을 때 이벤트가 발생한다.                     |
+| scroll | 문서 화면이 스크롤되었을 때 이벤트가 발생한다.                      |
+| unload | 문서에서 벗어날 때 이벤트가 발생한다.                               |
+
+#### 폼 이벤트
+
+- 폼은 로그인, 검색, 게시판, 설문 조사처럼 사용자가 입력하는 모든 요소를 가리킨다.
+
+| 종류   | 설명                                                                                               |
+| ------ | -------------------------------------------------------------------------------------------------- |
+| blur   | 폼 요소에 포커스를 잃었을 때 이벤트가 발생한다.                                                    |
+| change | 목록이나 체크 상태 등이 변경되면 이벤트가 발생한다. input, select, textarea 태그에서 사용한다.     |
+| focus  | 폼 요소에 포커스가 놓였을 때 이벤트가 발생한다. label, select, textarea, button 태그에서 사용한다. |
+| reset  | 폼이 리셋되었을 때 이벤트가 발생한다.                                                              |
+| submit | submit 버튼을 클릭했을 때 이벤트가 발생한다.                                                       |
+
+### 이벤트 처리기 알아보기
+
+- 웹 문서에서 이벤트가 발생하면 처리하는 함수를 **이벤트 처리기** 또는 **이벤트 핸들러(event handler)** 라고 한다.
+- 이벤트를 처리하는 가장 기본적인 방법은 이벤트가 발생한 HTML 태그에 이벤트 처리기를 직접 연결하는 것이다. 이 방법은 자바스크립트 초기 버전부터 사용했으며 지금도 많이 사용하고 있다.
+
+```
+<태그 on이벤트명 = "함수명">
+```
+
+```html
+<ul>
+  <li>
+    <a href="#" onclick="alert('버튼을 클릭했습니다.')"> Green </a>
+  </li>
+  <li>
+    <a href="#" onclick="alert('버튼을 클릭했습니다.')"> Orange </a>
+  </li>
+  <li>
+    <a href="#" onclick="alert('버튼을 클릭했습니다.')"> Purple </a>
+  </li>
+</ul>
+```
+
+- 이벤트가 발생한 후에 여러 가지 명령을 실행해야 한다면, 그 명령을 묶어서 하나의 자바스크립트 함수로 만드는 것이 좋다. 그리고 이벤트가 발생할 때 함수 이름과 인수를 지정하여 실행한다.
+
+```html
+<ul>
+  <li><a href="#" onclick="changeBg('green')">Green</a></li>
+  <li><a href="#" onclick="changeBg('orange')">Orange</a></li>
+  <li><a href="#" onclick="changeBg('purple')">Purple</a></li>
+</ul>
+<div id="result"></div>
+
+<script>
+  function changeBg(color) {
+    var result = document.querySelector("#result");
+    result.style.backgroundColor = color;
+  }
+</script>
+```
+
+## 15-7 DOM을 이용한 이벤트 처리기
+
+- 지금까지 이벤트 처리기를 짖어하는 방법은 HTML이 주인이 되어 자바스크립트의 함수를 불러와서 사용했다.
+- 하지만 DOM을 사용하면 자바스크립트가 주인이 되어 HTML의 요소를 가져와서 이벤트 처리기를 연결한다.
+
+```
+웹 요소.onclick = 함수;
+```
+
+- 자바스크립트에서는 웹 요소를 여러 방법으로 가져올 수 있는데, 그 중에서 함수 querySelector()를 사용하여 가져오는 것이 쉽다.
+- querySelector()의 괄호 안에는 클래스 이름이나 id 이름 또는 다양한 선택자를 넣을 수 있다.
+
+```html
+<button id="change">글자색 바꾸기</button>
+<p>Reprehenderit tempor do quis sunt eu et exercitation deserunt.</p>
+
+<script>
+  // 방법 1 : 웹 요소를 변수로 지정 & 미리 만든 함수 사용
+  var changeBttn = document.querySelector("#change");
+  changeBttn.onclick = changeColor;
+
+  function changeColor() {
+    document.querySelector("p").style.color = "#f00";
+  }
+
+  // 방법 2 : 웹 요소를 따로 변수로 만들지 않고 사용
+    // document.querySelector("#change").onclick = changeColor;
+
+		// function changeColor() {
+    //   document.querySelector("p").style.color = "#f00";
+    // }
+
+    // 방법 3 : 직접 함수를 선언
+    // document.querySelector("#change").onclick = function() {
+    //   document.querySelector("p").style.color = "#f00";
+    // };
+```
+
+- 상세설명 표시 닫고 열기
+
+```html
+<img src="images/flower.jpg" alt="">
+  <button class="over" id="open">상세 설명 보기</button>
+  <div id="desc" class="detail">
+    <h4>등심붓꽃</h4>
+    <p>북아메리카 원산으로 각지에서 관상초로 흔히 심고 있는 귀화식물이다. 길가나 잔디밭에서 흔히 볼 수 있다. 아주 작은 씨앗을 무수히 많이 가지고 있는데 바람을 이용해 씨앗들을 날려보내거나, 뿌리줄기를 통해 동일한 개체들을 많이 만들어 냄으로써 번식한다. </p>
+    <button id="close">상세 설명 닫기</button>
+  </div>
+</div>
+
+<script>
+  document.querySelector('#open').onclick = function() {
+    document.querySelector('#desc').style.display = "block";	// 상세 설명 부분을 화면에 표시
+    document.querySelector('#open').style.display = "none";   // '상세 설명 보기' 단추를 화면에서 감춤
+  }
+  document.querySelector('#close').onclick = function() {
+    document.querySelector('#desc').style.display = "none";	   // 상세 설명 부분을 화면에서 감춤
+    document.querySelector('#open').style.display = "block";	 // '상세 설명 보기' 단추를 화면에 표시
+  }
+</script>
+```
