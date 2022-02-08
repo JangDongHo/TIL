@@ -43,3 +43,60 @@
 - 브라우저는 HTML을 열고, HTML은 CSS와 JS를 가져온다.
 - 일반적으로, JS 파일은 맨 위에서 가져오지 않고 주로 끝에서 가져온다.
 - 브라우저 개발자 도구의 콘솔은 항상 열어두는 것이 좋다. (Why? 문제 확인을 위해서!)
+
+## #2.1 Basic Data Types
+
+### 자바스크립트에서 중요한 두 가지 유형
+
+1. 숫자
+
+- integer(정수)
+- float(실수)
+
+2. 문자
+
+- string(문자) - 문자는 큰따옴표("")로 묶어서 표기한다.
+
+## #2.3 Variables
+
+- variable을 만들기 위해서는 const와 let을 사용한다.
+- let은 중간이 값을 바꿀 수 있고, const는 값이 바뀔 수 없다.
+- 이 두 가지 코드들만 보고 사람의 의도를 알 수 있다. const를 보면 값이 나중에 절대 변할 일이 없겠구나! let을 보면 값이 나중에 바뀔 수도 있겠구나 등
+- 대부분의 프로그래머들은 기본적으로 const를 사용하고 variable을 업데이트 하고 싶을 때 let을 사용한다.
+- 과거에는 const나 let이 없었고 var 밖에 없었다. var의 가장 큰 문제점은 어디서나 값을 실수로 바꿀 수 있었고, 실수로 그 값을 바뀌는 것을 방지하기 위해 const와 let이 등장했다.
+
+## #2.4 Booleans
+
+- boolean = true or false
+
+### null vs undefined
+
+- null: 값은 있는데 "아무것도 아닌 것"
+- undefined: variable은 존재하는 데 정의되지는 않음 (컴퓨터 메모리 안에는 존재하고 공간은 있는데, 값이 없다.)
+
+## #2.5 Arrays
+
+- 사람들은 예전부터 데이터를 어떻게하면 효율적으로 저장할 지 연구해옴.
+
+### array(배열)
+
+- 가장 기본적인 데이터 구조
+- 배열이름.push(): 항목 하나를 array 안에 추가
+
+## #2.6 Objects
+
+- object를 생성할 때는 대괄호 대신 중괄호를 사용한다.
+- object 안에서는 =를 사용하지 않는다. 대신 :를 사용한다.
+- property는 콤마(,)로 구분한다.
+
+```js
+const player = {
+  name: "nico",
+  points: 10,
+  fat: true,
+};
+```
+
+- 속성을 추가하고 싶을 땐 그냥 `player.lastName = "potato"` 식으로 적으면 된다.
+
+- player 오브젝트의 name 프로퍼티에 접근하려면 player.name을 써도 되고 player["name"]을 써도 된다.
