@@ -1466,3 +1466,8 @@ window.close()
 </div>
 <button onclick="location.replace('http://www.easyspub.com')">이지스퍼블리싱 홈페이지로 이동하기</button>
 ```
+
+### screen 객체
+
+- 사용자의 화면 크기나 정보를 알아 낼 때 screen 객체를 사용한다.
+- screen 객체에서 사용하는 메서드는 화면 방향을 잠그거나 잠근 화면의 방향을 해제하는 역할을 한다.
