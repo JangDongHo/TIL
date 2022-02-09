@@ -100,3 +100,49 @@ const player = {
 - 속성을 추가하고 싶을 땐 그냥 `player.lastName = "potato"` 식으로 적으면 된다.
 
 - player 오브젝트의 name 프로퍼티에 접근하려면 player.name을 써도 되고 player["name"]을 써도 된다.
+
+## #2.7 Functions part One
+
+- argument(인수)는 function(함수)를 실행하는 동안 어떤 정보를 function에게 보낼 수 있는 방법이다.
+
+## #2.8 Functions part Two
+
+- object 안에도 프러퍼티에 함수를 넣을 수 있다.
+
+```js
+sayhello: function() {
+  ...
+}
+```
+
+## #2.13 Conditionals
+
+### prompt()
+
+- prompt()는 사용자에게 창을 띄울 수 있게 한다.
+- 입력값을 받을 때 까지 자바스크립트 코드의 실행을 멈추게 한다.
+- 항상 string의 값으로 받는다.
+
+### typeof
+
+- value의 type을 볼 수 있다.
+
+```js
+console.log(typeof num);
+```
+
+### parseInt()
+
+- 숫자로 된 string을 number로 변환한다.
+  - 만약, string을 문자로 받았다면 NaN(Not a Number)을 출력
+
+## #2.14 Conditionals part Two
+
+### isNaN()
+
+- NaN인지 아닌지 boolean으로 알려주는 함수
+
+## #2.16 Recap
+
+- ===: 같음을 확인하는 오퍼레이션
+- !==: 다름을 확인하는 오퍼레이션
