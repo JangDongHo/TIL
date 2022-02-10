@@ -38,6 +38,8 @@
 
 - 이 모든 것들을 자바스크립트 하나만 배우면 가능해짐!
 
+# #2 WELCOME TO JAVASCRIPT
+
 ## #2.0 Your First JS Project
 
 - 브라우저는 HTML을 열고, HTML은 CSS와 JS를 가져온다.
@@ -146,3 +148,98 @@ console.log(typeof num);
 
 - ===: 같음을 확인하는 오퍼레이션
 - !==: 다름을 확인하는 오퍼레이션
+
+# #3 JAVASCRIPT ON THE BROWSER
+
+## #3.0 The Document Object
+
+### Document
+
+- HTML을 가리키는 객체
+- 브라우저가 HTML 정보가 아주 많이 들어있는 document라는 object를 전달해주는 것
+- 자바스크립트에서 HTML을 읽어올 뿐만 아니라, HTML을 변경할 수도 있다.
+
+## #3.1 HTML in Javascript
+
+- 브라우저에서 제공하는 객체(object) 중 document라는 객체는 JS에서 HTML 파일을 불러올 수 있도록 도와준다.
+- document라는 객체 안에 getElementById라는 함수가 있는데 이 함수의 기능은 해당 HTML의 고유 ID를 추적하여 해당 HTML 파일을 찾은 뒤에 JS가 해당 ID를 가진 HTML 파일을 보완 수정할 수 있게 해준다.
+
+## #3.2 Searching For Elements
+
+### document.getElementsByClassName()
+
+- class로 HTML 코드를 추적해 가져온다.
+- 같은 class name이 많은 경우 array로 표시한다.
+
+### document.getElementsByTagName()
+
+- tag로 HTML 코드를 추적해 가져온다.
+- 마찬가지로 array로 반환해 써먹기 불편하다.
+
+### document.querySelector
+
+- element를 CSS 방식으로 검색한다.
+
+```js
+document.querySelector(".hello h1");
+```
+
+- 단 하나의 element를 return 해주므로 쓰기 용이하다.
+- 그러나, querySelector은 같은 element를 모두 다 가져오는 것이 아닌 첫 번째 것만 가져온다.
+  - 만약 같은 것들을 다 수정하려면 `querySelectAll()`를 써주면 된다. (array로 반환)
+- 강의에서는 99.8% querySelector을 사용한다.
+
+## #3.3 Events
+
+### event
+
+- 브라우저에서 행하는 동작들
+
+### addEventListener(이벤트 종류, 함수이름)
+
+- 말 그대로 event를 listen 하는 것
+- 이때, 함수이름에는 괄호를 넣으면 안된다.
+  - Why? 자바스크립트가 이벤트를 감지하고 실행해야 하기 때문
+
+## #3.4 Events Part Two
+
+- listen 하고 싶은 event를 찾는 가장 좋은 방법은, 구글에 찾고 싶은 element의 이름, 예를 들어 h1 html element mdn을 검색한다. 우리는 javascript의 element를 원하니, 링크에 `Web APIs`라는 문장이 포함된 페이지를 찾는다. 왜냐하면 이건 JS 관점의 HTML Heading Element란 의미이기 때문이다. 너무 복잡하면 element를 `console.dir()`로 출력해서 `on~` 이라고 적혀있는걸 사용하면됨.
+
+### mouseenter 이벤트
+
+- 마우스가 요소에 올라오면 감지
+
+### mouseleave 이벤트
+
+- 마우스가 요소에서 나가면 감지
+
+## #3.5 More Events
+
+### 이벤트를 사용하는 두 가지 방법
+
+```js
+title.onclick = handleTitleClick;
+```
+
+```js
+title.addEventListener("click", handleTitleClick);
+```
+
+- 니꼬쌤 같은 경우는 후자를 더 선호 (Why? 코드 가독성도 더 좋고 removeEventListener을 할 수 있어서)
+
+### window object
+
+- resize event (화면 크기가 바뀔 때 발동)
+- body, head, title 같은 태그는 특별해서 document로 바로 불러오기 가능
+
+```js
+document.body.style.backgroundColor;
+```
+
+- 나머지 element들은 querySelector로 불러와야 한다.
+
+## #3.6 CSS in Javascript
+
+- Step1. element를 찾아라
+- Step2. event를 listen 해라
+- Step3. 그 event에 반응해라
