@@ -243,3 +243,35 @@ document.body.style.backgroundColor;
 - Step1. element를 찾아라
 - Step2. event를 listen 해라
 - Step3. 그 event에 반응해라
+
+## #3.7 CSS in Javascript Part Two
+
+- 자바스크립트에서 직접적으로 요소의 style을 건드리는건 보기에 좋지 않다.
+- 그 대신 태그의 클래스나 아이디를 수정해서 스타일을 입힌다.
+
+```js
+h1.className = "active";
+```
+
+- 그러나 자바스크립트로 모든 class name을 변경하는건 비효율적이다.
+
+## #3.8 CSS in Javascript Part Three
+
+- className 대신 classList를 사용해라.
+  - Why? className은 이전의 class들은 상관하지 않고 그냥 모든걸 교체해버린다.
+
+### classList.contains()
+
+- 우리가 명시한 class가 HTML element의 class에 포함되어 있는지 말해준다.
+
+### classList.remove()
+
+- 클래스를 삭제한다.
+
+### classList.add()
+
+- 클래스를 추가한다.
+
+### classList.toggle()
+
+- 앞서 설명했던 classList의 add와 remove, contains를 다 합쳤다.
