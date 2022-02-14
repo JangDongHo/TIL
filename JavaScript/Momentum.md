@@ -275,3 +275,60 @@ h1.className = "active";
 ### classList.toggle()
 
 - 앞서 설명했던 classList의 add와 remove, contains를 다 합쳤다.
+
+# #4 LOGIN
+
+## #4.1 Form Submission
+
+- JS 뿐만 아니라 브라우저가 기본적으로 제공해주는 옵션들을 적극 활용해라!
+
+```
+form input에 required, maxlength 등
+```
+
+- input의 유효성 검사를 작동시키기 위해서는 form으로 씌워야 한다.
+- 우리가 form 안에서 엔터를 누르고 input이 더 존재하지 않는다면 자동으로 submit 된다.
+
+## #4.2 Events
+
+- submit 이벤트: 엔터를 누르거나 버튼을 누를 때 감지한다.
+
+### preventDefault()
+
+- 어떤 event의 기본 행동이든지 발생되지 않도록 막는다.
+- 어떤 event가 발생해서 함수를 실행시킬 때 함수의 첫 번째 argument로 발생한 일에 대해 개발자가 필요로 할 만한 정보들을 준다.
+- argument 공간만 제공하면 JS가 알아서 방금 일어난 event에 대한 정보를 지닌 argument를 채워넣어준다.
+- 보통 argument 이름은 event로 적는게 관행이다.
+
+## #4.4 Getting Username
+
+- 무언가 반복되면 항상 변수로 만들어라. 일반적으로 string만 포함된 변수는 대문자로 표기하고 string을 저장하고 싶을 때 사용한다.
+  - loginForm이나 loginInput처럼 중요한 정보를 담은게 아니라면 대문자로 작성한다.
+- 니꼬는 문자열을 합칠 때 +를 쓰는걸 좋아하지 않는다. 그 대신 ``를 이용한다. (백틱 기호)
+
+```js
+`Hello $(username}`;
+```
+
+## #4.5 Saving Username
+
+### local storage API
+
+- 우리가 브라우저에 뭔가를 저장할 수 있게 해준다.
+
+### localStorage.setItem()
+
+- key, value 값 생성
+
+### localStorage.getItem()
+
+- value 값 불러오기
+
+### localStorage.removeItem()
+
+- key 삭제
+
+## #4.6 Loading Username
+
+- 항상 똑같은 이름을 가진 것은 변수를 따로 지정해서 사용해라
+  - Why? 일반적인 string은 오타가 나도 JS가 바로 지적해주지 않지만, 변수명은 오타가 나면 JS가 바로 지적해준다.
