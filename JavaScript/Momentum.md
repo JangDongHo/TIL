@@ -332,3 +332,43 @@ form input에 required, maxlength 등
 
 - 항상 똑같은 이름을 가진 것은 변수를 따로 지정해서 사용해라
   - Why? 일반적인 string은 오타가 나도 JS가 바로 지적해주지 않지만, 변수명은 오타가 나면 JS가 바로 지적해준다.
+
+# #5 CLOCK
+
+## #5.0 Intervals
+
+### Intervals
+
+- '매번' 일어나야 하는 무언가를 말한다.
+
+### SetInterval(function, 주기(ms))
+
+- '주기(ms)'마다 함수를 실행한다.
+
+## #5.1 Timeouts and Dates
+
+### Date Object
+
+- 오늘 날짜와 시간등을 불러온다.
+  - date.getHours()
+  - date.getMinutes()
+  - date.getSeconds()
+
+## #5.2 PadStart
+
+- Javascript 세계에서 문제에 부딪힐 때마다 다른 개발자들도 이미 똑같은 문제를 겪었다고 100% 확신해도 좋다. 많은 개발자들이 같은 문제를 겪고 또 겪었다면 Javascript라는 언어 자체에 이미 그 작업을 수행하는 function이 있을 것이다.
+
+### padStart(length, 부족할 때 채워넣을 문자열)
+
+- string에 사용할 수 있는 함수
+
+```js
+"1".padStart(2, "0");
+// 출력: "01"
+```
+
+- 위 예제는 문자열 길이를 2로 두고 부족한 만큼 "0"으로 채워넣겠다는 구문이다.
+
+### String()
+
+- 숫자를 문자열로 반환한다.
