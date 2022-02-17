@@ -372,3 +372,20 @@ form input에 required, maxlength 등
 ### String()
 
 - 숫자를 문자열로 반환한다.
+
+# #6 QUOTES AND BACKGROUND
+
+## #6.0 Quotes
+
+- Math.random(): 0부터 1사이의 랜덤한 숫자 제공
+- Math.round(): 숫자를 반올림
+- Math.ceil(): 숫자를 천장(ceil)까지 높여주는 것 (올림)
+- Math.floor(): 숫자를 마루(floor)까지 내려주는 것 (내림)
+
+- Array.length(): Array 길이 반환
+
+## #6.1 Background
+
+- createElement(): HTML 태그를 생성한다.
+- appendChild(): HTML 추가 (맨 아래에)
+- prepend(): HTML 추가 (맨 위에)
