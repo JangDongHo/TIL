@@ -389,3 +389,40 @@ form input에 required, maxlength 등
 - createElement(): HTML 태그를 생성한다.
 - appendChild(): HTML 추가 (맨 아래에)
 - prepend(): HTML 추가 (맨 위에)
+
+# #7 TO DO LIST
+
+## #7.2 Deleting To Dos
+
+- event.target.parentElement를 통해 조금 더쉽게 어떤 블럭이 클릭됐는지 알 수 있다.
+  - `target`: 클릭된 HTML
+  - `parentElement`: element의 부모
+
+## #7.3 Saving To Dos
+
+### JSON.stringfy()
+
+- javasciprt object나 array 또는 어떤 js 코드던 간에 string으로 변환해준다.
+- 이는 localstorage에 배열의 값을 일반적인 item값이 아닌 배열 자체의 모양으로 넣고싶을 때 유용하다.
+  - Why? 그래야 나중에 불러올 때 편하다.
+
+## #7.4 Loading To Dos Part One
+
+### JSON.parse()
+
+- 단순한 string을 javascript가 이해할 수 있는 코드로 변환 (array)
+
+### array의 item에 대해 각각 function을 실행시키고 싶을 때
+
+- 배열.forEach()
+
+  - forEach: array의 item들에 대해 한 개의 function을 각각 실행한다.
+  - 지금 내가 어떤 item을 사용하고 있는지 모른다면 무용지물이니, 어떤걸 처리하고 있는지 알고 있는게 좋다.
+
+- submit eventListener가 event(argument)를 그냥 제공해 주는 것처럼 Javascript는 지금 처리 되고 있는 item 또한 그냥 제공해준다.
+
+```js
+배열.forEach((item) => console.log(item));
+```
+
+- => (화살표 함수)
