@@ -426,3 +426,25 @@ form input에 required, maxlength 등
 ```
 
 - => (화살표 함수)
+
+## #7.6 Deleting To Dos part One
+
+- delete를 할 때 어떤 요소가 지워졌는지 파악하기 힘들다.
+
+  - todo들에게 ID 같은걸 주고 싶음.
+  - text 대신에 object를 활용한다.
+
+- element가 만들어질 때 Date.now()를 써서 ID를 지정한다.
+
+## #7.7 Deleting To Dos part Two
+
+### 배열.filter(함수)
+
+- for each와 비슷하게 배열 item 요소만큼 함수를 실행
+  - 함수에서 true를 반환하면 요소를 배열에 추가하고, false를 반환하면 요소를 배열에 추가하지 않는다.
+
+```js
+function sexyFilter(todo) {
+  return todo.id !== 123456;
+}
+```
