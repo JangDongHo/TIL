@@ -448,3 +448,34 @@ function sexyFilter(todo) {
   return todo.id !== 123456;
 }
 ```
+
+# #8 WEATHER
+
+## #8.0 Geolocation
+
+### navigator.geolocation.getCurrentPosition(정상실행함수, 에러실행함수)
+
+> 날씨 api => openweathermap.org
+
+## #8.1 weather API
+
+- API: 다른 서버와 이야기 할 수 있는 방법
+
+### fetch(url)
+
+- url 불러오기
+- fetch는 promise라 불러오는데 시간이 걸리므로 then을 사용해야한다.
+
+```js
+fetch(url).then();
+```
+
+- URL로 fetch한다 > response를 받는다 > response의 json을 얻어야한다
+
+```js
+fetch(url)
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data.name, data.weather);
+  });
+```
