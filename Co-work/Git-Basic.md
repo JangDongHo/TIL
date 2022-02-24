@@ -1,16 +1,17 @@
-# 깃이란?
-> 해당 문서는 [개발 협업에서 깃 & 깃크라켄 사용하기](https://velog.io/@danna-lee/%EA%B0%9C%EB%B0%9C-%ED%98%91%EC%97%85%EC%97%90%EC%84%9C-%EA%B9%83-%EA%B9%83%ED%81%AC%EB%9D%BC%EC%BC%84-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0#%EC%82%AC%EB%8B%B4-%EA%B9%83-%EC%B4%88%EB%B3%B4%EC%9E%90%EC%97%90%EA%B2%8C%EB%8A%94-%EA%B9%83%ED%81%AC%EB%9D%BC%EC%BC%84%EC%9D%84-%EC%B6%94%EC%B2%9C%ED%95%A9%EB%8B%88%EB%8B%A4) 를 참조했습니다.
+![CocoaTalk](https://nomadcoders.co/_next/image?url=https%3A%2F%2Fd1telmomo28umc.cloudfront.net%2Fmedia%2Fpublic%2Fthumbnails%2Fgit-min.jpg&w=3840&q=75)
 
-### 깃은 버전 관리 시스템!
-- 버전관리 : 어떤 게 삭제 되고 어떤 게 추가됐는지 기록하고 저장해준다.
+> 위 문서는 [노마드코더 모두를 위한 깃 & 깃허브](https://nomadcoders.co/kokoa-clone/lobby) 강의에서 중요하다고 생각하는 내용들을 요약한 것입니다.
 
-### 협업에 사용하는 깃
-- 우리가 깃을 사용할 때 gitHub 등의 원격 깃저장소를 사용! -> 이 점 덕분에 우리가 협업할 때에도 깃을 사용!
-- gitHub는 우리가 git을 인터넷(원격) 상에 올려두고 각자의 컴퓨터(로컬)에 그 파일을 다운받아 작업 후 변경 내용을 다시 인터넷(원격)으로 올리는 방식으로 깃을 관리해줌.
-- 인터넷 상에 업로드 되어 있어서 모두가 접근 가능하기 때문에 다른 사람들과도 협업이 가능해진다!
+# #0 INTRODUCTION
 
-### 깃 용어 정리
-- 원격, 리모트(remote) : gitHub
-- 로컬(local) : 내 컴퓨터에 있는 파일
-- 레퍼지토리(repository) : 저장소
-    - ex) 리모트 레파지토리, 로컬 레포
+## #0.2 What is Git and Github
+
+### git
+
+- git은 모든 파일들의 모든 변경사항들을 트래킹 한다.
+- version control system
+- git은 파일들을 텍스트로 읽지 않고 binary code(0, 1)로 읽기 때문에 텍스트 파일 뿐만 아니라 모든 파일들을 추적할 수 있다.
+
+### github
+
+- 깃허브는 history 파일들을 팀원들과 함께 공유하기 위해 파일들을 올리는 저장소 역할을 한다.

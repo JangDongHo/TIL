@@ -24,5 +24,4 @@
 
 ## 협업툴
 
-- [git 기초](Co-work/Git-Basic.md)
-- [gitKraken](Co-work/GitKraken.md)
+- [노마드코더 모두를 위한 깃 & 깃허브](Co-work/Git-Basic.md)
