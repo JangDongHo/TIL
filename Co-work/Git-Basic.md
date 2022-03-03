@@ -57,3 +57,9 @@
 ### Branch의 작동 구조
 
 - 기본적으로 우리의 파일들은 다른 각각의 차원에 넣어두고, 결정의 시간이 되면 그 차원들을 합친다.
+
+## #1.4 Branches Part Two
+
+- 브랜치: 메인의 마지막 commit에서부터의 다른 타임라인을 뜻한다.
+- `update from Default Branch` => 메인 브랜치 -> 타 브랜치
+- `merge into Current Branch` => 타 브랜치 -> 메인 브랜치
