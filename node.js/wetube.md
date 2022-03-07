@@ -59,3 +59,51 @@
 - 패키지들을 안전하게 관리해준다.
 - 패키지가 수정됐는지 해시값으로 체크해준다.
 - 다른 사람들이 npm으로 모듈을 설치할 때 이 파일을 참고해서 **똑같은 버전**으로 설치한다.
+
+## #2.3 The Tower of Babel
+
+### express 사용 방법
+
+```js
+const express = require("express"); // express 생성
+
+const app = express(); // express 애플리케이션 생성
+```
+
+- 이 코드들은 너무 구식이라, 최신 자바스크립트 코드를 쓰려고 한다.
+- NodeJS는 우리가 작성한 자바스크립트를 이해하겠지만 아직 NodeJS가 이해하지 못하는 최신 자바스크립트 코드가 있다.
+- 그래서 두 가지 옵션이 있다.
+  1. nodeJS가 이해하는 자바스크립트만 쓴다.
+  2. `babel`을 사용한다. (babeljs.io)
+
+### babel
+
+- 우리가 작성한 최신 자바스크립트를 컴파일 해준다.
+- nodeJS가 자바스크립트를 문제 없이 이해하도록 변환해준다.
+
+`npm install --save-dev @babel/core`
+
+- dependencies: 우리 프로젝트에 필요한 것
+- devDependencies: 개발자에게 필요한 dependencies
+- `--save-dev`: devDependencies에 저장한다.
+
+### babel.config
+
+- presets: babel을 위한 엄청 거대한 플러그인
+
+## #2.4 Nodemon
+
+### babel-node 실행방법
+
+1. script에 `babel-node 파일명` 입력
+2. 터미널에 `npm run 스크립트명` 입력
+
+- `const express = require("express")` 보다는 `import express from "express"`가 더 이해가 잘된다.
+- 결국, 후자는 최신 자바스크립트 코드기 때문에 babel이 필요했던 것
+- 문제는, 내가 코드를 수정할 때마다 `npm run` 을 실행해갸 해서 매우 불편하다. 그래서 `nodemon` 이라는 패키지를 사용한다.
+
+### nodemoon
+
+- 우리가 만든 파일이 수정되는 걸 감시해주는 패키지이다.
+- 파일이 수정되면 nodemon이 알아서 재시작을 해준다. 그러면 npm run을 계속 실행할 필요가 없다.
+- 사용법은 스크립트에 `nodemon --exec babel-node 파일명` 을 작성한다. 그리고 `npm run 스크립트명` 을 최초 1회만 실행하면 된다.
