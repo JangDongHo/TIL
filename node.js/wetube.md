@@ -107,3 +107,83 @@ const app = express(); // express 애플리케이션 생성
 - 우리가 만든 파일이 수정되는 걸 감시해주는 패키지이다.
 - 파일이 수정되면 nodemon이 알아서 재시작을 해준다. 그러면 npm run을 계속 실행할 필요가 없다.
 - 사용법은 스크립트에 `nodemon --exec babel-node 파일명` 을 작성한다. 그리고 `npm run 스크립트명` 을 최초 1회만 실행하면 된다.
+
+# #3 INTRODUCTION TO EXPRESS
+
+## #3.0 Your First Server
+
+- 코드와 조직을 가지고 있는 모든 파일들을 src 안에 넣는다.
+
+### server.js 구성
+
+1. express import 하기
+
+   ```js
+   import express from "express";
+   ```
+
+   - node.js와 npm은 똑똑해서 `node_moduels/express`로 적지 않아도 알아서 찾아낸다.
+
+2. express application 생성
+
+   ```js
+   const app = express();
+   ```
+
+3. app.listen(포트, 콜백함수)
+   - app이 listen 할 수 있게 해야 한다.
+   - 서버는 항상 켜져 있는 컴퓨터이고, 인터넷에 연결 돼 있다. 그리고 request를 항상 listening 하고 있다. (서버와 상호작용하는 모든 일들을 서버는 listen 하고 있다.)
+   - 서버가 사람들이 무언가를 요청할 때까지 기다리게 해야한다. => `app.listen()`
+   - 서버에게 어떤 port를 listening 할 지 얘기해줘야 한다.
+     - port는 컴퓨터의 문이나 창문 같은 것
+     - 몇몇 port는 인터넷에 오픈 되어 있다.
+   ```js
+   app.listen(4000, handleListening);
+   ```
+
+### 서버 들어가는 법
+
+- 보통, localhost를 통해서 접속한다.
+
+### 서버 종료하는 법
+
+- nodemon과 서버를 종료하려면 `Ctrl`+`C` 를 누르면 된다.
+
+## #3.1 GET Requests
+
+- 처음 서버를 만들어서 접속하면 `Cannot GET /` 이 보인다.
+- `/` 는 서버의 root, 혹은 첫 페이지를 뜻한다.
+- `GET` 은 HTTP Method 이다.
+- http는 우리가 서버와 소통하는 방법
+  - 많은 방법 중 하나지만, 가장 안정적이고, 오래되고, 처음 사용한 방법
+- 우리가 서버에 접속하면 브라우저가 대신 http request를 만들어준다.
+- http request는 웹사이트에 접속하고 서버에 정보를 보내는 방법이다.
+- 브라우저는 자동으로 페이지를 GET 하려 한다.
+- 웹사이트에 접속하려 할 때, 내가 직접 접속하는 게 아닌 웹사이트한테, "이봐, 나한테 너네 홈페이지 갖다 줘"라고 얘기하는 것이다.
+
+## #3.2 GET Requests part Two
+
+### request
+
+- 유저가 뭔가를 요청하거나, 보내거나, 네게 무슨 행동을 하는 것
+
+### app.get()
+
+- 누군가가 어떤 루트로 get request를 보낸다면, 반응한다.
+
+```js
+app.get("/", 콜백함수);
+```
+
+### #3.3 Responses
+
+- app.get에는 두 가지 중요한 argument가 있다.
+
+1. request(req) object => 쿠키나 url 등을 불러 온다.
+2. response(res) object
+   - `res.end()` => response를 끝낸다
+   - 'res.send()' => html 요소 추가
+
+## #3.4 Recap
+
+> express 공식 레퍼런스를 참고해서 공부해라!
