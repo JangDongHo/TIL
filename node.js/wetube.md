@@ -187,3 +187,31 @@ app.get("/", 콜백함수);
 ## #3.4 Recap
 
 > express 공식 레퍼런스를 참고해서 공부해라!
+
+## #3.5 Middlewares part One
+
+### Middleware
+
+- request와 response 사이에 있다.
+- 모든 middleware는 handler이다.
+- 원래 controller에는 두 개의 argument 말고도 하나가 더 있다. (`next`)
+
+### next argument
+
+- next는 다음 함수를 호출해준다.
+- next를 쓰기 위해서는 middleware가 필요하다.
+
+```js
+app.get("/", gossipMiddleware, handleHome);
+```
+
+- 모든 controller가 middleware가 될 수 있다.
+- middleware는 작업을 다음 함수에 넘기는 함수다. 응답하는 함수가 아니다.
+
+## #3.6 Middlewares part Two
+
+### app.use()
+
+- global middleware를 만들 수 있게 해준다.
+- 모든 route에서 이 함수를 사용한다.
+- 단, 순서가 중요한데 절대 app.get()뒤에 이 함수를 쓰지 않는다. (적용X)
