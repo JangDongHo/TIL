@@ -215,3 +215,13 @@ app.get("/", gossipMiddleware, handleHome);
 - global middleware를 만들 수 있게 해준다.
 - 모든 route에서 이 함수를 사용한다.
 - 단, 순서가 중요한데 절대 app.get()뒤에 이 함수를 쓰지 않는다. (적용X)
+
+## #3.11 External Middlewares
+
+### Morgan
+
+- morgan은 node.js용 request logger middleware다.
+- morgan 함수를 호출하면, 자기가 설정한 대로 middleware를 return 해준다.
+- `dev`: method, url, status code, 응답시간
+- `combined`: 시간, method, http 버전, 사용중인 브라우저, os 등
+- `common`, `tiny`
