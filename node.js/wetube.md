@@ -225,3 +225,14 @@ app.get("/", gossipMiddleware, handleHome);
 - `dev`: method, url, status code, 응답시간
 - `combined`: 시간, method, http 버전, 사용중인 브라우저, os 등
 - `common`, `tiny`
+
+# #4 ROUTERS
+
+## #4.0 What are Routers?
+
+### Router
+
+- 라우터는 우리의 컨트롤러와 URL의 관리를 쉽게 해준다.
+- 쉽게 말해, 미니 어플리케이션을 만들게 해주는 것과 같다.
+- 라우터를 이해하는 가장 쉬운 방법 => 맞으면서 배워라!
+- 프로젝트에 대해 생각해 볼 때 가장 먼저 생각해야하는건 데이터다.
