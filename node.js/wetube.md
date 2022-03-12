@@ -236,3 +236,111 @@ app.get("/", gossipMiddleware, handleHome);
 - 쉽게 말해, 미니 어플리케이션을 만들게 해주는 것과 같다.
 - 라우터를 이해하는 가장 쉬운 방법 => 맞으면서 배워라!
 - 프로젝트에 대해 생각해 볼 때 가장 먼저 생각해야하는건 데이터다.
+  - 어떤 종류의 데이터를 쓸 것인가? (`video`, `user`)
+- 이후 URL을 디자인한다.
+
+```
+** USER **
+/ => home
+/join => Join
+/login => Login
+/search => Search
+
+** Video **
+watch-video
+edit-video
+delete-video
+```
+
+- URL은 뭔가를 수정하거나 프로필을 삭제하는 등 하는 행동들을 나타낸다.
+- 가장 좋은 방법은 라우터를 도메인 별로 나눈다.
+  - ex) 유저의 URL을 가져와서 라우터 안에 넣는다.
+  - ex) 동영상의 URL을 가져와서 라우터 안에 넣는다.
+
+```
+`/` `/join` `/login` `/search` => 글로벌 라우터
+`/users/edit` `/users/delete` => 유저 라우터
+`/videos/watch` `/videos/watch` `/videos/delete` => 비디오 라우터
+```
+
+- 라우터는 우리가 작업중인 주제를 기반으로 URL을 그룹화해준다.
+
+## #4.1 Making Our Routers
+
+### 규칙 외 예외사항
+
+- URL을 깔끔하게 하고, 마케팅 하는 사람이 편하려고 예외적으로 규칙을 적용하지 않는게 있다.
+  - ex) `/users/join (x)` `/join (o)`
+
+### 라우터 만드는 법
+
+`const router = express.Router();`
+
+### 라우터 사용법
+
+`app.use(루트url, 라우터)`
+
+### 라우터 request 연결
+
+`라우터.get(url, 콜백함수)`
+
+## #4.2 Cleaning the code
+
+- 사람들은 처음에 코드를 작성할 때 머릿 속의 코드들을 얼른 쓰고 싶어한다. (창작 과정)
+- 그리고, 그 다음에 코드를 작성하는데 쓴 시간만큼의 시간을 또 할애해야한다. 그만큼의 시간을 코들르 정리하는 데 써야한다. (코드 정리 과정)
+
+### 정리법
+
+- 먼저, 컨트롤러와 라우터를 나눈다.
+  - routers 폴더를 만들어서 파일을 쪼갠다.
+    - 우리가 만들고 있는 파일들은 하나의 모듈이고, 그것들은 독립되어 있다.
+    - 그러니, 한 파일 안에서도 돌아가는 환경을 코드로 만들어야한다.
+    - 항상, import 하기 전에는 export를 해야한다. 그렇지 않으면 에러가 생긴다.
+
+### default export
+
+- `export default 라우터명`
+- default export는 한번만 정의할 수 있다.
+- 그래서, 이름을 같게 유지할 필요가 없다.
+
+## #4.3 Exports
+
+- 라우터와 컨트롤러를 섞어서 쓰는건 좋지 않다.
+- 컨트롤러를 위한 폴더를 따로 만들자.
+- 그러면 왜 글로벌 컨트롤러는 없을까?
+
+  - 필요가 없기 떄문이다. 회원가입은 유저가 하는 것이고 따라서 유저 컨트롤러에 들어가면 된다.
+  - 홈으로 가면 뭐가 보이지? 동영상이다. 이건 비디오 컨트롤러에 들어가면 된다.
+
+- 글로벌 라우터는 단지 url을 깔끔하게 하기 위해 쓴다.
+
+### export
+
+- export default는 단 한 개의 변수만 export 할 수 있다.
+- 그래서, 변수를 생성할 때 앞에 export를 붙여주는 방식을 사용하면 여러 개를 export 할 수 있다.
+- 단, export const를 하면 이름을 못 바꾸고 실제 이름 그대로 써야 한다. (export를 여러 개 했기 때문!)
+- import 할 때는 `{ }` 를 사용한다.
+
+## #4.7 URL Paramaters part One
+
+### 파라미터 (parameter)
+
+- url 안에 변수를 포함시킬 수 있다.
+- 단, 주의할 점은 파라미터가 없는 url을 코드 순서 상 제일 위에 두어야 한다.
+- 그렇지 않으면 파라미터가 없는 url이 파라미터 변수로 들어갈 수도 있다.
+
+## #4.8 URL Parameters part Two
+
+- 이 문제를 해결하기 위해서 `정규식`에 대해서 알아야 한다.
+- `\w+`: 모든 문자, 숫자 선택
+- `\d+`: 모든 숫자
+
+```js
+videoRouter.get("/:id(\\d+)".see);
+```
+
+- 이렇게 ㅈ가성하면 숫자만 받는다고 express에 알려줄 수 있다.
+
+> Routing: https://expressjs.com/ko/guide/routing.html
+
+> 정규 표현식 테스트 사이트: https://www.regexpal.com
