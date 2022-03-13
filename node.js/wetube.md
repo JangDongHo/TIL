@@ -175,7 +175,7 @@ const app = express(); // express 애플리케이션 생성
 app.get("/", 콜백함수);
 ```
 
-### #3.3 Responses
+## #3.3 Responses
 
 - app.get에는 두 가지 중요한 argument가 있다.
 
