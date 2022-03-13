@@ -339,7 +339,7 @@ delete-video
 videoRouter.get("/:id(\\d+)".see);
 ```
 
-- 이렇게 ㅈ가성하면 숫자만 받는다고 express에 알려줄 수 있다.
+- 이렇게 작성하면 숫자만 받는다고 express에 알려줄 수 있다.
 
 > Routing: https://expressjs.com/ko/guide/routing.html
 
