@@ -344,3 +344,126 @@ videoRouter.get("/:id(\\d+)".see);
 > Routing: https://expressjs.com/ko/guide/routing.html
 
 > 정규 표현식 테스트 사이트: https://www.regexpal.com
+
+# #5 TEMPLATES
+
+## #5.0 Returning HTML
+
+- 기존의 res.send()는 한번 HTML를 수정하면 다른 것도 다 바꿔야해서 불편함이 컸다.
+- 그래서 매번 복붙하지 않도록 해주는 녀석이 필요한데, 그것이 바로 `pug`다.
+
+## #5.1 Configuring Pug
+
+### Pug
+
+- Pug는 템플릿 엔진(Template Engine)이다.
+- 템플릿을 이용해서 뷰를 만드는걸 돕는다.
+- HTML을 간략히 쓰기만 하면 알아서 Pug가 변환해준다.
+  - title 태그를 닫거나, head 태그를 닫는 대신에 우리는 그냥 title이 head 안에 있다고 하면 됨
+
+```
+head
+  title = pageTitle
+  script(type="text/javascript")
+    if (foo) bar (1 + 5)
+```
+
+### Pug 사용법
+
+- npm으로 pug를 설치한 후 Express에게 html 헬퍼로 pug를 쓰겠다고 말한다.
+- express의 app에서 중요한 것은 뷰 엔진(View Engine)을 설정할 수 있다는 것이다.
+- express에게 우리가 사용할 뷰 엔진은 pug라고 말해주어야한다.
+
+### 뷰 엔진 설정법
+
+```
+app.set("view engine", "pug")
+```
+
+- 기본적으로 Express는 views 폴더 안에 있는 파일을 찾는다.
+- views는 어플리케이션의 뷰에 대한 디렉토리나 배열을 담고있다.
+- express는 여기에서 view를 찾을 것이다.
+- 그리고 이 context 안에서는 뷰나 템플릿이나 HTML이나 같다.
+- 뷰는 유저가 보는 대상을 말한다.
+
+### express가 뷰를 찾는 방법
+
+`process.cwd() + '/views'` => 현재 작업 디렉토리에서 /views라는 디렉토리 찾는다.
+
+- views 폴더를 만들고 pug 파일을 생성한다.
+
+## #5.2 Patrials
+
+- cwd를 바꾸려면 디폴트값을 바꿔야한다.
+
+```js
+app.set("views", process.cwd() + "/src/views");
+```
+
+- pug 파일명을 지을 때 주의할 점은 띄워쓰기, 대문자를 쓰지마라.
+
+### Patrial
+
+- pug의 최고 장점은 똑같은 요소들을 수정할 때 반복할 필요가 없다.
+- patrials 폴더를 만들고, pug 파일을 생성한다.
+  > 피그 공식문서 includes 참고
+
+### include
+
+- include는 다른 파일을 포함시킬 수 있다.
+- `include <파일명>`
+
+### Pug의 장점
+
+1. 깔끔하게 HTML 작성 가능
+2. html에 자바스크립트를 포함시킬 수 있다.
+3. 반복하지 않아도 되고, 한 파일로 모든 템플릿을 업데이트 할 수 있다.
+
+### Pug 작성법
+
+- 일단 소문자로 작성하고, 속성이 있으면 괄호 안에 작성한다.
+- 그리고 모든건 부모 속성보다 안 쪽에 있어야 한다. (2칸을 띄우거나, 탭으로)
+
+### Pug 이용법
+
+- Pug가 파일을 렌더링해서 평범한 html로 변환한다.
+- `res.render(뷰명)`
+- express가 views 디렉토리에서 pug 파일을 찾도록 설정되어 있어서 따로 import해 줄 필요는 없다.
+- express는 아까도 말했듯이 `현재 작업 디렉토리`에서 /views라는 디렉토리를 찾는다.
+  - cwd(현재 작업 디렉토리): 서버는 기동하는 파일의 위치에 따라 결정된다.
+  - 어디서 노드를 부르고 있는지에 따라 결정된다. (여기서는 `package.json`)
+
+## #5.3 Extending Templates
+
+- 불필요한 반복을 더 줄여주기 위해서 inheritance(상속) 개념을 알아야 한다.
+
+### inheritance (상속)
+
+- 상속은 레이아웃(HTML)의 베이스를 만들어준다.
+- 모든 파일들이 그 베이스에서부터 확장해 나간다.
+- `extends 파일명` => 파일 가져오기
+
+### block (블록)
+
+- 블록은 템플릿의 창문 같은 존재
+- `block 블록명` => 블록 생성
+- 다른 pug 파일들이 내용을 채워넣을 공간을 마련하는 것
+
+## #5.4 Variables to Templates
+
+### 템플릿으로 변수 보내기
+
+- `res.render()`에 `{ }`를 이용해서 보내고 싶은 변수를 다 보낸다.
+
+```
+res.render("home", { pageTitle: "Home" });
+```
+
+## #5.6 MVP Styles
+
+- CSS는 모든 HTML, Javascript 작업이 끝나면 진행해라!
+- 대신, 못생긴 HTML을 조금이나마 개선해주는 멋진 파일이 있다.
+
+### mvp.css middleware
+
+- 우리 HTML 태그에 몇 가지 기본 스타일을 입혀준다.
