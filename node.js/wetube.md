@@ -658,9 +658,20 @@ db.once("open", handleOpen);
 
 - 모델의 형태를 정의해 줄 필요가 있다.
 
-```js
-const videoSchema = new mongoose.Schema({
-  title: String,
-  createdAt: Date,
-});
-```
+  ```js
+  const videoSchema = new mongoose.Schema({
+    title: String,
+    createdAt: Date,
+  });
+  ```
+- 이후 모델 생성
+  ```js
+  const movieModel = mongoose.model("video", VideoSchema);
+  ```
+
+- export 해주기
+  ```js
+  export default movieModel;
+  ```
+
+- server.js에 import 해주기
