@@ -467,3 +467,200 @@ res.render("home", { pageTitle: "Home" });
 ### mvp.css middleware
 
 - 우리 HTML 태그에 몇 가지 기본 스타일을 입혀준다.
+
+## #5.7 Conditionals
+
+- 변수를 다른 텍스트와 섞어쓰는게 아니라면 그냥 `태그 = "변수명"` 으로 쓰면 된다.
+- varibale을 text와 섞게 된다면 #{ }를 사용한다.
+
+### conditionals
+
+- Javascript에서 쓰던 if, else if랑 똑같다.
+- if, else를 잘 쓰면 template 상에서 뭘 보여줄지 말지 결정할 수 있다.
+
+## #5.8 Iteration
+
+- Iteration은 기본적으로 elements의 list를 보여준다.
+
+```
+each 변수 in 배열
+```
+
+- `변수`: array 안의 각 item을 가리킴 (명칭 상관X)
+- `배열`: 컨트롤러의 배열 이름과 동일 해야함
+- 만약 Iteration 뒤에 else를 사용하면 pug가 자동으로 videos 안에 뭐가 있는지 없는지 체크한다.
+  > 더 자세한 Iteration 예제는 Pug 공식 문서 참고
+
+## #5.9 Mixins
+
+- Iteration은 배열 뿐만 아니라 객체도 지원한다.
+
+### mixin
+
+- mixin은 partial이긴 한데 데이터를 받을 수 있는 partial을 말한다.
+- 일반적인 partial: HTML의 한 조각을 나타내고, 데이터를 받지 못함.
+- 만약 블록이 같은 형태를 지니지만 서로 다른 데이터를 가져야 한다면?
+- 유튜브는 component를 여러 페이지에서 재사용하고 있다.
+- 개발자로서 우리의 목표는 "복붙을 최소화 하는 것" | 대신 똑같은 구조를 재사용 하겠다는 것.
+
+### mixin 생성
+
+- 먼저, views 폴더에 mixins 폴더 생성
+- mixin 할 pug 파일 생성 `mixin 함수(item명)`
+- 그리고 mixin을 불러올 pug에는 `+video(item명)`을 쓴다.
+- 마지막으로, mixin pug를 include 시킨다.
+
+## #6.0 Array Database part One
+
+- 백엔드에 데이터 보내는 법을 알아야 한다.
+- \# 기호는 attribute(href, class, id 등)에는 사용이 불가하다.
+  - attribute에 변수를 넣을 땐 백틱을 써서 ${ 변수 }로 사용하자.
+
+## #6.1 Array Database part Two
+
+### ternary operator
+
+- `#{ 조건문 ? True일 때 : False일 때 }
+- `&rarr;` => 오른쪽 화살표
+
+### absoulte와 relative url의 차이
+
+- 만약 내가 href의 앞머리 부분에 /를 넣으면 내가 어디있든 상관없이 root 경로 + /edit 으로 간다.
+- 만약 /를 지우면 그냥 relative url이 된다.
+
+## #6.2 Edit Video part One
+
+### 데이터 보내기
+
+- `form(action = " ")`
+  - action에 데이터를 어디로 보낼지 정할 수 있다. 그 값은 내 서버가 가져야 하는 url이다.
+  - 근데 서버는 벌써 이 url을 가지고 있으니(이미 그 페이지에 있으니) action을 지우고 method를 바꾼다.
+- `form(method="POST")`
+  - method를 기존의 get에서 post로 변경
+
+### <`get request vs post request`>
+
+- 기본값으로 method는 GET이다.
+- get 방식을 쓰는 form은 구글이나 네이버에서 뭔가 검색을 할 때 많이 쓴다.
+- post 방식은 파일을 보내거나, database에 있는 값을 바꾸는 뭔가를 보낼 때 사용한다. (+로그인)
+- 그리고, 해당 라우터에서 post 해주면 된다.
+
+```js
+videoRouter.post("/:id(\\d+)/edit");
+```
+
+## #6.3 Edit Video part Two
+
+- `method`: form과 backend 사이의 정보 전송에 관한 방식
+- `get method`: form에 있는 정보가 url에 들어가게 됨
+
+```js
+videoRouter.route("/:id(\\d+)/edit").get(getEdit).post(postEdit);
+```
+
+### res.redirect()
+
+- 브라우저가 redirect(자동으로 이동)하도록 한다.
+
+### express.urlencoded
+
+- 우리의 express application은 form을 어떻게 다루는지 모른다.
+- 우린 application에게 form을 처리하고 싶다고 말해야 한다.
+- parameter Limit를 써서, 필요하다면 parameter 갯수에 제한을 줄 수도 있고 또는 limit를 써서 form의 사이즈에 제한을 줄 수 있다.
+- extended: body에 있는 정보들을 보기 좋게 형식을 갖춰주는 일을 한다.
+- 이걸 쓰기 전에 middleware부터 적용해야 한다. 이 미들웨어가 form을 이해하고, 자바스크립트로 변형해서 우리가 사용할 수 있게 해준다.
+
+```js
+app.use(express.urlencoded({ extended: true }));
+```
+
+### req.body
+
+- form의 정보를 불러올 수 있다.
+
+```js
+const { title } = req.body;
+```
+
+## #6.6 More Practice part Two
+
+### videos.push(newVideo)
+
+## #6.7 Introduction to MongoDB
+
+### MongoDB
+
+- MongoDB가 섹시한 이유는 바로 document-based(문서 기반)이라는 점 이다.
+  - 일반적으로, database는 document-based가 아님. 보통 sql-based이다. (행 기반)
+- MongoDB에서 저장하는 것들은 JSON-like-document이다.
+- 또한, document 내부를 검색할 수 있도록 해준다. (CRUD)
+
+### MongoDB 설치
+
+- MongoDB 사이트 => Docs => Server => Installation => Install MongoDB Community Edition
+
+## #6.8 Connecting to Mongo
+
+### Mongoose
+
+- node.js와 mongoDB를 이어주는 다리가 되어준다.
+
+### Mongoose 설치
+
+- `npm i mongoose`
+
+### Mongoose 사용법
+
+1. `db.js` 파일 생성
+2. 터미널에 `mongo` 입력 후 url 따오기
+3.
+
+```js
+import mongoose from "mongoose";
+mongoose.connect("URL");
+```
+
+4. 새로운 DB를 추가하려면 url 연결 후, `/` 뒤에 database 이름을 적어주면 된다.
+5. `server.js`에 `db.js` 파일 경로 import 해주기
+
+- 만약 콘솔창에 경고가 뜬다면 문장 잘 읽어보고 mongoose.connect에 속성 추가하기
+
+### 에러 출력
+
+```js
+const db = mongoose.connection;
+const handleOpen = () => console.log("Connected to DB");
+const handleError = (error) => console.log("DB Error", error);
+db.on("error", handleError);
+db.once("open", handleOpen);
+```
+
+## #6.9 CRUD Introduction
+
+### CRUD
+
+- Create(생성)
+- Read(읽기)
+- Update(수정)
+- Delete(삭제)
+
+### model 생성
+
+1. src/models 폴더 생성
+2. Video.js 생성 => video model 만들기
+
+- mongoose에게 우리 애플리케이션의 데이터들이 어떻게 생겼는지 알려줘야 한다.
+- ex) 비디오에 제목이 있고, 세부설명이 있고 등등
+
+## #6.10 Video Model
+
+### Schema
+
+- 모델의 형태를 정의해 줄 필요가 있다.
+
+```js
+const videoSchema = new mongoose.Schema({
+  title: String,
+  createdAt: Date,
+});
+```
