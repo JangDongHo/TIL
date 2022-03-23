@@ -664,14 +664,277 @@ db.once("open", handleOpen);
     createdAt: Date,
   });
   ```
+
 - 이후 모델 생성
+
   ```js
   const movieModel = mongoose.model("video", VideoSchema);
   ```
 
 - export 해주기
+
   ```js
   export default movieModel;
   ```
 
 - server.js에 import 해주기
+
+## #6.11 Our First Query
+
+- 따지고 보면 import는 server에서 중요한 부품이 아님.
+- 그래서 `src/init.js`를 만들어서 import 관리 + application 작동
+- server.js는 express 된 것들과 server의 configuration에 관련된 것을 처리하기 위해 만들어졌다.
+- database나 models 같은 것들을 import를 하기 위함이 아니다.
+- 이렇게 폴더를 변경하면 nodemon이 제대로 작동하지 않는데, `package.json`을 수정해서 문제를 해결한다.
+
+### db 연결
+
+- mongoose documentation 참고
+- Model.find()
+  1. call back function 활용
+  2. promise 활용
+- callback이란 무언가가 발생하고 난 다음 호출되는 function을 말한다. javascript에서 기다림을 표현하는 하나의 방법이라 생각하면 편하다.
+- database는 javascript 밖에 존재하기 때문에 예기치 못한 일이 발생할 수도 있다. (기다림 지속 등)
+
+### callback function 활용
+
+- configuration이랑 호출 할 function 필요
+
+```js
+Video.find({}, (error, videos) => {});
+```
+
+- {}: search terms => 이게 비어 있으면 모든 형식을 다 찾는다는 것
+- 콜백 함수(error, docs)
+
+## #6.12 Our First Query part Two
+
+### 코드 실행 순서
+
+1. page를 request
+2. console.log 출력
+3. render 과정 거친 후 logger 출력
+4. db 출력
+
+- 코드에 따라 실행되는 시간이 다를 수 있다.
+
+## #6.13 Async Await
+
+- callback의 장점은 에러들을 바로 볼 수 있다는 것
+- 단점은 function 안에 function을 작성해야해서 코드가 더럽다.
+
+### promise
+
+- promise는 callback의 최신 버전
+
+```js
+export const home = async (req, res) => {
+  const videos = await Video.find({});
+};
+```
+
+- 코드가 순서대로 실행된다.
+
+### callback과의 차이점
+
+- 차이점은 await을 find 앞에 적으면 내가 callback을 필요로 하지 않는다는걸 알게 된다.
+- 에러를 출력하기 위해선 try catch문을 사용
+  - try{}를 먼저 시도한 후 안되면 catch{}를 실행
+
+### await가 대단한 이유
+
+- await가 database를 기다려주기 때문이다.
+- 코드가 매우 직관적 => javascript가 어디서 어떻게 기다리는지 바로 알 수 있기 때문이다.
+- 코드 규칙상 await는 asynchronous를 가진 function 안에서만 작동한다.
+
+## #6.14 Returns and Renders
+
+- 컨트롤러에 return을 쓸 필요는 없지만 쓰는 이유는 function이 render 작업 후에 종료되도록 하기 위해서다.
+- return이 아니라 실행되는 function들에 집중해야한다.
+
+## #6.15 Creating a Video part One
+
+### document 생성
+
+- document는 데이터를 가진 비디오라 생각하면 편하다.
+- document를 database에 저장해야 한다.
+
+```js
+const video = new Video({
+  title,
+  description,
+});
+```
+
+- 이 코드 안에 video model의 구성 요소들을 담아준다.
+
+### map 함수
+
+```js
+hashtags.split(",").map((word) => `#${word}`);
+```
+
+=> `,`를 기준으로 split한 후 단어 앞에 `#`를 붙여준다.
+
+## #6.16 Creating a video part Two
+
+- mongoose가 데이터 타입의 유효성 검사를 도와주고 있어서 잘못된 데이터 형식을 넣으면 보호해준다.
+  => 데이터 형태를 미리 정해뒀을 때 얻는 장점
+
+### 데이터 db에 저장하기 (방식 두가지)
+
+1. video.save();
+
+- save가 되는 순간 우리는 기다려야한다. await 사용해야함!
+
+2. video.create();
+
+- video.save() 쓸 필요없이 만들어진 video 객체를 바로 db에 저장한다.
+- 대신 잘못된 형식의 데이터 타입이 들어오면 콘솔 창에 오류가 뜨면서 에러가 날 수도 있으니 try, catch 사용
+
+## #6.17 Exceptions and Validation
+
+```js
+catch(error) {
+  console.log(error);
+  return res.render("upload", {
+    pageTitle: "Upload Video",
+    errorMessage: error._message,
+  })
+}
+```
+
+- 그냥 error 메시지를 사용자에게 출력하기에는 너무 기니 error 메시지의 \_message를 이용하면 짧게 출력할 수 있다.
+- 그리고 pug에서 코드를 수정하면 된다.
+  ```js
+  if errorMessage
+    span=errorMessage
+  ```
+
+### 스키마 default값 설정
+
+```js
+createdAt: { type: Date, required: true, default: Date.now },
+```
+
+- default 값을 설정해주면 우리가 나중에 값을 지정하지 않아도 알아서 설정이 된다.
+- 여기서 중요한 점은 함수 형식이라면 절대 ()를 붙여서는 안된다.
+
+### exist()
+
+- 영상이 실제로 있는지 없는지 체크한다. 있으면 true 없으면 false
+- 인자는 id가 아닌, filter(조건)을 받는다.
+
+- db에 저장하기 전에 뭔가를 하거나 체크를 보통 한다.
+
+### Middleware
+
+- object가 저장 되기 전에 무엇인가를 먼저 하고 나머질 처리할 수 있게 해준다.
+
+## #6.18 More Schema
+
+> 스키마가 가질 수 있는 옵션들은 Mongoose 공식 문서 참고
+
+- 데이터에 대한 구체적인 설정은 정말 중요하다. 데이터 타입을 더 구체화 할 수록 Mongoose의 도움을 받을 수 있다.
+- form과 database 모두 minlength(maxlength)를 해야하는 이유는 누군가 임의로 웹페이지의 글자 수 제한을 풀고 길게 입력할 수도 있기 때문이다. => 홈페이지를 보호하기 위함.
+
+## #6.19 Video Detail
+
+- 문제는 우리가 설정했던 정규표현식이 mongoDB가 만들어낸 id 포맷과는 맞지 않다.
+  => 그래서 상세 페이지로 가면 에러 메시지가 뜬다.
+
+### regular expression
+
+- id는 24byte hexadecimal string(24바이트 16진수)
+- regular expression은 개발자에게 매우 유용하기 때문에 더 공부해봐라.
+- `[0-9a-f]{24}` => 0~9, a~f까지의 24자 string을 찾아낸다. (패턴)
+
+### findById, findOne
+
+- findOne은 내가 보내는 모든 condition을 적용시켜준다.
+- findById은 id로 영상을 찾아낼 수 있는 기능을 지원해준다.
+
+## #6.20 Edit Video part One
+
+### exec()
+
+- query를 실행(execute)하는 것
+- 배열.join()
+
+## #6.21 Edit Video part Two
+
+- `word.startsWith("#") ? word1 ! word2`
+- 만약 단어가 #로 시작한다면 word1을 return하고 아니라면 word2 리턴
+
+## #6.22 Edit Video part Three
+
+### findByIdAndUpdate(id, items)
+
+- id의 데이터베이스를 찾고 구성 요소 업데이트
+- video의 소문자 v는 데이터베이스에서 검색할 영상 object이고 대문자 Video는 Video의 모델이다.
+
+## #6.23 Middlewares
+
+- express에서 middleware라는건 request를 중간에서 가로채서 뭔가를 하고 이어서 진행하는 것
+- mongoose에서도 똑같이 document에 무슨 일이 생기기 전이나 후에 middleware를 적용할 수 있다.
+- 차이점은 흐름을 방해하지 않는다. 중간에 뭔가를 할 뿐 그 뒤로 흐름을 이어간다.
+- middleware는 무조건 model이 생성되기 전에 만들어야 한다.
+
+```js
+videosSchema.pre("save", asyncfunction(){});
+```
+
+- 이 미들웨어의 함수에는 this라는 인자가 있는데, 우리가 저장하고자 하는 문서를 가리킨다.
+
+## #6.24 Statics
+
+### static
+
+- 우리도 Video 모델의 함수들 처럼 직접 함수를 만들 수 있다.
+
+```js
+videoSchema.static("함수명", function (인자) {});
+```
+
+- 이제 내가 직접 만든 function이 `함수 이름`을 통해 접근이 가능해짐.
+
+## #6.25 Delete Video
+
+- findByIdAndDelete와 remove의 차이
+  - 둘은 조금 다른데, 가능하면 delete를 써라!
+
+## #6.26 Search part One
+
+- Mongoose가 좋은 이유는 굉장히 훌륭한 쿼리 엔진을 갖고 있다는 것
+
+```js
+Video.find({}).sort({ created: "asc" });
+```
+
+=> createdAt(등록 시간) 기준으로 오름차순
+
+### req.query
+
+- req.query를 이용하면 url의 정보들을 따올 수 있다.
+
+## #6.27 Search part Two
+
+- keyword를 포함하고 있는 것은 검색하고 싶으면 regex라는 연산자(operator)를 써야한다.
+
+```js
+$regex: new RegExp(keyword, ";");
+```
+
+=> keyword를 포함하는 것을 찾는다.
+
+```js
+$regex: new RegExp(`^${keyword}`, "i");
+```
+
+=> keyword로 시작하는 것을 찾는다.
+
+```js
+$regex: new RegExp(`${keyword}$`, "i");
+```
+
+=> keyword로 끝나는 것을 찾는다.
