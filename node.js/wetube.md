@@ -510,6 +510,8 @@ each 변수 in 배열
 - 그리고 mixin을 불러올 pug에는 `+video(item명)`을 쓴다.
 - 마지막으로, mixin pug를 include 시킨다.
 
+# #6 MONGODB AND MONGOOSE
+
 ## #6.0 Array Database part One
 
 - 백엔드에 데이터 보내는 법을 알아야 한다.
@@ -938,3 +940,81 @@ $regex: new RegExp(`${keyword}$`, "i");
 ```
 
 => keyword로 끝나는 것을 찾는다.
+
+# #7 USER AUTHENTICATION
+
+## #7.1 Create Account part Two
+
+### 터미널 사용법
+
+1. `mongo` 입력
+2. `show dbs` 입력
+3. `use wetube`
+4. `show collections`
+5. db.users.find() / db.users.remove({})
+
+- password는 저장하기 전에 따로 보안 처리를 해주어야 한다.
+
+## #7.2 Creating Account part Three
+
+### password hash (해시화)
+
+- 해싱은 일방향 함수인데, 문자열이 필요하다.
+- 입력을 하면 출력값이 나오는데, 출력값으로는 입력값을 알아낼 수 없다.
+- 같은 입력값으로는 항상 같은 출력값이 나온다.
+  - `deterministic function(결정적 함수)`
+
+### bcrypt
+
+- 아주 오래 전에 만들어진 password 해싱 모듈
+  > 해커가 해싱된 password를 가지고 할 수 있는 공격 => rainbow table
+- bcrypt는 이 rainbow table 공격을 막아준다.
+
+```js
+bcrypt.hash(password, saltRounds, function (err, hash) {});
+```
+
+- saltRounds: password를 더 예측하기 어렵게 만든다. 해싱을 몇 번 할지 정한다.
+
+## #7.3 Form Validation
+
+### $or operator
+
+- 각 조건이 true일 때 실행되게 만들 수 있다.
+
+```js
+const usernameExists = await User.exists({ $or: [{ username }, { email }] });
+```
+
+## #7.4 Status Codes
+
+- 계정 생성에 실패했는데도 브라우저 창에서 아이디와 비번을 저장할건지 물어볼 때가 있다.
+- 그래서 그걸 막아주기 위해 status code(상태 코드)라는 걸 알 필요가 있다.
+
+### 상태 코드 200: OK
+
+- 구글 크롬에서 username과 password 정보를 가지고 요청한 다음 응답을 200을 받으면 크롬이 계정 생성이 성공적이었다고 판단
+- 보통 res.render을 하면 응답으로 200을 보내주기 때문에 브라우저한테 render는 잘 됐는데 에러가 있었다고 알려줘야한다.
+
+### 상태 코드 400: BAD Request
+
+- 클라이언트에서 발생한 에러 때문에 요청을 처리하지 못할 때 쓴다.
+
+### <상태코드 변경법>
+
+- res와 render 사이에 status(400)만 추가하면 된다.
+- 상태코드를 적절히 보내주는건 아주 중요하다. 그래야 브라우저한테 상황을 알려줄 수 있다.
+
+## #7.6 Login Part Two
+
+### <비밀번호 확인>
+
+- `bcrypt.compare(유저pw, DB해쉬값);`
+
+```js
+async function checkUser(username, password) {
+  const match = await bcrypt.compare(유저pw, DB해쉬값);
+  if (match) {
+  }
+}
+```
