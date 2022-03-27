@@ -1018,3 +1018,87 @@ async function checkUser(username, password) {
   }
 }
 ```
+
+## #7.7 Sessions and Cookies part one
+
+### 세션
+
+- 세션은 백엔드와 브라우저 간에 어떤 활동을 했는지 기억하는 걸 말한다.
+- 브라우저와 백엔드 사이의 memory, history 같은 것
+- 작동하려면 백엔드와 브라우저가 서로에 대한 정보를 가지고 있어야 한다.
+- 서버가 요청을 받고 처리를 끝내면 서버에서는 누가 요청을 보냈는지 잊어버리게 되고 브라우저도 잊이버리게 된다. => `stateless (무상태)`
+- 유저가 뭔가 요청할 때마다 누가 요청하는지 알 수 있게 만들어줘야함.
+- 그래서 유저가 로그인 할 때마다 유저에게 무언가(텍스트)를 줄꺼임 (유저를 구분할 수 있게 된다.)
+
+### express-session
+
+- express에서 session을 처리할 수 있게 만든 미들웨어
+- router 앞에서 초기화 시켜준다.
+
+```js
+app.use(
+  session({
+    secret: "Hello!",
+  })
+);
+```
+
+- 이제 이 미들웨어가 사이트로 들어오는 모두를 기억하게 된다.
+- 브라우저가 우리 서버에 요청을 보내고 서버에서는 session 미들웨어가 브라우저한테 텍스트를 보낸다.
+
+### 쿠키
+
+1. 브라우저가 서버에 접근
+2. 서버가 브라우저에게 쿠키 제공
+3. 브라우저가 서버에 다시 접근할 때 앞에서 받은 쿠키 함께 제공
+4. 서버는 쿠키를 통해 브라우저를 구분
+
+## #7.8 Sessions and Cookies part Two
+
+- 서버를 재시작 할 때마다 세션이 사라진다.
+- 나중에는 백엔드가 잊지 않도록 세션을 mongoDB와 연결해본다.
+- 세션 id를 가지고 있으면 세션 Object에 정보를 추가할 수 있다.
+
+### req.session.이름
+
+- 세션에 `이름`이라는 정보를 불러온다.
+
+- 브라우저한테 준 id를 요청에 담아 보내주고 있다.
+
+### 정리
+
+- 내가 브라우저에서 웹사이트를 방문할 때마다 이 세션 미들웨어가 있으면 express가 알아서 그 브라우저를 위한 세션 id를 만들고 브라우저한테 보내준다.
+- 브라우저가 쿠키에 그 세션 id를 저장하고 express에서도 그 세션을 세션 DB에 저장한다.
+- 세션 DB에 있는 id = 쿠키에 있는 id
+- 그러면 브라우저한테 보내서 쿠키에 저장한 세션 id를 브라우저가 `localhost:4000`의 모든 url에 요청을 보낼 때마다 세션 id를 요청과 함께 보낸다.
+- 그러면 백엔드에서 어떤 유저가, 어떤 브라우저에서 요청을 보냈는지 알 수 있다.
+
+## #7.9 Logged In User
+
+- 세션 DB가 유저가 누구인지는 알아도 그 정보를 pug 템플릿과 공유하지 못한다. (`req.session.loggedIn`)
+
+## #7.10 Logged In User part Two
+
+- pug template에서 대신 locals에는 접근할 수 있다.
+- pug랑 express가 서로 locals를 공유할 수 있도록 설정되어 있다.
+
+```js
+res.locals.변수 = 변수값;
+```
+
+- 이 방식으로 templates와 data를 공유
+- global(전역 변수)라서 모든 template에서 쓸 수 있다.
+- 물론 middleware를 router에 적용을 했을 때에 한해서다.
+  => locals object는 이미 모든 pug template에 import된 object다.
+- locals Middleware가 session middleware 다음에 오기 때문에 가능하다.
+
+## #7.11 Recap
+
+- cookie는 단지 정보를 주고 받는 방법인거고, 자동적으로 처리돼서 좋다. cookie를 받고, 보내는 과정에서 사용자는 아무것도 안해도 되고 별개의 코드를 작성할 필요가 없다. (http 표준을 따르고 있기 때문)
+- session ID는 cookie에 저장된다. 왜냐면 cookie는 session ID를 전송하는데 사용되기 때문이다.
+- session ID가 cookie 안에 저장되고, 백엔드에도 저장된다는게 요점이다.
+- 백엔드는 생성된 모든 session ID를 관리하는 곳이다.
+- Session Store는 우리가 session을 저장하는 곳이다.
+- 내가 매번 코드를 저장하면 서버가 재시작 되는데, 이때 session store는 사라진다. 왜냐하면 테스트를 위한 저장소기 떄문이다.
+- 그래서 서버 재시작시 쿠키 값이 아예 바뀐다.
+- Cookie: 어떠 브라우저를 위한 session ID인지 알 수 있다.
