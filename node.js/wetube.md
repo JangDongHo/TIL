@@ -1102,3 +1102,60 @@ res.locals.변수 = 변수값;
 - 내가 매번 코드를 저장하면 서버가 재시작 되는데, 이때 session store는 사라진다. 왜냐하면 테스트를 위한 저장소기 떄문이다.
 - 그래서 서버 재시작시 쿠키 값이 아예 바뀐다.
 - Cookie: 어떠 브라우저를 위한 session ID인지 알 수 있다.
+
+## #7.2 MongoStore
+
+- session id는 쿠키에 저장되지만, 데이터 자체는 서버에 저장된다.
+- 서버에 저장되는 default session storage는 Memory Store이고, 실제 사용하기 위해 있는 건 아니다.
+- 그래서 우리는 session store를 사용해야한다. 세션을 database에 저장해야 한다.
+
+### connect-mongo
+
+- connect-mongo는 세션을 MongoDB에 저장한다.
+
+```js
+MongoStore.create({ mongoUrl: "url" });
+```
+
+- 우리의 Mongo database의 url을 가지고 있는 configuration object를 만들어야한다.
+
+## #7.3 Uninitialized Sessions
+
+- session을 DB에 모두 저장하는 방법은 좋지 못한 생각이다.
+- 로그인한 사용자의 session만 저장하는게 좋다.
+
+### save Uninitialized
+
+- 세션을 수정할 때만 세션을 DB에 저장하고 쿠키를 넘겨준다.
+
+## #7.14 Expiration and Secrets
+
+- secret은 우리가 쿠키에 sign할 때 사용하는 string이다.
+- 쿠키에 sing 하는 이유는 우리 backend가 쿠키를 줬다는걸 보여주기 위함이다.
+- secret은 그래서 길게 작성되고 강력하고 무작위로 만들어야한다.
+- 이 string을 가지고 쿠키를 sign하고 우리가 만든 것임을 증명할 수 있다.
+
+### domain
+
+- domain은 이 쿠키를 만든 backend가 누구인지 알려준다.
+- domain은 쿠키가 어디서 왔는지, 어디로 가야하는지 알려준다.
+
+### path
+
+- path는 단순히 url이라 별거아님.
+
+### Expires
+
+- 만약 내가 만료날짜를 지정하지 않으면 이전 session cookie로 설정되고 사용자가 닫으면 session cookie는 끝나게 된다.
+
+### Max-Age
+
+- 말그대로 세션이 언제 만료되는지 알려준다. 기본값은 14일이고 원한다면 바꿀 수 있다.
+
+### session secret 값, db url 값 숨기기
+
+- 값을 숨기기 위해서 environment file(환경 변수)가 필요하다.
+- `.env`라는 파일을 생성한 후 gitignore에 추가한다.
+- `.env`에는 코드에 들어가면 안되는 값들을 추가한다.
+- 관습적으로 env 파일에 추가하는 건 모두 대문자로 적는다.
+- env 파일에 접근하려면 그냥 `process.env.변수명`을 써주면 된다.
