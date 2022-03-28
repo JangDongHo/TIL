@@ -1159,3 +1159,58 @@ MongoStore.create({ mongoUrl: "url" });
 - `.env`에는 코드에 들어가면 안되는 값들을 추가한다.
 - 관습적으로 env 파일에 추가하는 건 모두 대문자로 적는다.
 - env 파일에 접근하려면 그냥 `process.env.변수명`을 써주면 된다.
+
+## #7.15 Environment Variables
+
+### dotenv
+
+- 내 env 파일을 읽고 각각의 변수들을 `process.env` 안에 넣는다.
+- `process.env`: node.js process의 환경
+- dotenv는 최대한 빨리 env를 load 해야하기 때문에 가능한 한 가장 먼저 사용해야 한다.
+- wetube에서는 init.js의 가장 위에 넣어야한다.
+- require을 하려면 dotenv를 사용하고 싶은 모든 파일에 require를 추가 해줘야한다.
+- 그래서 그 대신, require를 import하는 부분을 우리가 import 하는 방식으로 수정한다.
+
+```js
+import "dotenv/config";
+```
+
+## #7.16 Github Login part One
+
+### 깃허브 로그인
+
+- 모든 소셜미디어 로그인의 흐름은 같다.
+
+1. 사용자의 이메일, 패스워드 등을 깃헙으로 보낸다.
+2. 깃헙이 우리에게 정보를 공유하는 것을 승인한다.
+3. 깃헙은 사용자를 우리 웹사이트로 돌려보낸다.
+
+- 이때 사용자를 token과 함께 redirect 시킨다.
+- 그 토큰으로 사용자의 정보를 받아온다.
+
+- 더 나아가기 전에 Github Application에서 설정을 해줘야한다.
+  - Developer Settings 클릭 -> OAuth Apps 클릭
+
+```
+https://github.com/login/oauth/authorize?client_id=
+```
+
+- 무언가 더 많은 정보를 받고싶다면 scope에 뭔가를 더 전송한다.
+- scope에는 너가 사용자에 대해 어디까지 알 수 있는지 적으면 된다.
+- URL에 있는 것들을 바꿈으로써 다양한 방법으로 사용자를 승인할 수 있다.
+
+## #7.17 Github Login part Two
+
+- scope는 유저에게서 얼마나 많이 정보를 읽어내고 어떤 정보를 가져올 것에 대한지다.
+- 우리가 원하는건 `read:user`과 `user:email`이다.
+  > 자세한건 내가 요청하고 싶은 것이 담긴 API 문서를 참고
+- URL을 하나한 다 복사해서 쓰면 매우 비효율적
+- href를 `users/github/start` 로 잡고 새로운 유저 라우터, 컨트롤러를 하나 만들어서 redirect시키는 방식을 쓰는게 더 좋다.
+
+### UrlSearchParams
+
+```js
+const params = new URLSearchParams(config).toString();
+```
+
+=> config에서 설정한 속성들을 인코딩해서 url로 만들어준다.
