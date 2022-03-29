@@ -1214,3 +1214,89 @@ const params = new URLSearchParams(config).toString();
 ```
 
 => config에서 설정한 속성들을 인코딩해서 url로 만들어준다.
+
+## #7.18 Github Login part Three
+
+- `finish` url로 redirect 시키기 전에 Github에서 받은 토큰을 Access 토큰으로 바꿔줘야한다.
+
+```
+POST https://github.com/login/oauth/access_token
+```
+
+- 필수 파라미터는 `client_id`, `client_secret`, `code`가 있다.
+- fetch 함수를 써서 url에 POST 요청을 보내고, json 형식으로 출력하기 위해 `Accept: "application/json"`을 넣어준다.
+- 근데 문제는 fetch는 브라우저 상에서만 사용이 가능하다. (node.js 지원 x)
+
+## #7.19 Github Login part Four
+
+### node-fetch
+
+- fetch를 node.js에서도 사용 가능하게 해준다.
+  > wetube에서는 node-fetch 버전 2.6.1을 사용하는걸 권장한다. 그러지 않으면 에러가 뜬다.
+
+### JSON.stringfy(json);
+
+- json 파일을 브라우저에 출력한다.
+
+-code를 가지고 github 백엔드에 request를 보내니 access-token이 생긴다.
+
+- 이제 access_token을 가지고 user의 정보를 얻을 수 있다.
+
+```
+GET https://api.github.com/user
+```
+
+- 윗 주소로 인증을 위한 access_token을 보내주어야 한다.
+
+- 계정을 불러오는데 성공했다면, 또 다른 문제가 있는데 사용자의 email이 비공개일 수도 있기 때문에 그에 대비해서 또 다른 request를 만들어야 한다.
+
+## #7.20 Github Login part Five
+
+> Github API로 가면 우리가 무엇을 할 수 있는지 다 볼 수 있다.
+
+## #7.21 Github Login part Six
+
+### 로그인 규칙 만들기
+
+- 만약 primary인 email을 받고 db에서 같은 email을 가진 user를 발견하면 그 user를 로그인 시켜준다.
+- 유저 스키마에 `socialOnly`를 추가해서 user가 github로 로그인 했는지 여부를 확인하게 한다.
+  - 로그인 페이지에서 유저가 email로 로그인 하려는데 password가 없을 때 유용할 수 있다.
+- 소셜미디어로 회원가입 시 비밀번호가 없기 때문에 password에는 빈 문자열을 넣고 socialOnly를 true로 해준다.
+
+## #7.22 Log Out
+
+### req.session.destroy();
+
+- 세션을 없앤다.
+
+# #8 USER PROFILE
+
+## #8.0 Edit Profile GET
+
+### 문제점 두 가지
+
+1. loggedInUser에 접근하려는데 로그인 되어 있지 않으면 생기는 에러
+2. 로그인 돼 있지 않은 사람들은 edit 페이지에 올 수 없어야 한다.
+
+- 그래서 몇몇 route를 보호하는 middleware가 필요하다.
+
+- 첫 번째 문제는 middleware에서
+  `res.locals.loggedInUser = req.session.user || {};` 를 해줌으로써 해결이 가능하다.
+- 로그인 안 한 유저는 undefined가 뜨니 끝에 `|| {}`를 붙이면 된다.
+
+## #8.1 Protector and Public Middlewares
+
+- 두 번째 문제로 로그인 하지 않은 사람들이 우리가 보호하려는 페이지로 가는 걸 막는 것이다.
+- 그래서, protectorMiddleware를 하나 만들어서 로그인 하지 않은 상태면 홈으로 리다이렉트 시킨다.
+- 추가로, 로그인 돼 있지 않은 사람들만 접근할 수 있게 하는 middleware도 만들어야 한다.
+
+## #8.2 Edit Profile POST part One
+
+- 비디오의 소유자를 설정하려면 videoController에서 몇 가지를 수정해야 한다.
+- 우리 웹사이트에 계정이 있고, 로그인 돼 있는 사람만 video를 업로드 할 수 있게 해야한다.
+
+## #8.3 Edit Profile POST part Two
+
+- DB에 있는 user 정보를 업데이트 한 후, session도 같이 업데이트 해주어야 한다.
+- 그러기 위해서 findByIdAndUpdate를 사용할건데, 기본적으로 update 되기 전의 데이터를 return 한다.
+- 만약 `new` 옵션을 true로 설정하면 업데이트 된 데이터를 받을 수 있다.
