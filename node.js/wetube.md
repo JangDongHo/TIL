@@ -1300,3 +1300,98 @@ GET https://api.github.com/user
 - DB에 있는 user 정보를 업데이트 한 후, session도 같이 업데이트 해주어야 한다.
 - 그러기 위해서 findByIdAndUpdate를 사용할건데, 기본적으로 update 되기 전의 데이터를 return 한다.
 - 만약 `new` 옵션을 true로 설정하면 업데이트 된 데이터를 받을 수 있다.
+
+## #8.4 Change Password part One
+
+- 깃허브를 통해 계정을 만든 경우에는 비밀번호 변경을 볼 수 없어야한다.
+
+## #8.5 Change Password part Two
+
+- 깃허브로 로그인 하지 않은 사람들을 위한 middleware를 만든다.
+- 코드를 여러 번 반복한다면, middleware를 만들어라.
+- session에서 현재 로그인 된 사용자를 확인하고, form에서 정보를 가져온다.
+- 비밀번호 변경을 시킬 때 하나는 pre save middleware를 거치고 User.create를 사용한다.
+- 그리고 user.save()를 해도 pre save middleware를 작동시킨다.
+- 우리는 user.save()를 사용해서 pre save middleware를 작동시킬 것이다.
+- session에서 정보를 받으면, 잊지 말고 업데이트도 해줘야한다.
+
+## #8.6 File Uploads part One
+
+### multer middleware
+
+- multer은 우리가 파일을 업로드 할 수 있게 도와준다.
+- multer에게 도움을 받고 싶으면 form을 multipart form으로 만들어야한다.
+
+```
+enctype = "multipart/form-data"
+```
+
+- 파일을 백엔드로 보내기 위해 필요한 encoding type(enctype)
+- 이후 미들웨어를 만든다.
+
+```js
+export const uploadFiles = multer({});
+```
+
+- multer에는 configuration object가 있다.
+
+### destination
+
+- 파일을 어디에 보낼지 정한다. (저장)
+- 사용자가 보낸 파일을 지정한 폴더에 저장하도록 설정된 middleware가 필요하다.
+- 그리고 그 미들웨어를 route에 적용한다.
+
+- middleware를 실행한 다음, postEdit을 실행한다.
+
+```js
+.post(uploadFiles.single("avatar"), postEdit);
+```
+
+- `single`: 하나의 파일만 업로드
+- `avatar`: input name이 들어갈 자리
+
+- input으로 avatar 파일을 받아서 그 파일을 uploads 폴더에 저장한 다음 그 파일 정보를 postEdit에 전달한다.
+- 이렇게 하면 req.file이 추가된다.
+
+## #8.7 File Uploads part Two
+
+- 내가 파일을 보내지 않고 수정하면, req 안에 file은 undefined가 된다.
+
+```js
+avatarUrl: file ? file.path : avatarUrl;
+```
+
+- 그리고, uploads 폴더를 .gitignore에 추가한다.
+
+- DB에는 절대 파일을 저장하지 않는다. 대신에 폴더에 파일을 저장하고 DB에는 파일의 경로만 저장한다. (매우 중요!!)
+- avatarUrl의 경로를 그대로 저장하면 상대 경로가 되니, 앞에 `"/"`를 붙여서 절대 경로로 만들어준다.
+- 이렇게 해도 안되는 이유는 Express한테 uploads 폴더가 새로 생겼다고 말을 해준 적이 없기 때문이다.
+
+## #8.8 Static Files and Recap
+
+- 브라우저가 서버에 있는 파일에 접근할 수 없으니까 우리가 브라우저한테 어디로 가야 하는지 얘기 해줘야한다.
+- 우리가 브라우저한테 어떤 페이지와 폴더를 볼 수 있는지 알려줘야한다.
+
+### Static files serving
+
+- 폴더 전체를 브라우저에게 노출시킨다.
+- 먼저, route를 만든다.
+
+```js
+app.use("/uploads", express.static(폴더명));
+```
+
+### 문제점
+
+1. 우리가 파일을 서버에 저장하고 있다.
+   - 뭔가를 업데이트 하면 새로운 서버를 만들어서 다시 시작하는데 그 전 서버에 저장돼 있던 파일들은 날라가버린다.
+2. 서버가 두 개 필요할 때 uploads 폴더를 공유할건가? 이상하다.
+3. 서버가 죽으면 파일이 날라간다.
+
+=> 파일을 서버에 저장하지 말고 다른 곳에 저장하자.
+
+## #8.9 Video Upload
+
+### filesize
+
+- multer option 중에는 `fileSize`라는 옵션이 있어서 최대 파일 용량을 지정할 수 있다. (bytes)
