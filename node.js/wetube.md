@@ -1395,3 +1395,155 @@ app.use("/uploads", express.static(폴더명));
 ### filesize
 
 - multer option 중에는 `fileSize`라는 옵션이 있어서 최대 파일 용량을 지정할 수 있다. (bytes)
+
+# #9 WEBPACK
+
+## #9.0 Introduction to webpack
+
+- Javascript를 프론트엔드에 사용될 부분에 도달했다.
+- 지금부터 우리가 작성한 코드들은 브라우저에서 작동할 코드들이다.
+
+### Webpack
+
+- 백엔드에선 `babel-node`가 있기에 무슨 코드를 쓰든 Node.js가 이해할 수 있게 된다.
+- 이런건 프론트엔드 javascript에서도 해야한다.
+- 우리는 섹시한 css 코드와 동시에 브라우저가 이해할 수 있는 코드를 넘겨줘야한다.
+- 섹시한 js를 쓰고싶은데 브라우저가 이해를 못할 수도 있고, 크롬에선 잘 돌아가는데 다른 브라우저가 이해를 못 할 수도 있는데 `webpack`은 모든 브라우저에서 인식 가능한 javascript로 바꿔준다.
+- webpack은 우리가 주는 모든 파일들을 받아서 다른 파일들로 처리, 변경 시켜준다. (최신 기술 -> 오래된 기본 js, css로 변형)
+
+### Webpack을 배워야 하는 이유
+
+- webpack은 어렵고 따분하지만, nico와 그의 동료들은 잘 쓰지 않고 webpack이 포함된 툴을 쓴다.
+- 그러나, 무조건 배워야 하는 이유는 거의 업계 표준이고, 적어도 이게 어떻게 작동하는지 그 뒤에 무슨 일이 일어나는지는 이해해야 한다.
+
+  > gulp는 webpack의 쉬운 대체제이나, webpack만큼 유용하지는 않다.
+
+- 리액트, 리액트 네이티브 같은 대부분의 프레임워크엔 webpack이 내장돼있다.
+- 이번 섹션의 목표는 webpack configuration 파일을 작성하는 것이다.
+- webpack이 어렵게 느껴져도 괜찮다. 대부분의 사람들도 어려워 한다.
+
+## #9.1 Webpack configuration part One
+
+- webpack은 파일들을 모아서, 압축, 변형시켜서 최소화하고, 필요한 과정을 다 거친 다음 정리된 코드를 결과물로써 내 놓는다.
+- 이것저것 터미널로 파일들을 설치할건데, 이것들은 다 front-end 코드에 필요한 것들이다.
+
+```
+npm i webpack webpack-cli -D
+```
+
+- webpack을 설정하기 위해서는 webpack.config.js 파일을 생성한다.
+  - 참고로 이 파일은 굉장히 오래된 js 코드만 이해할 수 있다.
+  - ex) import, export default를 지원하지 않는다.
+
+### config 설정 시 주의할 점
+
+#### 1. entry
+
+- entry는 소스코드를 의미한다. 즉, 우리가 처리하고 싶은 파일을 의미한다.
+- config에서는 `export default`가 안되므로 구식인 코드를 써야한다.
+
+```js
+module.exports = {
+  entry: "",
+};
+```
+
+- 모든 파일들에는 entry가 필요하고, output이 필요하다.
+
+#### 2. output
+
+- output에는 filename, path가 필요하다.
+- path는 절대경로여야 한다.
+- webpack CLI을 이용해서 콘솔에서 webpack을 불러낼 수 있다.
+- script에는 아래와 같이 추가한다.
+
+```
+"assets": "webpack --config webpack.config.js"
+```
+
+## #9.2 Webpack Configuration part Two
+
+### \_\_dirname
+
+- dirname은 말 그대로 파일까지의 경로 전체를 말한다. (절대 경로)
+- js가 기본적으로 제공하고 있는 상수다.
+
+### .path.resolve()
+
+- 몇 개가 됐든 내가 입력하는 파트들을 모아서 경로를 만들어준다.
+
+```js
+path.resolve(__dirname, "assets", "js"));
+```
+
+### rules
+
+- 우리가 각각의 파일 종류에 따라 어떤 전환을 할 건지 결정하는 것
+- 내가 어떤 파일을 가지고 있던지 loader를 찾으면 된다.
+- webpack은 loader를 통해서 전환시킨다.
+- 자바스크립트의 경우 `babel-loader`가 필요하다.
+- 이제부터 우리는 프론트엔드랑 백엔드 양쪽에서 `babel-core`랑 `babel/preset-env`를 사용한다.
+
+### 작동방식
+
+1. javascript 코드를 `babel-loader` 라는 loader로 가공
+2. webpack은 `node_modules`에서 `babel-loader`를 찾는다.
+3. 몇 가지 옵션을 전달한다.
+
+- `entry`, `output`, `rules`, `변형할 파일`까지는 모든 webpack 구조가 똑같으므로 이해하고 기억해야한다.
+- 갭라을 마치기 전 까지는 webpack의 mode를 `development`(개발 중)으로 맞춘다. 그렇지 않으면 너의 js 코드가 한 줄로 압축돼서 나온다.
+- 만약 완성된 결과물을 원한다면 mode를 `production`으로 바꾸면 된다.
+
+## #9.3 Webpack configuration part Three
+
+- Express한테 assets 안에 js 안에 main.js가 있다고 알려줘야 한다. (express.static 사용)
+
+## #9.4 SCSS Loader
+
+- scss를 css로 변형시키려면 세 가지 loader가 필요하다.
+
+1. scss를 가져다가 일반 css로 변형시켜주는 `sass-loader`
+2. 폰트 같은 걸 불러올 때 css에 굉장히 유용하게 쓰일 `css-loader`
+   - import랑 url을 풀어서 해석해준다.
+3. 변환한 css를 웹사이트에 적용시킬 `style-loader`
+   - css를 DOM에 주입
+
+- **중요한건 제일 마지막 loader부터 역순으로 시작해야한다. => webpack은 뒤에서부터 시작하기 때문**
+
+## #9.5 MiniCssExtractPlugin
+
+- 이제 style loader 대신 webpack plugin을 쓴다.
+- 그 이유는 style loader는 js에서 css를 넣기 때문에 좋은 방법은 아니다.
+
+### MiniCssExtractPlugin
+
+- css를 추출해서 별도의 파일로 만들어준다.
+
+- js는 js 폴더에, css는 css 폴더에 넣기 위해서 loader들의 `filename` 옵션을 잘 써먹자.
+- 이후, pug에서 css파일을 연결한다.
+
+- `client` 파일은 webpack에 의해서만 로딩하게 되고, 나머지 사용자랑 pug, 브라우저는 `assets` 파일들만 보게 된다.
+
+## #9.6 Better Developer Experience
+
+- 우리는 수동으로 변경사항이 있을 때 마다 assets 폴더를 삭제하고 `npm run assets`를 실행했다.
+- 이걸 자동화 시키려면 `watch`라는 함수를 사용하면 된다.
+- 나중에 Heroku와 서버 등으로 deploy할 때는 변경할테지만 지금은 그냥 `watch: true,`로 해두면 된다.
+- 이제 두 가지 console을 함께 구동하는 데 익숙해져야한다.
+  1. back-end
+  2. client 파일들을 watch
+- 반드시 두 개 다 실행시켜야지 오류가 나지 않는다.
+- `clean: true`를 하면 output folder를 build 하기 전에 `clean` 해준다.
+- front-end 자바스크립트가 변경된다고 해서 back-end가 다시 재시작하는걸 원하지 않는다.
+- 이를 해결하려면 `nodemon`에게 몇 가지 파일이나 폴더를 무시하는 방법을 알려줘야 한다.
+- 감사하게도 `nodemon.json`이라는 파일을 만들고 아래처럼 적으면 된다.
+
+```
+{
+  "ignore: ["파일명"],
+  "exec": "babel-node src/init.js"
+}
+```
+
+- `webpack.config.js`파일과 `src/client 디렉토리`와 `assets 디렉토리`를 ignore한다.
+- 마지막으로, `assets` 폴더를 .gitignore에 추가한다.
