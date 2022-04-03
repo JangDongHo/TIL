@@ -1396,6 +1396,35 @@ app.use("/uploads", express.static(폴더명));
 
 - multer option 중에는 `fileSize`라는 옵션이 있어서 최대 파일 용량을 지정할 수 있다. (bytes)
 
+## #8.11 Video Owner
+
+- 비디오 모델 owner의 type은 number, string, date가 아니고 objectId다.
+- objectId는 `mongoose` 코드에서만 사용할 수 있다.
+
+```
+type: mongoose.Schema.Types.ObjectId`
+```
+
+- `reference`도 추가해 줄 필요가 있는데, 그 이유는 mongoose에게 owner에 id를 저장하겠다고 알려줘야 하기 때문이다.
+- `ref: "user"`를 사용함으로써 이 objectID가 `model user`에서 온다고 알려준다.
+- 이제 영상을 업로드 할 때 업로드하는 사용자의 `id`를 전송해야한다.
+
+## #8.12 Video Owner part Two
+
+### populate()
+
+- populate는 video 모델의 owner 부분을 실제 User 데이터로 채워준다.
+- populate를 하면 `mongoose`가 `video`를 찾고 그 안에서 `owner`도 찾아준다.
+
+## #8.14 Bug fix
+
+- model은 save 해 줄 때마다 비밀번호가 계속 hash 되는 버그가 있다.
+- 그래서 비밀번호가 수정될 때만 새로 hash 하게 미들웨어를 수정해주어야 한다.
+
+### isModified()
+
+- property가 하나라도 수정되면 isModified가 `true`고, 그게 아니면 `false`가 뜬다.
+
 # #9 WEBPACK
 
 ## #9.0 Introduction to webpack
@@ -1547,3 +1576,31 @@ path.resolve(__dirname, "assets", "js"));
 
 - `webpack.config.js`파일과 `src/client 디렉토리`와 `assets 디렉토리`를 ignore한다.
 - 마지막으로, `assets` 폴더를 .gitignore에 추가한다.
+
+# #11 VIDEO PLAYER
+
+## #11.0 Player Setup
+
+- 비디어 플레이어를 이쁘게 꾸미려면 HTML을 만들고, CSS를 만들고, JS를 만들어야한다.
+- 지금 우리의 webpack은 모든 pug 파일에 똑같은 js를 적용시키고 있으므로, 다른 js 파일을 만들어서, 그 다른 js 파일을 다른 페이지에 포함시킨다.
+- 지금 우리의 webpack은 하나의 entry point만 가지고 있다.
+- entry를 object로 만들어서 js 파일을 분리시켜라.
+- 그런데, 하나의 똑같은 output 파일을 분리시켜라.
+- 그런데, 하나의 똑같은 output 파일로 나오면 안되니, webpack이 제공하는 `[name]` 변수를 사용한다.
+
+```
+filename: "js/[name].js"
+```
+
+- 이렇게 하면 entry에 있는 이름을 가져간다.
+- pug에 주석을 달려면 `//`나 `//-`를 쓰면된다.
+
+## #11.1 Play Pause
+
+- 비디오(자바스크립트)를 만들기 전에 html 마크업을 해줘야한다.
+- 비디오 element와 오디오 element는 둘 다 html media element로부터 상속 받는다.
+
+## #11.3 Volume
+
+- 볼륨의 range바 움직임을 감지하려면 `change`나 `input` event를 사용하면 된다.
+- `chagne`는 마우스를 손에서 떼야지 감지되고, `input`은 실시간으로 감지한다.
