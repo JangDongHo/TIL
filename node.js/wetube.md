@@ -1604,3 +1604,79 @@ filename: "js/[name].js"
 
 - 볼륨의 range바 움직임을 감지하려면 `change`나 `input` event를 사용하면 된다.
 - `chagne`는 마우스를 손에서 떼야지 감지되고, `input`은 실시간으로 감지한다.
+
+## #11.4 Duration and Current Time
+
+### <타임바 구현하기>
+
+#### loadedmetadata
+
+- meta data가 로드 될 때 실행된다.
+- metadata는 비디오를 제외한 모든 것을 말한다.
+
+#### timeupdate
+
+- 비디오의 시간이 변할 때 마다 발생하는 event
+
+- JS에서 handleLoadedMetadata() 이벤트를 추가하기 전에 video가 전부 로딩이 되어서, 시간이 불러와지지 않을 수도 있다. 해결법은 videoPlayer.js 끝 부분쪽에 하단의 코드를 넣는다.
+
+```js
+if (video.readyState == 4) {
+  handleLoadedMetadata();
+}
+```
+
+- video.readyState는 video가 충분히 불러와져서 사용이 가능하다는 뜻이다.
+
+## #11.5 Time Formation
+
+### date Constructor
+
+- Javascript 안에 있는 date class
+- 1970년 1월 1일 09:00가 JS의 제로타임(zero time)이다. 이걸 기준으로 밀리초를 추가할 수 있다.
+
+```js
+new Date(29 * 1000).toISOString().substr();
+```
+
+=> 29 \* 1000: 제로 타임에서 29000ms를 더한다.
+=> toISOString(): 시간값을 보기 좋게 변환
+=> substr(): 시작점에서 원하는 길이만큼 자른다. `ex) substr(11, 8)`
+
+- 21년 12월 기준 subStr 함수는 JS에서 권장하는 함수가 아님. 대신에 substring 함수를 사용하면 된다.
+
+```js
+substring(시작 인덱스, 종료 인덱스);
+```
+
+## #11.7 Fullscreen
+
+### element.requestFullscreen()
+
+- 비디오를 전체화면으로 만들지만 문제는 버튼들은 같이 나오지 않는다.
+- 그래서, videoContainer를 하나 만들어주고, 이 element를 풀스크린으로 만들어준다.
+
+### document.fullscreenElement
+
+- 이 property를 현재 풀스크린 모드로 보여지고 있는 element가 뭔지 알려준다.
+- fullScreenElement가 null를 반환하면 풀스크린인 element가 없다는 뜻이다.
+
+## #11.8 Controls Events part One
+
+### mousemove
+
+- 마우스가 비디오에 들어가고, 언제 비디오 안에서 움직이는지를 탐지한다.
+
+### mouseleave
+
+- javascript에서 기다리게 하려면, `setTimeOut`을 사용하면 된다. `mouseleave(함수, ms)`
+- 만약 마우스가 다시 돌아오면 timeout을 취소시켜줘야한다.
+
+### setTimeout()
+
+- setTimeout을 실행시키면 특수한 id를 retrun 하는데, 우리는 clearTimeout()에 id를 건네주면 된다.
+
+## #11.9 Controls Events part Two
+
+- 영상 위에서 마우스 멈추는 걸 감지할건데 불행히도 `mousestop`이라는 이벤트는 없다.
+- 그래서, timeout과 cleartimeout을 사용한다.
