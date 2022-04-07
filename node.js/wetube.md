@@ -1680,3 +1680,93 @@ substring(시작 인덱스, 종료 인덱스);
 
 - 영상 위에서 마우스 멈추는 걸 감지할건데 불행히도 `mousestop`이라는 이벤트는 없다.
 - 그래서, timeout과 cleartimeout을 사용한다.
+
+# #12 VIEWS API
+
+## #12.0 Register View Controller
+
+### API Views
+
+- 영상을 시청할 때마다 백엔드에 요청을 보내고 영상 id에 해당되는 조회수를 증가시킨다.
+- 그러기 위해선 템플릿을 렌더링하지 않는 API Views가 필요하다.
+- 우리는 SSR(Server Side Rendering) 방식을 사용하고 있다.
+  - 서버가 템플릿을 렌더링 하는 일까지 처리하는 것을 뜻한다. 요즘 시대에는 이렇게 하지 않는다.
+- API는 프론트엔드와 백엔드가 서버를 통해 통신하는 방법을 말한다.
+- 이동 없이 URL을 호출할 수 있게 하는 것은 Interactive 하게 만드는 가장 기본적인 방법이다.
+  - Interactivity라 함은 URL이 바뀌지 않아도 페이지에서 변화가 생기는걸 말한다.
+
+## #12.1 Register View Event
+
+- 우리가 추가하려는 이벤트는 유저가 비디오 시청을 끝냈을 때 생기는 이벤트다.
+
+### ended
+
+- 미디어가 끝까지 재생 완료된 시점에 발생
+
+### fetch(url)
+
+- api에게 요청을 보낼 수 있다.
+
+- 프론트엔드 js에서는 비디오의 id를 알지는 못하기 때문에 템플릿을 렌더링하는 pug한테 비디오의 정보를 남기라고 말해줘야한다.
+- pug한테 video id를 data attribute에 저장하라고한다.
+
+### data attribute
+
+- `data-`로 시작하는 attribute
+- dataset을 이용하면 자바스크립트로 데이터에 쉽게 접근할 수 있다.
+
+## #12.2 Conclusions
+
+- 그냥 `res.status()`를 하면 응답에 상태 코드를 추가하기만 할 뿐 아무 일도 일어나지 않는다.
+- 그래서, 대신에 `sendStatus()`를 사용해야한다.
+- 상태 코드를 꼭 쓸 필요는 없지만 쓰는 이유는 어떤 기능이 잘 처리됐는지 상태 코드가 알려주기 때문이다.
+
+# #13 VIDEO RECORDER
+
+## #13.0 Recorder Setup
+
+### navigator.mediaDevices.getUserMedia()
+
+- 사용자의 navigator에서 카메라와 오디오를 가져다준다.
+- 작업하는데 시간이 걸리기 때문에 await를 사용한다.
+- 이 함수는 `constraints`라는 객체를 argument를 받는다.
+
+```
+{ audio: true, video: true }
+```
+
+- 프론트엔드 상에서 async랑 await를 사용하려면 `regenerator Runtime`을 설치해야 한다.
+
+## #13.1 Video Preview
+
+```
+video.srcObject = stream;
+video.play()
+```
+
+- srcObject에 stream을 추가하고 video를 재생한다.
+- srcObject는 video가 가질 수 있는 무언가를 의미한다.
+
+## #13.2 Recording Video
+
+### MediaRecorder
+
+- 녹화(녹음)를 할 수 있게 도와준다.
+- `recorder.stop();`을 호출하게 되면 `dataavailable` 이벤트가 실행된다.
+
+## #13.3 Recording Video Part Two
+
+### URL.createObjectURL()
+
+- 이 createObjectURL은 브라우저 메모리에서만 가능한 URL을 만들어준다.
+- 웹사이트 상에 존재하는 URL처럼 보이지만 실제로는 없다.
+- 단순히 브라우저의 메모리를 가리키고 있는 URL일 뿐
+- 그냥 파일을 가리키고 있는 URL이라고 생각해라.
+
+## #13.4 Downloading the File
+
+- 동영상 다운로드를 하려면 사용자가 직접 우클릭해서 비디오 저장을 누르게 하는 것을 대신해서 가짜 클릭을 만들어서 해본다. (링크를 걸긴 하는데 가짜 링크를 걸어준다는 것)
+
+### a.download
+
+- 사용자로 하여금 URL을 통해 어디로 보내주는 게 아니라 URL을 저장하게 해준다.
