@@ -1837,3 +1837,62 @@ req.flash(메시지 타입, 내용);
 
 - 코멘트를 백엔드로 보낼 때 fetch를 사용해서 body를 쓰면 쉽게 정보를 보낼 수 있다.
 - `req.body`는 앞선 form 부분에서도 많이 다뤘는데, 차이점은 여기서는 fetch를 사용하는 것이다.
+
+## #16.4 API Route part Two
+
+- `req.body`는 우리가 서버에게 제공할 middleware 덕분에 서버가 form으로부터 오는 data를 이해할 수 있는 것이다.
+- 우리가 이제 해야 할 것은 서버가 fetch로부터 오는 데이터를 이해시키도록 가르쳐야한다.
+- 우리가 주로 fetch를 통해서 보내는 데이터는 JSON 데이터다.
+- JS object를 보낼 수는 없다. 그 이유는 브라우저와 서버는 이걸 받아서 string으로 만들어버리기 때문이다.
+
+```js
+app.use(express.text());
+```
+
+- 이렇게 해주면 우리의 백엔드는 누군가 text를 보내면 그걸 이해하게 된다.
+
+- js object를 받아서 string으로 바꿔줘야 한다. => `JSON.stringify()`
+- express에는 놀랍게도 string을 받아서 json으로 바꿔주는 middleware가 있다.
+
+```js
+app.use(express.json());
+```
+
+- 하지만, 이렇게만 쓰면 express는 우리가 text를 보낸다고 생각하기 때문에 express에게 json을 보내고 있다고 이야기 해줘야한다.
+- 이걸 위해서, 우리는 request의 `content-type`을 바꿔줘야한다.
+
+- fetch에 headers을 추가한다.
+- header은 기본적으로 request에 대한 정보를 담고 있다.
+
+```js
+headers: {
+  "content-Type": "application/json"
+},
+```
+
+- String은 맞긴 한데, 사실은 json string이라고 express에게 알려준다. 그러니깐 json으로 다시 되돌려줘야한다고 알려준다.
+
+### 알고리즘 정리
+
+1. js object를 받아서 string으로 바꿔서 인터넷으로 보낼 수 있도록 했다.
+2. string을 보냈고 이제 서버에 도착하면 JS object로 다시 바꿔서 우리가 데이터를 써먹을 수 있또록 만든다.
+
+## #16.6 Rendering Comments
+
+- `reverse()` 함수를 사용하면 배열을 뒤집을 수 있다.
+
+## #16.7 Realtime Comments
+
+- `prepend`를 사용하면 요소 맨 위에 태그를 추가할 수 있다.
+- 새로고침을 해서 댓글을 업데이트 하지 말고, 댓글을 등록하면 JS에서 바로 html을 추가하는 방식으로 기능을 만들어보면 좋을 것 같다.
+
+## #16.8 Comments Ids
+
+- 삭제 버튼을 클릭할 때, fetch request를 보내서 댓글을 지우게 한다.
+- 유저가 댓글의 주인이 맞는지 확인하고 아니면 버튼을 숨긴다.
+
+```js
+return res.status(201).json({ newCommentId: comment._id });
+```
+
+- status code를 보내면서 frontend에 메시지를 되돌려 보낼 수 있다.
