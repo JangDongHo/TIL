@@ -1896,3 +1896,82 @@ return res.status(201).json({ newCommentId: comment._id });
 ```
 
 - status code를 보내면서 frontend에 메시지를 되돌려 보낼 수 있다.
+
+# #17 DEPLOYMENT
+
+## #17.0 Building the Backend
+
+- 백엔드를 Heroku로 돌리려면 바꿔야할 설정들이 많다.
+- 이번 섹션에서는 실제 서버에서 백엔드를 실행하는 모든 단계들을 해본다.
+
+### 1. 우리가 만든 코드를 실행하려면 nodemon을 사용해서 babel-node를 실행하는데, babel-node는 실제로 서비스 되는 곳이 아니라 개발할 때만 사용되는 목적으로 쓴다.
+
+- babel-node를 사용하면 performance 문제가 있다. => 빠르지 않다.
+- 그래서, `init.js`를 일반적인 js 코드로 바꿔야 한다. => 이를 위해서 `babel CLI`를 사용한다.
+
+### babel CLI
+
+- 내가 원하는 대로 우리의 코드를 바꿔준다.
+- 스크립트를 생성한다.
+
+```js
+"build:server": "babel src -d build"
+```
+
+- `-d`: 빌드한 코드를 어디에 저장할 지 얘기하는 것
+- 이후 build 폴더를 .gitignore에 추가한다.
+- 스크립트를 생성한다.
+
+```js
+"start": "node build/init.js"
+```
+
+- `npm run start`를 쳐보면 `regeneratorRuntime is not defined` 라는 에러가 뜰텐데, 뜨는 이유는 우리 코드가 `async`와 `await`를 사용할 수 있게 해준다.
+- 우리는 이 문제를 `import "regenerator-runtime"`으로 해결했었다.
+
+- 이제 babel이 우리 서버에서 실행되지 않고, node.js가 우리 서버에서 실행되고 있다. => 아주 좋은 소식!
+- 여기까지 우리는 첫 번째 단계인 예전과 호환되는 요상한 코드로 백엔드 서버를 빌드하는 데 성공했다.
+- 두 번째 단계는 클라이언트 코드를 빌드해야한다.
+
+## #17.2 Building the Frontend
+
+- webpack은 development와 production 모드가 있는데, production 코드가 훨씬 더 작다.
+- 스크립트를 생성한다.
+
+```js
+"build:assets": "webpack --mode=production"
+```
+
+- `webpack.config.js`의 모드에 명령어로 전달을 하게 만든다.
+- 문제는 `build:assets`를 했지만 webpack은 여전히 watch 모드에 있다. development 모드에서만 watch 모드를 true로 해야한다.
+- 스크립트를 변경한다.
+
+```js
+"dev:assets": "webpack --mode=development -w"
+```
+
+- 이제 우리가 실행하는 모든 코드는 공개할 준비가 된 (production-ready) 자바스크립트 코드다.
+- 이제 Heroku 내부에 서버를 두고 DB 문제를 고쳐볼 것이다.
+
+## #17.3 Deploying to Heroku
+
+### Heroku
+
+- Heroku는 서버를 아주아주 빠르게 배포할 수 있는 웹사이트다.
+- HerokuGit으로 배포하기 위해서 `Heroku CLI`를 설치해야한다.
+- **Heroku는 오직 네 git history만 본다. 즉, 커밋을 하지 않으면 Heroku가 내 코드를 볼 수 없다.**
+
+```
+heroku logs --tail
+```
+
+- server나 Heroku의 로그를 볼 수 있게 해준다.
+- `--tail`은 실시간으로 log를 보여준다.
+
+```
+git push heroku master
+```
+
+- 서버를 빌드하고 웹페이지를 배포한다.
+
+- `.evn`에 있는 파일들은 Heroku가 볼 수 없어서 DB쪽에 에러가 생긴다.
