@@ -1975,3 +1975,75 @@ git push heroku master
 - 서버를 빌드하고 웹페이지를 배포한다.
 
 - `.evn`에 있는 파일들은 Heroku가 볼 수 없어서 DB쪽에 에러가 생긴다.
+
+## #17.4 MongoDB Atlas
+
+### cluster
+
+- cluster는 database group 같은거다.
+- DB는 하나만 사용한다.
+
+- MongoDB Atlas에서 제공해주는 DB URL이 우리가 서비스 할 웹페이지의 진짜 DB다.
+- Heroku의 admin panel을 사용해서 이 DB_URL을 설정한다.
+  - 내 프로젝트 -> settings -> Reveal Config Vars
+- Heroku를 쓸 땐 웹 사이트에서 변수를 설정할 수 있다.
+- 이제 Heroku가 우리 서버에 열어준 PORT와 연결되지 않았다고 오류를 뿜을 것이다.
+
+## #17.5 Environment Variables
+
+- 우리가 임의로 설정한 포트는 Heroku가 우리에게 준 것이 아니다.
+- 대부분 Heroku는 우리에게 랜덤으로 Port를 준다.
+
+```js
+const PORT = process.env.PORT || 4000;
+```
+
+- Heroku에서 실행이 될 땐 PORT 변수를 쓰고 아닐 땐 4000을 쓴다. (저 변수는 오직 Heroku에서만 쓰인다.)
+
+## #17.6 Github and AWS S3 part One
+
+- 깃허브 로그인 콜백 함수를 localhost에서 내 도메인으로 바꿔줘야 한다. ( 조금 귀찮을 수 있다.)
+- 그래서 보통 니코는 앱을 두 개 만들어둔다. (하나는 Heroku에 저장 할 공식 앱, 하나는 .env에 저장 할 테스트 앱)
+- 이제 파일 업로드 쪽을 수정해줘야 한다.
+
+## #17.7 AWS S3 part Two
+
+- 이제 서버를 파일 저장소로 사용하는 걸 그만둔다.
+- 코드를 수정하면 Heroku는 서버를 변경해서 새 서버를 만든다.
+- 그래서 파일을 저장하기 위한 AWS를 사용한다.
+
+### AWS S3
+
+- 아마존의 저장소
+
+### AWS IAM
+
+- API Key를 만들 수 있게 도와준다.
+- 사용자 추가를 한 후 `액세스 키 - 프로그래밍 방식 액세스`에 체크를 한다.
+- 기존 정책 직접 연결 -> 필터 `s3` 검색 -> `S3FullAccess` 체크
+  - S3에서 할 수 있는 모든 권한을 준다. (파일)
+
+## Multer S3
+
+- Multer S3는 Multer를 사용할 수 있게 도와준다.
+
+```
+npm install --save multer -s3
+npm install aws-sdk
+```
+
+- 자세한 코드는 npm 공식 문서 참고
+
+## #17.8 AWS S3 part Three
+
+- 사진은 업로드되나, 우리 object가 공개되지 않았음
+- permissions(권한) -> 퍼블릭 액세스 권한 수정 -> 마지막 2개만 선택
+- 그리고, Access Control List를 전달해야 한다.
+- ACL은 기본적으로 object의 권한이다.
+- public-read로 전달해야 한다. 누구나 우리 파일을 읽을 수 있게 한다.
+- 이게 postEdit 부분의 `file.path` 대신 `file.location`이 쓰인다.
+
+## #17.9 Production Environment
+
+- Heroku에서 작업할 땐 multer uploader만 사용한다. 내 컴퓨터에서 작업한다면 내 파일시스템을 uploader로 선택한다.
+- 이렇게 하려면 환경 변수에 접근하는 방법을 써야한다. `process.env.NODE_EVN`
