@@ -116,3 +116,69 @@
 
 - 마일스톤은 버전을 올릴 때 필요한 것 들을 모아둔 것이다.
 - 마일스톤을 생성하고 그 안에 많은 이슈들을 할당할 수 있다. 그 이슈들이 모두 해결되면 마일스톤이 달성된다.
+
+# #3 CLI
+
+## #3.0 CLI log, commit, push
+
+- M(Modify) - 이 파일이 수정됐다.
+- U(Untracked) - git이 이 파일을 관찰하지 않고 있고, 아직 git에 등록되지 않았다.
+- `git log` => 커밋 기록 보기
+  - `(HEAD -> Master)` => 컴퓨터에서 커밋된 것
+  - `(origin/master)` => github 코드 저장소에 올라간 커밋
+- `git push origin master` => 원격저장소에 push
+- `git add <파일명>` => 파일을 stage영역에 추가
+- `git add .` => 현재 폴더에 있는 모든 파일들 stage 영역에 추가
+- `git commit -m <커밋메시지>` => 스테이지된 파일들을 커밋
+
+## #3.1 Checkout and Hard Reset
+
+- 큰 프로젝트를 하다보면, 이전 커밋으로 되돌아가고 싶을 때가 있다.
+- 마지막 커밋에 있는 내용은 이전 커밋의 내용들이 다 합쳐진 것 이다.
+- (HEAD) 지금 시점에 파일이 있는 위치
+- `git checkout <커밋 별명>` => 커밋 되돌리기 (git의 HEAD 옮기기)
+- `git checkout master` => 다시 처음 상태로 되돌리기
+
+### Hard reset
+
+- `git reset --hard HEAD^`
+  - `--hard`는 삭제한다는 뜻 (완전히 과거로 돌아간다)
+  - `HEAD^`는 한 커밋 이전으로 되돌아간다는 뜻 (^의 개수에 따라 달라짐)
+  - 문제는 원격저장소인 origin에 내가 원하지 않는 커밋이 더 있다. 그래서 강제로 푸시를 해야한다.
+    - `git push origin master --force` => 강제 푸시
+
+## #3.2 Mixed Reset
+
+- `git reset HEAD^`
+  - 복합 리셋을 하면, 이 파일의 상태가 다시 `untracked`로 바뀐다.
+  - 문제는, 원격 저장소의 최종 상태와 내 컴퓨터의 최종 상태가 달라진다.
+  - 대부분의 경우 리셋을 하고 `git push origin master --force`를 사용한다.
+
+## #3.3 Soft Reset
+
+- `git reset HEAD^ --soft`
+  - 소프트 리셋은 복합 리셋과 달리, 이전 커밋에서 변경한 내역을 `unstage` 영역에 주지 않는다.
+  - 그 대신 stage 영역에 추가한다. 만약 unstage 영역에 작업중인 파일이 있을 때 섞이지 않고 싶으면 소프트리셋을 사용하면 된다.
+  - 그러나, 대부분의 경우는 하드 리셋이나 복합 리셋을 쓴다.
+
+## #3.4 Checkout Branches
+
+- `git checkout -b 브랜치명`
+  - 파일들을 유지하면서 새 브랜치를 만든다.
+- `git branch` => 브랜치 목록 보기
+- `git checkout <커밋별명> -b <브랜치명>`
+  - 과거의 커밋으로 checkout 하는 것과 with-main 브랜치로 이동하는걸 한꺼번에 한다.
+- `git push origin <브랜치명>` => 깃헙에 브랜치 올리기
+
+## #3.5 Amending Commits and ignoring Files
+
+- `git branch -d 브랜치이름` => 브랜치 삭제
+
+### 커밋 수정(amend)
+
+- 가장 마지막 커밋을 수정한다.
+
+  - `git commit --amend -m <커밋 메시지>`
+  - `git commit --amend -m --no-edit`
+
+- `git status` => 커밋할 때 파일의 상태를 볼 수 있다.
